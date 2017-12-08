@@ -1,0 +1,14 @@
+build
+dist
+__env__
+.cache
+.tox
+*.pyc
+__pycache__
+*.egg*
+_*.c*
+*.o
+*.a
+*.so
+*.dll
+*.dylib
