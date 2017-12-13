@@ -9,6 +9,10 @@ DEFAULT_OPTIONS = {
         }
 
 
+_RESIZE_OPTION_REGEXP = re.compile(
+        r"^([0-9]+)[x\s:,;]([0-9]+)$", flags=re.IGNORECASE)
+
+
 def normalize_options(options=None):
     if not options:
         return dict(DEFAULT_OPTIONS)
@@ -48,8 +52,8 @@ def normalize_options(options=None):
 
             if value.isdigit():
                 value = int(value)
-            elif re.match(r"^([0-9]+)[x\s:,;]([0-9]+)$", value):
-                match = re.match(r"^([0-9]+)[x\s:,;]([0-9]+)$", value)
+            elif _RESIZE_OPTION_REGEXP.match(value):
+                match = _RESIZE_OPTION_REGEXP.match(value)
                 value = [
                         int(match.group(1)),
                         int(match.group(2)),
