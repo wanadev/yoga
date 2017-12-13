@@ -58,6 +58,9 @@ class Test_normalize_options(object):
             assert opt["resize"][0] == 100
             assert opt["resize"][1] == 200
 
+        with pytest.raises(ValueError):
+            options.normalize_options({"resize": "foobar"})
+
     def test_jpeg_quality_option(self):
         for q in [0.42, 42, "0.42", "42", ".42", b"42", u"42"]:
             opt = options.normalize_options({"jpeg_quality": q})

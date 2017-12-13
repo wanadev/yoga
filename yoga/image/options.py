@@ -54,6 +54,8 @@ def normalize_options(options=None):
                         int(match.group(1)),
                         int(match.group(2)),
                         ]
+            elif value != "orig":
+                raise ValueError("Invalid value for 'resize': %s" % value)
 
         if type(value) in (int, float):
                 value = [value, value]
