@@ -23,6 +23,14 @@ class TestImageHaveAlpha(object):
         assert helpers.image_have_alpha(image, 0xEF)
         assert not helpers.image_have_alpha(image, 0xE0)
 
+    def test_indexed_png(self):
+        image = Image.open("test/images/indexed.png")
+        assert not helpers.image_have_alpha(image)
+
+    def test_grayscale_png(self):
+        image = Image.open("test/images/grayscale.png")
+        assert not helpers.image_have_alpha(image)
+
 
 class TestGessImageFormat(object):
 
