@@ -7,12 +7,12 @@ def add_main_cli_arguments(parser):
     parser.add_argument(
             "input",
             help="Input file path",
-            type=argparse.FileType("r")
+            type=argparse.FileType("rb")
             )
     parser.add_argument(
             "output",
             help="Output file path",
-            type=argparse.FileType("w")
+            type=argparse.FileType("wb")
             )
 
 
