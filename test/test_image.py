@@ -43,9 +43,11 @@ class Test_optimize(object):
         assert output.read().startswith(_MAGIC_PNG)
 
         # file
-        output = tmpdir.join("output2.png")
+        output_path = os.path.join(str(tmpdir), "output2.png")
+        output = open(output_path, "wb")
         yoga.image.optimize("test/images/alpha.png", output)
-        output.seek(0)
+        output.close()
+        output = open(output_path, "rb")
         assert output.read().startswith(_MAGIC_PNG)
 
         # ByteIO
@@ -87,7 +89,7 @@ class Test_optimize(object):
         # Other
         output = io.BytesIO()
         with pytest.raises(ValueError):
-            yoga.image.optimize("test/images/unused-alpha.svg", output, {
+            yoga.image.optimize("test/images/image.gif", output, {
                 "output_format": "orig"
                 })
 
