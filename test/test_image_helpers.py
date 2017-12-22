@@ -4,7 +4,7 @@ from PIL import Image
 from yoga.image import helpers
 
 
-class TestImageHaveAlpha(object):
+class Test_image_have_alpha(object):
 
     def test_jpeg_without_alpha(self):
         image = Image.open("test/images/image1.jpg")
@@ -32,7 +32,7 @@ class TestImageHaveAlpha(object):
         assert not helpers.image_have_alpha(image)
 
 
-class TestGessImageFormat(object):
+class Test_gess_image_format(object):
 
     def test_jpeg_image(self):
         image_bytes = open("test/images/image1.jpg", "rb").read()
