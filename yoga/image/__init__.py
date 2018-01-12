@@ -1,4 +1,8 @@
+import io
+
 from PIL import Image
+import pyguetzli
+import zopfli
 
 from .options import normalize_options
 
@@ -28,7 +32,25 @@ def optimize(input_file, output_file, options={}):
         raise NotImplementedError()
 
     # convert / optimize
-    # TODO
+    output_image_bytes = None
+    if output_format == "jpeg":
+        output_image_bytes = pyguetzli.process_pil_image(
+                input_image, int(options["jpeg_quality"] * 100))
+    else:
+        pass
+        image_io = io.BytesIO()
+        input_image.save(image_io, format="PNG", optimize=False)
+        image_io.seek(0)
+        image_bytes = image_io.read()
+
+        # Optimize using zopflipng
+        zopflipng = zopfli.ZopfliPNG()
+        zopflipng.lossy_8bit = True
+        zopflipng.lossy_transparent = True
+        zopflipng.filter_strategies = "01234mepb"
+        zopflipng.iterations = 20
+        zopflipng.iterations_large = 7
+        output_image_bytes = zopflipng.optimize(image_bytes)
 
     # write to output_file
-    input_image.save(output_file, format=output_format)  # FIXME
+    output_file.write(output_image_bytes)
