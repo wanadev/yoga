@@ -1,7 +1,10 @@
 YOGA - Yummy Optimizer for Gorgeous Assets
 ==========================================
 
-YOGA is a command-line tool and a library that can:
+.. figure:: ./logo.png
+   :alt:
+
+**YOGA** is a command-line tool and a library that can:
 
 * convert and optimize images from various format to JPEG and PNG,
 * *convert and optimize 3D models from various formats to gLTF and GLB.* **NOT YET IMPLEMENTED**
@@ -14,12 +17,11 @@ reference images, they are processed by YOGA's image optimizer.
 
 Convert and optimize an image from CLI::
 
+    yoga  image  input.png  output.png
     yoga  image  --output-format=jpeg  --jpeg-quality=84  input.png  output.jpg
-    yoga  image  --output-format=png  input.png  output.png
     yoga  image  --help
 
 Convert and optimize a 3D model from CLI::
 
     # TODO (not implemented yet)
     yoga  model  --help
-
