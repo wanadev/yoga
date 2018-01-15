@@ -27,7 +27,7 @@ Convert and optimize a 3D model from CLI::
     # TODO (not implemented yet)
     yoga  model  --help
 
-.. _gLTF and GLB: https://github.com/google/guetzli
+.. _gLTF and GLB: https://www.khronos.org/gltf/
 .. _Pillow: https://github.com/python-pillow/Pillow
 .. _Guetzli: https://github.com/google/guetzli
 .. _Zopflipng: https://github.com/google/zopfli
