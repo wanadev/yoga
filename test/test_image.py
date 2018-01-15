@@ -168,12 +168,12 @@ class Test_optimize(object):
         # size > image
         output = io.BytesIO()
         yoga.image.optimize("test/images/image1.jpg", output, {
-            "resize": 200
+            "resize": 512
             })
         output.seek(0)
         image = Image.open(output)
-        assert image.width == 128
-        assert image.height == 128
+        assert image.width == 256
+        assert image.height == 256
 
         # width, height
         output = io.BytesIO()

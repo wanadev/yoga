@@ -10,22 +10,23 @@ from .options import normalize_options
 def optimize(input_file, output_file, options={}):
     options = normalize_options(options)
 
-    input_image = Image.open(input_file)
+    image = Image.open(input_file)
 
-    if options["output_format"] == "orig" and input_image.format not in ("JPEG", "PNG"):                      # noqa
+    if options["output_format"] == "orig" and image.format not in ("JPEG", "PNG"):                      # noqa
         raise ValueError("The input image must be a JPEG or a PNG when setting 'output_format' to 'orig'")    # noqa
 
     if not hasattr(output_file, "write"):
         output_file = open(output_file, "wb")
 
     # resize
-    # TODO
+    if options["resize"] != "orig":
+        image.thumbnail(options["resize"], Image.LANCZOS)
 
     # output format
     output_format = None
 
     if options["output_format"] == "orig":
-        output_format = input_image.format.lower()
+        output_format = image.format.lower()
     elif options["output_format"] in ("jpeg", "png"):
         output_format = options["output_format"]
     else:  # auto
@@ -35,11 +36,11 @@ def optimize(input_file, output_file, options={}):
     output_image_bytes = None
     if output_format == "jpeg":
         output_image_bytes = pyguetzli.process_pil_image(
-                input_image, int(options["jpeg_quality"] * 100))
+                image, int(options["jpeg_quality"] * 100))
     else:
         pass
         image_io = io.BytesIO()
-        input_image.save(image_io, format="PNG", optimize=False)
+        image.save(image_io, format="PNG", optimize=False)
         image_io.seek(0)
         image_bytes = image_io.read()
 
