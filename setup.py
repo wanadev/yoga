@@ -34,4 +34,9 @@ setup(
         "pyguetzli>=1.0.0",
         "zopflipy>=1.0"
         ],
+
+    entry_points={
+        "console_scripts": [
+            "yoga = yoga.__main__:main"
+        ]},
 )
