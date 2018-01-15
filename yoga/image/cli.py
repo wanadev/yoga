@@ -35,7 +35,8 @@ def add_image_cli_options(parser, prefix=""):
     parser.add_argument(
             "--%soutput-format" % prefix,
             help="format of the output image",
-            choices=["orig", "auto", "jpeg", "png"],
+            metavar="{orig,auto,jpeg,png}",
+            choices=["orig", "auto", "jpeg", "jpg", "png"],
             default=DEFAULT_OPTIONS["output_format"]
             )
     parser.add_argument(
