@@ -11,8 +11,7 @@ from setuptools.command.build_py import build_py
 class CustomBuildPy(build_py):
 
     def run(self):
-        subprocess.call("git submodule init && git submodule update && \
-                         cd assimp/ && mkdir -p build && cd build && \
+        subprocess.call("cd assimp/ && mkdir -p build && cd build && \
                          cmake .. -DBUILD_SHARED_LIBS=OFF -DASSIMP_BUILD_ASSIMP_TOOLS=OFF -DASSIMP_BUILD_TESTS=OFF && \
                          make", shell=True)
         build_py.run(self)

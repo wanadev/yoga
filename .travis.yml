@@ -5,6 +5,7 @@ python:
     - "3.4"
     - "3.5"
     - "3.6"
+    - "3.7"
     - "nightly"
 
 dist: trusty
@@ -16,6 +17,8 @@ addons:
     - build-essential
 
 install:
+    - git submodule init
+    - git submodule update
     - pip install -r requirements.txt
     - pip install .
 
