@@ -7,7 +7,7 @@ YOGA - Yummy Optimizer for Gorgeous Assets
 **YOGA** is a command-line tool and a library that can:
 
 * convert and optimize images from various format to JPEG and PNG,
-* convert and optimize 3D models from various formats to `gLTF and GLB`_.
+* convert and optimize 3D models from various formats to `glTF and GLB`_.
   **(NOT YET IMPLEMENTED)**
 
 **Images** are opened using Pillow_ and optimized using Guetzli_ (for JPEGs) and
@@ -27,7 +27,7 @@ Convert and optimize a 3D model from CLI::
     # TODO (not implemented yet)
     yoga  model  --help
 
-.. _gLTF and GLB: https://www.khronos.org/gltf/
+.. _glTF and GLB: https://www.khronos.org/gltf/
 .. _Pillow: https://github.com/python-pillow/Pillow
 .. _Guetzli: https://github.com/google/guetzli
 .. _Zopflipng: https://github.com/google/zopfli
