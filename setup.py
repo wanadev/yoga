@@ -51,6 +51,8 @@ setup(
             "yoga = yoga.__main__:main"
         ]},
 
+    cffi_modules=["yoga/model/assimp_build.py:ffibuilder"],
+
     cmdclass={
         "build_py": CustomBuildPy,
         },

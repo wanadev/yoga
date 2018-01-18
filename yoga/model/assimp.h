@@ -1,7 +1,7 @@
 // Assimp
 
 typedef struct ImageNode {
-    ImageNode* next;
+    struct ImageNode* next;
     
     // If bytes_length is non zero, bytes is filled.
     // Otherwise, path is.
