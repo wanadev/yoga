@@ -25,6 +25,6 @@ def assimp_import_from_bytes(output_format, bytes_in):
     print(scene.assimp_scene)
 
     if scene.assimp_scene == ffi.NULL:
-        raise ValueError("Invalid model: Assimp was not able to import the model")
+        raise ValueError("Invalid model: Assimp was not able to import the model")  # noqa
 
     print("Model was imported")
