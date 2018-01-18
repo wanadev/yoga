@@ -22,8 +22,8 @@ def normalize_options(options=None):
         result["output_format"] = value
 
     # Optimization flags
-    for key in ("no_graph_optimization", "no_graph_optimization",
-                "no_graph_optimization"):
+    for key in ("no_graph_optimization", "no_meshes_optimization",
+                "no_textures_optimization"):
         if key in options:
             result[key] = bool(options[key])
 
