@@ -34,6 +34,20 @@ class Test_optimize(object):
         output.seek(0)
         assert output.read().startswith(_MAGIC_GLB)
 
+
+    def test_input_file_format(self):
+        # FBX
+        output = io.BytesIO()
+        yoga.model.optimize("test/models/model.fbx", output)
+        output.seek(0)
+        assert output.read().startswith(_MAGIC_GLB)
+
+        # DAE
+        output = io.BytesIO()
+        yoga.model.optimize("test/models/model.dae", output)
+        output.seek(0)
+        assert output.read().startswith(_MAGIC_GLB)
+
     def test_output_file(self, tmpdir):
         # str (path)
         output_path = os.path.join(str(tmpdir), "output1.glb")

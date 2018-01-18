@@ -12,7 +12,10 @@ ffibuilder = FFI()
 ffibuilder.set_source(
         "yoga.model._assimp",
         open(_ASSIMP_CPP, "r").read(),
-        extra_objects=[os.path.join(_ROOT, "..", "..", "assimp", "build", "code", "libassimp.a")],  # noqa
+        extra_objects=[
+            os.path.join(_ROOT, "..", "..", "assimp", "build", "code", "libassimp.a"),  # noqa
+            os.path.join(_ROOT, "..", "..", "assimp", "build", "contrib", "irrXML", "libIrrXML.a")  # noqa
+            ],
         include_dirs=[_ROOT, os.path.join(_ROOT, "..", "..", "assimp", "include")], # noqa
         source_extension=".cpp"
         )
