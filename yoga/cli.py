@@ -1,6 +1,7 @@
 import argparse
 
 from .image.cli import add_image_cli_options
+from .model.cli import add_model_cli_options
 
 
 def add_main_cli_arguments(parser):
@@ -28,8 +29,8 @@ def generate_model_cli(parser=None):
     if not parser:
         parser = argparse.ArgumentParser()
     add_main_cli_arguments(parser)
-    # model_group = parser.add_argument_group(title="model options")
-    # TODO add model options
+    model_group = parser.add_argument_group(title="model options")
+    add_model_cli_options(model_group)
     image_group = parser.add_argument_group(title="image options")
     add_image_cli_options(image_group, prefix="image-")
     return parser
