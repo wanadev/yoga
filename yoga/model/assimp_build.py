@@ -16,7 +16,11 @@ ffibuilder.set_source(
             os.path.join(_ROOT, "..", "..", "assimp", "build", "code", "libassimp.a"),  # noqa
             os.path.join(_ROOT, "..", "..", "assimp", "build", "contrib", "irrXML", "libIrrXML.a")  # noqa
             ],
-        include_dirs=[_ROOT, os.path.join(_ROOT, "..", "..", "assimp", "include")], # noqa
+        include_dirs=[
+            _ROOT,
+            os.path.join(_ROOT, "..", "..", "assimp", "include"),
+            os.path.join(_ROOT, "..", "..", "assimp", "build", "include")
+            ],
         source_extension=".cpp"
         )
 ffibuilder.cdef(open(_ASSIMP_H, "r").read())
