@@ -3,6 +3,7 @@ extern "C" {
 }
 
 #include <assimp/Importer.hpp>
+#include <assimp/Exporter.hpp>
 #include <assimp/DefaultLogger.hpp>
 
 using namespace Assimp;
@@ -14,16 +15,27 @@ Scene assimp_import_from_bytes(int optimization_flags_in, char* bytes_in, int le
     DefaultLogger::get()->attachStream(LogStream::createDefaultStream(aiDefaultLogStream_STDERR), Assimp::Logger::Err);
 
     Importer importer;
-	scene.assimp_scene = const_cast<aiScene*>(importer.ReadFileFromMemory(bytes_in, length_in, 0u));
+    importer.ReadFileFromMemory(bytes_in, length_in, 0u);
 
-    // GetOrphanedScene () to free the ownership?
+    // Free the ownership of the scene from the importer
+    scene.assimp_scene = importer.GetOrphanedScene();
 
     return scene;
 }
 
 int assimp_export_to_bytes(Scene scene_in, OutputFormat output_format_in, char** bytes_out) {
-    // @fixme Not implemented yet
-    return 0;
+    Exporter exporter;
+
+    auto outputFormat = output_format_in == OUTPUT_FORMAT_GLB ? "glb2" : "gltf2";
+
+    // @todo Apply images bytes back
+
+    auto scene = reinterpret_cast<aiScene*>(scene_in.assimp_scene);
+    auto blob = exporter.ExportToBlob(scene, outputFormat, 0, nullptr); // @fixme
+    if (blob == nullptr) return 0;
+
+    *bytes_out = reinterpret_cast<char*>(blob->data);
+    return blob->size;
 }
 
 void assimp_free_scene(Scene scene) {

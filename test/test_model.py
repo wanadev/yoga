@@ -2,8 +2,6 @@ import io
 import os
 import json
 
-import pytest
-
 import yoga.model
 
 
@@ -33,7 +31,6 @@ class Test_optimize(object):
         yoga.model.optimize(input_, output)
         output.seek(0)
         assert output.read().startswith(_MAGIC_GLB)
-
 
     def test_input_file_format(self):
         # FBX
@@ -84,6 +81,6 @@ class Test_optimize(object):
             "output_format": "gltf"
             })
         output.seek(0)
-        assert json.load(output)["asset"]["version"] == 2
+        assert json.load(output)["asset"]["version"] == "2.0"
 
     # TODO Tests for no_graph_optimization and such

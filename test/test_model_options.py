@@ -29,39 +29,39 @@ class Test_normalize_options(object):
 
     def test_no_graph_optimization(self):
         opt = options.normalize_options({"no_graph_optimization": True})
-        assert opt["no_graph_optimization"] == True
+        assert opt["no_graph_optimization"] is True
 
         opt = options.normalize_options({"no_graph_optimization": False})
-        assert opt["no_graph_optimization"] == False
+        assert opt["no_graph_optimization"] is False
 
         opt = options.normalize_options({"no_graph_optimization": ""})
-        assert opt["no_graph_optimization"] == False
+        assert opt["no_graph_optimization"] is False
 
         opt = options.normalize_options({"no_graph_optimization": "foobar"})
-        assert opt["no_graph_optimization"] == True
+        assert opt["no_graph_optimization"] is True
 
     def test_no_meshes_optimization(self):
         opt = options.normalize_options({"no_meshes_optimization": True})
-        assert opt["no_meshes_optimization"] == True
+        assert opt["no_meshes_optimization"] is True
 
         opt = options.normalize_options({"no_meshes_optimization": False})
-        assert opt["no_meshes_optimization"] == False
+        assert opt["no_meshes_optimization"] is False
 
         opt = options.normalize_options({"no_meshes_optimization": ""})
-        assert opt["no_meshes_optimization"] == False
+        assert opt["no_meshes_optimization"] is False
 
         opt = options.normalize_options({"no_meshes_optimization": "foobar"})
-        assert opt["no_meshes_optimization"] == True
+        assert opt["no_meshes_optimization"] is True
 
     def test_no_textures_optimization(self):
         opt = options.normalize_options({"no_textures_optimization": True})
-        assert opt["no_textures_optimization"] == True
+        assert opt["no_textures_optimization"] is True
 
         opt = options.normalize_options({"no_textures_optimization": False})
-        assert opt["no_textures_optimization"] == False
+        assert opt["no_textures_optimization"] is False
 
         opt = options.normalize_options({"no_textures_optimization": ""})
-        assert opt["no_textures_optimization"] == False
+        assert opt["no_textures_optimization"] is False
 
         opt = options.normalize_options({"no_textures_optimization": "foobar"})
-        assert opt["no_textures_optimization"] == True
+        assert opt["no_textures_optimization"] is True
