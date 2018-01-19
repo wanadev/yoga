@@ -4,8 +4,8 @@ typedef struct ImageNode {
     struct ImageNode* next;
     
     // If bytes_length is non zero, bytes is filled.
-    // Otherwise, path is.
-    char* path;
+    // Otherwise, path is a file path.
+    const char* path;
     char* bytes;
     int bytes_length;
 } ImageNode;
