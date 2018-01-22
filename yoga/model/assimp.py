@@ -12,9 +12,9 @@ def assimp_import_from_bytes(bytes_in, optimize_graph, optimize_meshes):
     """
 
     optimization_flags = 0
-    if optimize_graph: 
+    if optimize_graph:
         optimization_flags |= lib.OPTIMIZATION_FLAG_GRAPH
-    if optimize_meshes: 
+    if optimize_meshes:
         optimization_flags |= lib.OPTIMIZATION_FLAG_MESHES
 
     scene = lib.assimp_import_from_bytes(

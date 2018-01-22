@@ -4,8 +4,9 @@ from .options import (normalize_options, extract_image_options)
 import io
 import yoga.image
 
-from ._assimp import ffi # @todo Move image processing to helper
+from ._assimp import ffi  # @todo Move image processing to helper
 import os.path
+
 
 def optimize(input_file, output_file, options={}):
     model_options = normalize_options(options)
@@ -46,7 +47,10 @@ def optimize(input_file, output_file, options={}):
         if not os.path.isfile(valid_image_path):
             valid_image_path = os.path.join(root_path, image_path)
             if not os.path.isfile(valid_image_path):
-                raise RuntimeError("Cannot resolve image file %s, root_path is %s" % (image_path, root_path))
+                raise RuntimeError(
+                    "Cannot resolve image file %s, root_path is %s"
+                    % (image_path, root_path)
+                    )
 
         # Optimizing images
         image_io = io.BytesIO(open(valid_image_path, "rb").read())
