@@ -71,16 +71,18 @@ int assimp_export_to_bytes(Scene scene_in, OutputFormat output_format_in, char**
     auto blob = exporter.ExportToBlob(pScene, outputFormat, 0, nullptr);
     if (blob == nullptr) return 0;
 
-    *bytes_out = reinterpret_cast<char*>(blob->data);
+    // Copying bytes - as they will be freed
+    *bytes_out = new char[blob->size];
+    memcpy(*bytes_out, blob->data, blob->size);
     return blob->size;
 }
 
 void assimp_free_scene(Scene scene) {
-    // @fixme Not implemented yet
+    // @implement
 }
 
 void assimp_free_bytes(char** bytes) {
-    // @fixme Not implemented yet
+    // @implement
 }
 
 //---- Private
@@ -136,8 +138,6 @@ void import_image_nodes(aiScene* pScene, ImageNode* images) {
         image = image->next;
     }
 
-    std::cout << "CLASSE" << std::endl;
-
     // Update materials references
     aiString path;
     for (auto matId = 0u; matId < pScene->mNumMaterials; ++matId) {
@@ -149,16 +149,15 @@ void import_image_nodes(aiScene* pScene, ImageNode* images) {
  
             for (auto texId = 0u; texId < texturesCount; ++texId) {
                 material->GetTexture(tt, texId, &path);
-                if (texturesMap.find(path.C_Str()) == texturesMap.end()) continue;
+                auto newPath = texturesMap.find(path.C_Str());
+                if (newPath == texturesMap.end()) continue;
 
-                path = texturesMap.at(path.C_Str());
+                path = newPath->second;
                 material->AddProperty(&path, AI_MATKEY_TEXTURE(tt, texId));
                 std::cout << "Setting to new path: " << path.C_Str() << std::endl;
             }
         }
     }
-
-    std::cout << "VERY CLASSE" << std::endl;
 }
 
 void add_texture(aiScene* pScene, char* bytes, int bytes_length) {
@@ -175,9 +174,9 @@ void add_texture(aiScene* pScene, char* bytes, int bytes_length) {
     pTexture->pcData = reinterpret_cast<aiTexel*>(bytes);
 
     if (strncmp(bytes, MAGIC_JPEG, 4) == 0) {
-        strcpy(pTexture->achFormatHint, "png");
-    } else if (strncmp(bytes, MAGIC_PNG, 6) == 0) {
         strcpy(pTexture->achFormatHint, "jpg");
+    } else if (strncmp(bytes, MAGIC_PNG, 6) == 0) {
+        strcpy(pTexture->achFormatHint, "png");
     }
 
     pScene->mTextures[textureId] = pTexture;
