@@ -107,8 +107,9 @@ ImageNode* extract_image_nodes(aiScene* pScene) {
                 imageNode->next = images;
                 images = imageNode;
 
+                // Load bytes of embedded textures
                 if (path.data[0] == '*') {
-                    // @fixme Load bytes of embedded textures!
+                    // @todo Already embedded textures are not supported yet
                 }
             }
         }
@@ -151,6 +152,8 @@ void import_image_nodes(aiScene* pScene, ImageNode* images) {
 
                 path = newPath->second;
                 material->AddProperty(&path, AI_MATKEY_TEXTURE(tt, texId));
+
+                // @todo If already embedded texture, update textures table
             }
         }
     }
