@@ -9,15 +9,15 @@ def optimize(input_file, output_file, options={}):
     model_options = normalize_options(options)
     image_options = extract_image_options(options)
 
+    # Open file if possible
+    if not hasattr(input_file, "read"):
+        input_file = open(input_file, "rb")
+
     root_path = "."
-    if isinstance(input_file, basestring):
-        root_path = os.path.dirname(os.path.abspath(input_file))
-    elif hasattr(input_file, "name"):
+    if hasattr(input_file, "name"):
         root_path = os.path.dirname(os.path.abspath(input_file.name))
 
     # input_file -> string (path), bytes, file-like
-    if not hasattr(input_file, "read"):
-        input_file = open(input_file, "rb")
     if hasattr(input_file, "read"):
         input_file = input_file.read()
 
