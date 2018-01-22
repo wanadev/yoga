@@ -1,4 +1,4 @@
-from .assimp import (assimp_import_from_bytes, assimp_export_to_bytes)
+from .assimp import (assimp_import_from_bytes,assimp_export_to_bytes)
 from .options import (normalize_options, extract_image_options)
 from helpers import model_embed_images
 
@@ -47,5 +47,3 @@ def optimize(input_file, output_file, options={}):
     # Export the scene
     bytes_out = assimp_export_to_bytes(scene, model_options["output_format"])
     output_file.write(bytes_out)
-
-    # @fixme Don't forget to free memory in C++!

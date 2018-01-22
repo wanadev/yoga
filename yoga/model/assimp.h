@@ -31,8 +31,5 @@ Scene assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_f
 // Returns *bytes_out length.
 int assimp_export_to_bytes(Scene scene_in, OutputFormat output_format_in, char** bytes_out);
 
-// Free allocated scene.
-void assimp_free_scene(Scene scene);
-
 // Free allocated bytes.
 void assimp_free_bytes(char** bytes);

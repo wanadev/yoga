@@ -78,12 +78,9 @@ int assimp_export_to_bytes(Scene scene_in, OutputFormat output_format_in, char**
     return blob->size;
 }
 
-void assimp_free_scene(Scene scene) {
-    // @implement
-}
-
 void assimp_free_bytes(char** bytes) {
-    // @implement
+    delete[] *bytes;
+    *bytes = nullptr;
 }
 
 //---- Private
