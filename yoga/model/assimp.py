@@ -6,16 +6,22 @@ This module contains functions binded from the Assimp C++ API.
 from ._assimp import lib, ffi
 
 
-def assimp_import_from_bytes(bytes_in):
+def assimp_import_from_bytes(bytes_in, optimize_graph, optimize_meshes):
     """
     @fixme doc
     """
 
+    optimization_flags = 0
+    if optimize_graph: 
+        optimization_flags |= lib.OPTIMIZATION_FLAG_GRAPH
+    if optimize_meshes: 
+        optimization_flags |= lib.OPTIMIZATION_FLAG_MESHES
+
     scene = lib.assimp_import_from_bytes(
-            0xFF,  # @fixme How to pass optimization flags?
-            bytes_in,
-            len(bytes_in)
-            )
+        bytes_in,
+        len(bytes_in),
+        optimization_flags
+        )
 
     if scene.assimp_scene == ffi.NULL:
         raise ValueError("Invalid model: Assimp was not able to import the model")  # noqa
@@ -24,6 +30,10 @@ def assimp_import_from_bytes(bytes_in):
 
 
 def assimp_export_to_bytes(scene, output_format):
+    """
+    @fixme doc
+    """
+
     if output_format not in ("glb", "gltf"):
         raise ValueError("Invalid output format: should be glb or gltf but is %s" % output_format)  # noqa
 

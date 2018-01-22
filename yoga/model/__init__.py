@@ -28,7 +28,11 @@ def optimize(input_file, output_file, options={}):
         output_file = open(output_file, "wb")
 
     # Import the scene
-    scene = assimp_import_from_bytes(input_file)
+    scene = assimp_import_from_bytes(
+        input_file,
+        not model_options["no_graph_optimization"],
+        not model_options["no_meshes_optimization"]
+        )
 
     # Embed images
     image = scene.images
