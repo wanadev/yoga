@@ -2,6 +2,7 @@ import io
 import os
 import json
 
+import pytest
 import yoga.model
 
 
@@ -26,11 +27,12 @@ class Test_optimize(object):
         assert output.read().startswith(_MAGIC_GLB)
 
         # ByteIO
-        input_ = io.BytesIO(open("test/models/model.fbx", "rb").read())
-        output = io.BytesIO()
-        yoga.model.optimize(input_, output)
-        output.seek(0)
-        assert output.read().startswith(_MAGIC_GLB)
+        with pytest.raises(RuntimeError):
+            input_ = io.BytesIO(open("test/models/model.fbx", "rb").read())
+            output = io.BytesIO()
+            yoga.model.optimize(input_, output)
+            output.seek(0)
+            assert output.read().startswith(_MAGIC_GLB)
 
     def test_input_file_format(self):
         # FBX
