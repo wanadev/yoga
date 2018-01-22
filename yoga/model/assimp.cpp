@@ -8,7 +8,6 @@ extern "C" {
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
-#include <iostream> // @fixme
 #include <set>
 #include <string>
 #include <sstream>
@@ -121,12 +120,11 @@ ImageNode* extract_image_nodes(aiScene* pScene) {
 
 void import_image_nodes(aiScene* pScene, ImageNode* images) {
     std::unordered_map<std::string, std::string> texturesMap;
-
+    
     // Embed all images
     auto image = images;
     while (image != nullptr) {
         if (image->bytes_length > 0 && image->path[0] != '*') {
-            std::cout << image->path << " " << image->bytes_length << std::endl;
             add_texture(pScene, image->bytes, image->bytes_length);
 
             auto embeddedTextureId = pScene->mNumTextures - 1u;
@@ -154,7 +152,6 @@ void import_image_nodes(aiScene* pScene, ImageNode* images) {
 
                 path = newPath->second;
                 material->AddProperty(&path, AI_MATKEY_TEXTURE(tt, texId));
-                std::cout << "Setting to new path: " << path.C_Str() << std::endl;
             }
         }
     }

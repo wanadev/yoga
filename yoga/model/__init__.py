@@ -1,12 +1,19 @@
 from .assimp import (assimp_import_from_bytes, assimp_export_to_bytes)
 from .options import (normalize_options)
 
-from ._assimp import ffi # TODO Move image processing to helper
+from ._assimp import ffi # @todo Move image processing to helper
 import os.path
 
 def optimize(input_file, output_file, options={}):
     model_options = normalize_options(options)
-    # TODO image_options = extract_image_options(options)
+    # @todo image_options = extract_image_options(options)
+
+    root_path = "."
+    if isinstance(input_file, basestring):
+        root_path = os.path.dirname(os.path.abspath(input_file))
+    if hasattr(input_file, "name"):
+        print(input_file.name)
+        root_path = os.path.dirname(os.path.abspath(input_file.name))
 
     # input_file -> string (path), bytes, file-like
     if not hasattr(input_file, "read"):
@@ -23,6 +30,7 @@ def optimize(input_file, output_file, options={}):
 
     # Embed images
     image = scene.images
+    images_bytes = dict()
     while image:
         if image.bytes_length > 0:
             continue
@@ -30,16 +38,15 @@ def optimize(input_file, output_file, options={}):
         image_path = ffi.string(image.path)
         valid_image_path = image_path
         if not os.path.isfile(valid_image_path):
-            # TODO How to specify root directory?
-            valid_image_path = os.path.join("test/models", image_path)
+            valid_image_path = os.path.join(root_path, image_path)
             if not os.path.isfile(valid_image_path):
-                raise RuntimeError("Cannot resolve image file %s" % image_path)
+                raise RuntimeError("Cannot resolve image file %s, root_path is %s" % (image_path, root_path))
 
         image_bytes = open(valid_image_path, 'rb').read()
 
         # Optimizing images
         if not model_options["no_textures_optimization"]:
-            # TODO
+            # @fixme
             print("Should optimize %s" % valid_image_path)
 
         # Convert to cffi
@@ -47,9 +54,13 @@ def optimize(input_file, output_file, options={}):
         image.bytes_length = len(image_bytes)
         image.bytes = image_bytes_c
         image = image.next
+        
+        # @note Save the bytes to a dictionnary so that the garbage collector
+        # does not occur before exporting the scene a bit later
+        images_bytes[valid_image_path] = image_bytes_c
 
     # Export the scene
     bytes_out = assimp_export_to_bytes(scene, model_options["output_format"])
     output_file.write(bytes_out)
 
-    # TODO Don't forget to free memory in C++!
+    # @fixme Don't forget to free memory in C++!
