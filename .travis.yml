@@ -13,10 +13,11 @@ sudo: required
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r/test
+      - ubuntu-toolchain-r-test
     packages:
-    - build-essential
-    - g++-6
+      - build-essential
+      - gcc-6
+      - g++-6
 
 install:
     - mkdir -p gcc-symlinks
