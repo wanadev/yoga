@@ -12,7 +12,8 @@ def model_embed_images(images, images_bytes,
         if image.bytes_length > 0:
             continue
 
-        image_path = ffi.string(image.path)
+
+        image_path = ffi.string(image.path).decode("utf-8")
         valid_image_path = image_path
         if not os.path.isfile(valid_image_path):
             valid_image_path = os.path.join(root_path, image_path)

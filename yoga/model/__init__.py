@@ -1,6 +1,6 @@
 from .assimp import (assimp_import_from_bytes, assimp_export_to_bytes)
 from .options import (normalize_options, extract_image_options)
-from helpers import model_embed_images
+from .helpers import model_embed_images
 
 import os.path
 
