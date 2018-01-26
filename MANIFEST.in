@@ -1,5 +1,7 @@
 include README.rst
 
+include yoga/model/assimp.h
+include yoga/model/assimp.cpp
 
 include assimp/CREDITS
 include assimp/LICENSE
