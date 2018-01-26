@@ -45,5 +45,8 @@ def optimize(input_file, output_file, options={}):
         )
 
     # Export the scene
-    bytes_out = assimp_export_to_bytes(scene["cffi_pointer"], model_options["output_format"])
+    bytes_out = assimp_export_to_bytes(
+        scene["cffi_pointer"],
+        model_options["output_format"]
+        )
     output_file.write(bytes_out)

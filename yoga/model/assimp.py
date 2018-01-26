@@ -21,7 +21,6 @@ def assimp_import_from_bytes(bytes_in, optimize_graph, optimize_meshes):
     if optimize_meshes:
         optimization_flags |= lib.OPTIMIZATION_FLAG_MESHES
 
-
     scene = {
         "cffi_pointer": None,
         "cffi_gc": None
