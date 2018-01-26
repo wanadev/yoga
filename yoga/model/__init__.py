@@ -37,7 +37,7 @@ def optimize(input_file, output_file, options={}):
     # does not occur before exporting the scene a bit later
     images_bytes = dict()
     model_embed_images(
-        scene.images,
+        scene["cffi_pointer"].images,
         images_bytes,
         not model_options["no_textures_optimization"],
         root_path,
@@ -45,5 +45,5 @@ def optimize(input_file, output_file, options={}):
         )
 
     # Export the scene
-    bytes_out = assimp_export_to_bytes(scene, model_options["output_format"])
+    bytes_out = assimp_export_to_bytes(scene["cffi_pointer"], model_options["output_format"])
     output_file.write(bytes_out)

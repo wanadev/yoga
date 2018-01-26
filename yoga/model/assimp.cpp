@@ -22,9 +22,7 @@ ImageNode* extract_image_nodes(aiScene* pScene);
 void import_image_nodes(aiScene* pScene, ImageNode* images);
 void add_texture(aiScene* pScene, char* bytes, int bytes_length);
 
-Scene assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_flags_in) {
-    Scene scene;
-
+void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_flags_in, Scene* scene_out) {
     // @note To enable a verbose mode for assimp, uncomment the following line
     // DefaultLogger::create(nullptr, Logger::NORMAL, aiDefaultLogStream_STDOUT);
     DefaultLogger::get()->attachStream(LogStream::createDefaultStream(aiDefaultLogStream_STDERR), Assimp::Logger::Err);
@@ -54,19 +52,17 @@ Scene assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_f
 
     // Free the ownership of the scene from the importer
     auto pScene = importer.GetOrphanedScene();
-    scene.assimp_scene = pScene;
+    scene_out->assimp_scene = pScene;
 
     // Extract image nodes
-    scene.images = extract_image_nodes(pScene);
-
-    return scene;
+    scene_out->images = extract_image_nodes(pScene);
 }
 
-int assimp_export_to_bytes(Scene scene_in, OutputFormat output_format_in, char** bytes_out) {
-    auto pScene = reinterpret_cast<aiScene*>(scene_in.assimp_scene);
+int assimp_export_to_bytes(Scene* scene_in, OutputFormat output_format_in, char** bytes_out) {
+    auto pScene = reinterpret_cast<aiScene*>(scene_in->assimp_scene);
     Exporter exporter;
 
-    import_image_nodes(pScene, scene_in.images);
+    import_image_nodes(pScene, scene_in->images);
 
     auto outputFormat = output_format_in == OUTPUT_FORMAT_GLB ? "glb2" : "gltf2";
     auto blob = exporter.ExportToBlob(pScene, outputFormat, 0, nullptr);
@@ -81,6 +77,17 @@ int assimp_export_to_bytes(Scene scene_in, OutputFormat output_format_in, char**
 void assimp_free_bytes(char** bytes) {
     delete[] *bytes;
     *bytes = nullptr;
+}
+
+void assimp_free_scene(Scene* scene) {
+    delete scene->assimp_scene;
+
+    auto image = scene->images;
+    while (image != nullptr) {
+        auto nextImage = image->next;
+        delete image;
+        image = nextImage;
+    }
 }
 
 //---- Private

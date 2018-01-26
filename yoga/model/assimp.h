@@ -26,10 +26,13 @@ typedef enum OptimizationFlag {
 } OptimizationFlag;
 
 // Import an input model.
-Scene assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_flags_in);
+void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_flags_in, Scene* scene_out);
 
 // Returns *bytes_out length.
-int assimp_export_to_bytes(Scene scene_in, OutputFormat output_format_in, char** bytes_out);
+int assimp_export_to_bytes(Scene* scene_in, OutputFormat output_format_in, char** bytes_out);
 
 // Free allocated bytes.
 void assimp_free_bytes(char** bytes);
+
+// Free allocated scene.
+void assimp_free_scene(Scene* scene);
