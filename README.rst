@@ -32,3 +32,10 @@ Convert and optimize a 3D model from CLI::
 .. _Guetzli: https://github.com/google/guetzli
 .. _Zopflipng: https://github.com/google/zopfli
 .. _assimp: https://github.com/assimp/assimp
+
+
+Changelog
+---------
+
+* **0.9.0-beta1:** First release (only GLB output for models, no image auto
+  output format)
