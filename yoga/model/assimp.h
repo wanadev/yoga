@@ -1,0 +1,38 @@
+// Assimp
+
+typedef struct ImageNode {
+    struct ImageNode* next;
+    
+    // If bytes_length is non zero, bytes is filled.
+    // Otherwise, path is a file path.
+    const char* path;
+    char* bytes;
+    int bytes_length;
+} ImageNode;
+
+typedef struct Scene {
+    void* assimp_scene;
+    ImageNode* images;
+} Scene;
+
+typedef enum OutputFormat {
+    OUTPUT_FORMAT_GLTF,
+    OUTPUT_FORMAT_GLB,
+} OutputFormat;
+
+typedef enum OptimizationFlag {
+    OPTIMIZATION_FLAG_GRAPH = 1,
+    OPTIMIZATION_FLAG_MESHES = 2,
+} OptimizationFlag;
+
+// Import an input model.
+void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_flags_in, Scene* scene_out);
+
+// Returns *bytes_out length.
+int assimp_export_to_bytes(Scene* scene_in, OutputFormat output_format_in, char** bytes_out);
+
+// Free allocated bytes.
+void assimp_free_bytes(char** bytes);
+
+// Free allocated scene.
+void assimp_free_scene(Scene* scene);

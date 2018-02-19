@@ -5,21 +5,29 @@ python:
     - "3.4"
     - "3.5"
     - "3.6"
-    - "nightly"
 
 dist: trusty
 sudo: required
 
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
-    - build-essential
+      - build-essential
+      - gcc-6
+      - g++-6
 
 install:
+    - mkdir -p gcc-symlinks
+    - ln -s /usr/bin/g++-6 gcc-symlinks/g++
+    - ln -s /usr/bin/gcc-6 gcc-symlinks/gcc
+    - export PATH=$PWD/gcc-symlinks:$PATH
+    - git submodule init
+    - git submodule update
     - pip install -r requirements.txt
     - pip install .
 
 script:
     - flake8 yoga test
-    - pytest -v
 

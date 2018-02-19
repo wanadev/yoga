@@ -2,8 +2,20 @@
 # encoding: UTF-8
 
 import os
+import subprocess
 
 from setuptools import setup, find_packages
+from setuptools.command.build_py import build_py
+
+
+class CustomBuildPy(build_py):
+
+    def run(self):
+        os.environ["CPPFLAGS"] = "--std=c++11"
+        subprocess.call("cd assimp/ && mkdir -p build && cd build && \
+                         cmake .. -DBUILD_SHARED_LIBS=OFF -DASSIMP_BUILD_ASSIMP_TOOLS=OFF -DASSIMP_BUILD_TESTS=OFF && \
+                         make", shell=True)
+        build_py.run(self)
 
 
 long_description = ""
@@ -39,4 +51,10 @@ setup(
         "console_scripts": [
             "yoga = yoga.__main__:main"
         ]},
+
+    cffi_modules=["yoga/model/assimp_build.py:ffibuilder"],
+
+    cmdclass={
+        "build_py": CustomBuildPy,
+        },
 )

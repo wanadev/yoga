@@ -28,7 +28,7 @@ def normalize_options(options=None):
             value = "jpeg"
 
         if value not in ("orig", "auto", "jpeg", "png"):
-            raise ValueError("Invalide value for 'output_format': '%s'" % value)  # noqa
+            raise ValueError("Invalid value for 'output_format': '%s'" % value)  # noqa
 
         result["output_format"] = value
 
