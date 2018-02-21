@@ -27,7 +27,7 @@ Convert and optimize a 3D model from CLI::
     yoga  model  --no-graph-optimization  --no-meshes-optimization  --image-output-format=jpeg  --image-jpeg-quality=84  input.fbx  output.glb
     yoga  model  --help
 
-.. _glTF and GLB: https://www.khronos.org/gltf/
+.. _GLB: https://www.khronos.org/gltf/
 .. _Pillow: https://github.com/python-pillow/Pillow
 .. _Guetzli: https://github.com/google/guetzli
 .. _Zopflipng: https://github.com/google/zopfli
