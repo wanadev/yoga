@@ -13,36 +13,25 @@ _MAGIC_JPEG = b"\xFF\xD8\xFF\xE0"
 
 class Test_optimize(object):
 
-    def test_input_file(self):
+    @pytest.mark.parametrize("input_", [
+        "test/images/alpha.png",
+        open("test/images/alpha.png", "rb"),
+        io.BytesIO(open("test/images/alpha.png", "rb").read()),
+        ])
+    def test_input_file(self, input_):
         # str (path)
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/alpha.png", output)
-        output.seek(0)
-        assert output.read().startswith(_MAGIC_PNG)
-
-        # file
-        input_ = open("test/images/alpha.png", "rb")
-        output = io.BytesIO()
-        yoga.image.optimize(input_, output)
-        input_.close()
-        output.seek(0)
-        assert output.read().startswith(_MAGIC_PNG)
-
-        # ByteIO
-        input_ = io.BytesIO(open("test/images/alpha.png", "rb").read())
         output = io.BytesIO()
         yoga.image.optimize(input_, output)
         output.seek(0)
         assert output.read().startswith(_MAGIC_PNG)
 
-    def test_output_file(self, tmpdir):
-        # str (path)
+    def test_output_path(self, tmpdir):
         output_path = os.path.join(str(tmpdir), "output1.png")
         yoga.image.optimize("test/images/alpha.png", output_path)
         output = open(output_path, "rb")
         assert output.read().startswith(_MAGIC_PNG)
 
-        # file
+    def test_output_file(self, tmpdir):
         output_path = os.path.join(str(tmpdir), "output2.png")
         output = open(output_path, "wb")
         yoga.image.optimize("test/images/alpha.png", output)
@@ -50,90 +39,45 @@ class Test_optimize(object):
         output = open(output_path, "rb")
         assert output.read().startswith(_MAGIC_PNG)
 
-        # ByteIO
+    def test_output_bytesio(self):
         output = io.BytesIO()
         yoga.image.optimize("test/images/alpha.png", output)
         output.seek(0)
         assert output.read().startswith(_MAGIC_PNG)
 
-    def test_option_output_format_default(self):
-        # JPEG
+    @pytest.mark.parametrize("image_path,magic", [
+        ("test/images/image1.jpg", _MAGIC_JPEG),
+        ("test/images/unused-alpha.png", _MAGIC_PNG),
+        ])
+    def test_option_output_format_default(self, image_path, magic):
         output = io.BytesIO()
-        yoga.image.optimize("test/images/image1.jpg", output)
+        yoga.image.optimize(image_path, output)
         output.seek(0)
-        assert output.read().startswith(_MAGIC_JPEG)
+        assert output.read().startswith(magic)
 
-        # PNG
+    @pytest.mark.parametrize("image_path,format_,magic", [
+        ("test/images/image1.jpg",       "orig", _MAGIC_JPEG),
+        ("test/images/unused-alpha.png", "orig", _MAGIC_PNG),
+        # TODO format=auto
+        ("test/images/image1.jpg",       "jpeg", _MAGIC_JPEG),
+        ("test/images/unused-alpha.png", "jpeg", _MAGIC_JPEG),
+        ("test/images/image1.jpg",       "png",  _MAGIC_PNG),
+        ("test/images/unused-alpha.png", "png",  _MAGIC_PNG),
+        ])
+    def test_option_output_format(self, image_path, format_, magic):
         output = io.BytesIO()
-        yoga.image.optimize("test/images/unused-alpha.png", output)
-        output.seek(0)
-        assert output.read().startswith(_MAGIC_PNG)
-
-    def test_option_output_format_orig(self):
-        # JPEG
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/image1.jpg", output, {
-            "output_format": "orig"
+        yoga.image.optimize(image_path, output, {
+            "output_format": format_
             })
         output.seek(0)
-        assert output.read().startswith(_MAGIC_JPEG)
+        assert output.read().startswith(magic)
 
-        # PNG
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/unused-alpha.png", output, {
-            "output_format": "orig"
-            })
-        output.seek(0)
-        assert output.read().startswith(_MAGIC_PNG)
-
-        # Other
+    def test_option_output_format_orig_with_unsuported_output_format(self):
         output = io.BytesIO()
         with pytest.raises(ValueError):
             yoga.image.optimize("test/images/image.gif", output, {
                 "output_format": "orig"
                 })
-
-    @pytest.mark.skip(reason="will be implemented later")
-    def test_option_output_format_auto(self):
-        raise NotImplementedError()  # TODO
-        # jpeg -> jpeg
-        # png -> jpeg
-        # png -> png
-        # jpeg -> png
-
-    def test_option_output_format_jpeg(self):
-        # JPEG
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/image1.jpg", output, {
-            "output_format": "jpeg"
-            })
-        output.seek(0)
-        assert output.read().startswith(_MAGIC_JPEG)
-
-        # PNG
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/unused-alpha.png", output, {
-            "output_format": "jpeg"
-            })
-        output.seek(0)
-        assert output.read().startswith(_MAGIC_JPEG)
-
-    def test_option_output_format_png(self):
-        # JPEG
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/image1.jpg", output, {
-            "output_format": "png"
-            })
-        output.seek(0)
-        assert output.read().startswith(_MAGIC_PNG)
-
-        # PNG
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/unused-alpha.png", output, {
-            "output_format": "png"
-            })
-        output.seek(0)
-        assert output.read().startswith(_MAGIC_PNG)
 
     @pytest.mark.parametrize("image_path,options,output_image_size", [
         # IMAGE                       OPTIONS               OUTPUT IMAGE SIZE
