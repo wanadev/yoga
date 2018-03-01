@@ -135,109 +135,31 @@ class Test_optimize(object):
         output.seek(0)
         assert output.read().startswith(_MAGIC_PNG)
 
-    def test_option_resize(self):
+    @pytest.mark.parametrize("image_path,options,output_image_size", [
+        # IMAGE                       OPTIONS               OUTPUT IMAGE SIZE
         # orig
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/image1.jpg", output, {
-            "resize": "orig"
-            })
-        output.seek(0)
-        image = Image.open(output)
-        assert image.width == 256
-        assert image.height == 256
-
+        ["test/images/image1.jpg",    {"resize": "orig"},   (256, 256)],
         # size < image
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/image1.jpg", output, {
-            "resize": 128
-            })
-        output.seek(0)
-        image = Image.open(output)
-        assert image.width == 128
-        assert image.height == 128
-
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/image1.jpg", output, {
-            "resize": "96"
-            })
-        output.seek(0)
-        image = Image.open(output)
-        assert image.width == 96
-        assert image.height == 96
-
+        ["test/images/image1.jpg",    {"resize": 128},      (128, 128)],
+        ["test/images/image1.jpg",    {"resize": 96},       (96, 96)],
         # size > image
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/image1.jpg", output, {
-            "resize": 512
-            })
-        output.seek(0)
-        image = Image.open(output)
-        assert image.width == 256
-        assert image.height == 256
-
+        ["test/images/image1.jpg",    {"resize": 512},      (256, 256)],
         # width, height
+        ["test/images/image1.jpg",    {"resize": "96x200"}, (96, 96)],
+        ["test/images/landscape.png", {"resize": [64, 64]}, (64, 32)],
+        ["test/images/landscape.png", {"resize": [96, 64]}, (96, 48)],
+        ["test/images/landscape.png", {"resize": [96, 32]}, (64, 32)],
+        ["test/images/portrait.png",  {"resize": [64, 64]}, (32, 64)],
+        ["test/images/portrait.png",  {"resize": [64, 96]}, (48, 96)],
+        ["test/images/portrait.png",  {"resize": [32, 96]}, (32, 64)],
+        ])
+    def test_option_resize(self, image_path, options, output_image_size):
         output = io.BytesIO()
-        yoga.image.optimize("test/images/image1.jpg", output, {
-            "resize": "96x200"
-            })
+        yoga.image.optimize(image_path, output, options)
         output.seek(0)
         image = Image.open(output)
-        assert image.width == 96
-        assert image.height == 96
-
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/landscape.png", output, {
-            "resize": [64, 64]
-            })
-        output.seek(0)
-        image = Image.open(output)
-        assert image.width == 64
-        assert image.height == 32
-
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/landscape.png", output, {
-            "resize": [96, 64]
-            })
-        output.seek(0)
-        image = Image.open(output)
-        assert image.width == 96
-        assert image.height == 48
-
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/landscape.png", output, {
-            "resize": [96, 32]
-            })
-        output.seek(0)
-        image = Image.open(output)
-        assert image.width == 64
-        assert image.height == 32
-
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/portrait.png", output, {
-            "resize": [64, 64]
-            })
-        output.seek(0)
-        image = Image.open(output)
-        assert image.width == 32
-        assert image.height == 64
-
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/portrait.png", output, {
-            "resize": [64, 96]
-            })
-        output.seek(0)
-        image = Image.open(output)
-        assert image.width == 48
-        assert image.height == 96
-
-        output = io.BytesIO()
-        yoga.image.optimize("test/images/portrait.png", output, {
-            "resize": [32, 96]
-            })
-        output.seek(0)
-        image = Image.open(output)
-        assert image.width == 32
-        assert image.height == 64
+        assert image.width == output_image_size[0]
+        assert image.height == output_image_size[1]
 
     def test_jpeg_quality(self):
         output1 = io.BytesIO()
