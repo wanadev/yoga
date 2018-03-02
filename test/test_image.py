@@ -19,7 +19,6 @@ class Test_optimize(object):
         io.BytesIO(open("test/images/alpha.png", "rb").read()),
         ])
     def test_input_file(self, input_):
-        # str (path)
         output = io.BytesIO()
         yoga.image.optimize(input_, output)
         output.seek(0)
