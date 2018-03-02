@@ -11,14 +11,13 @@ _MAGIC_GLB = b"glTF"
 
 class Test_optimize(object):
 
-    def test_input_file(self):
-        # str (path)
+    def test_input_file_path(self):
         output = io.BytesIO()
         yoga.model.optimize("test/models/model.fbx", output)
         output.seek(0)
         assert output.read().startswith(_MAGIC_GLB)
 
-        # file
+    def test_input_file(self):
         input_ = open("test/models/model.fbx", "rb")
         output = io.BytesIO()
         yoga.model.optimize(input_, output)
@@ -26,35 +25,29 @@ class Test_optimize(object):
         output.seek(0)
         assert output.read().startswith(_MAGIC_GLB)
 
-        # ByteIO
+    def test_input_bytesio(self):
         with pytest.raises(RuntimeError):
             input_ = io.BytesIO(open("test/models/model.fbx", "rb").read())
             output = io.BytesIO()
             yoga.model.optimize(input_, output)
-            output.seek(0)
-            assert output.read().startswith(_MAGIC_GLB)
 
-    def test_input_file_format(self):
-        # FBX
+    @pytest.mark.parametrize("model_path", [
+        "test/models/model.fbx",
+        "test/models/model.dae",
+        ])
+    def test_input_file_format(self, model_path):
         output = io.BytesIO()
-        yoga.model.optimize("test/models/model.fbx", output)
+        yoga.model.optimize(model_path, output)
         output.seek(0)
         assert output.read().startswith(_MAGIC_GLB)
 
-        # DAE
-        output = io.BytesIO()
-        yoga.model.optimize("test/models/model.dae", output)
-        output.seek(0)
-        assert output.read().startswith(_MAGIC_GLB)
-
-    def test_output_file(self, tmpdir):
-        # str (path)
+    def test_output_file_path(self, tmpdir):
         output_path = os.path.join(str(tmpdir), "output1.glb")
         yoga.model.optimize("test/models/model.fbx", output_path)
         output = open(output_path, "rb")
         assert output.read().startswith(_MAGIC_GLB)
 
-        # file
+    def test_output_file(self, tmpdir):
         output_path = os.path.join(str(tmpdir), "output2.glb")
         output = open(output_path, "wb")
         yoga.model.optimize("test/models/model.fbx", output)
@@ -62,14 +55,13 @@ class Test_optimize(object):
         output = open(output_path, "rb")
         assert output.read().startswith(_MAGIC_GLB)
 
-        # ByteIO
+    def test_output_bytesio(self):
         output = io.BytesIO()
         yoga.model.optimize("test/models/model.fbx", output)
         output.seek(0)
         assert output.read().startswith(_MAGIC_GLB)
 
-    def test_option_output_format(self):
-        # GLB
+    def test_glb_output_format(self):
         output = io.BytesIO()
         yoga.model.optimize("test/models/model.fbx", output, {
             "output_format": "glb"
@@ -77,7 +69,8 @@ class Test_optimize(object):
         output.seek(0)
         assert output.read().startswith(_MAGIC_GLB)
 
-        # glTF
+    @pytest.mark.skip("Format not supported yet")
+    def test_gltf_output_format(self):
         output = io.BytesIO()
         yoga.model.optimize("test/models/model.fbx", output, {
             "output_format": "gltf"

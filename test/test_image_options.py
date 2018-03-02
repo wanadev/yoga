@@ -14,70 +14,69 @@ class Test_normalize_options(object):
             assert k in opt
             assert opt[k] == v
 
-    def test_output_format_option(self):
-        opt = options.normalize_options({"output_format": "orig"})
-        assert opt["output_format"] == "orig"
+    @pytest.mark.parametrize("option_name,input_,output", [
+        # output_format
+        ("output_format", "orig", "orig"),
+        ("output_format", "auto", "auto"),
+        ("output_format", "jpeg", "jpeg"),
+        ("output_format", "png", "png"),
+        ("output_format", "AuTo", "auto"),
+        ("output_format", "jpg", "jpeg"),
+        ("output_format", "JPG", "jpeg"),
+        # resize
+        ("resize", "orig", "orig"),
+        ("resize", "OrIg", "orig"),
+        # jpeg_quality
+        ("jpeg_quality", 0.42, 0.42),
+        ("jpeg_quality", 42, 0.42),
+        ("jpeg_quality", "0.42", 0.42),
+        ("jpeg_quality", ".42", 0.42),
+        ("jpeg_quality", "42", 0.42),
+        ("jpeg_quality", b"0.42", 0.42),
+        ("jpeg_quality", b".42", 0.42),
+        ("jpeg_quality", b"42", 0.42),
+        ("jpeg_quality", u"0.42", 0.42),
+        ("jpeg_quality", u".42", 0.42),
+        ("jpeg_quality", u"42", 0.42),
+        # opacity_threshold
+        ("opacity_threshold", 128, 128),
+        ("opacity_threshold", 0.5, 128),
+        ("opacity_threshold", "128", 128),
+        ("opacity_threshold", "0.5", 128),
+        ("opacity_threshold", ".5", 128),
+        ("opacity_threshold", 255, 255),
+        ("opacity_threshold", "255", 255),
+        ("opacity_threshold", 300, 255),
+        ("opacity_threshold", "300", 255),
+        ("opacity_threshold", b"255", 255),
+        ("opacity_threshold", u"255", 255),
+        ])
+    def test_options(self, option_name, input_, output):
+        opt = options.normalize_options({
+            option_name: input_
+            })
+        assert opt[option_name] == output
 
-        opt = options.normalize_options({"output_format": "auto"})
-        assert opt["output_format"] == "auto"
+    @pytest.mark.parametrize("input_,output", [
+        (100, [100, 100]),
+        ("101", [101, 101]),
+        ("100x200", [100, 200]),
+        ("100X200", [100, 200]),
+        ("100 200", [100, 200]),
+        ("100:200", [100, 200]),
+        ("100,200", [100, 200]),
+        ("100;200", [100, 200]),
+        (u"100x200", [100, 200]),
+        (b"100x200", [100, 200]),
+        ([100, 200], [100, 200]),
+        ])
+    def test_numeric_resize_option(self, input_, output):
+        opt = options.normalize_options({
+            "resize": input_
+            })
+        assert opt["resize"][0] == output[0]
+        assert opt["resize"][1] == output[1]
 
-        opt = options.normalize_options({"output_format": "jpeg"})
-        assert opt["output_format"] == "jpeg"
-
-        opt = options.normalize_options({"output_format": "png"})
-        assert opt["output_format"] == "png"
-
-        opt = options.normalize_options({"output_format": "AuTo"})
-        assert opt["output_format"] == "auto"
-
-        opt = options.normalize_options({"output_format": "jpg"})
-        assert opt["output_format"] == "jpeg"
-
-        with pytest.raises(ValueError):
-            options.normalize_options({"output_format": "foobar"})
-
-    def test_resize_option(self):
-        opt = options.normalize_options({"resize": "orig"})
-        assert opt["resize"] == "orig"
-
-        opt = options.normalize_options({"resize": "OrIg"})
-        assert opt["resize"] == "orig"
-
-        opt = options.normalize_options({"resize": 100})
-        assert opt["resize"][0] == 100
-        assert opt["resize"][1] == 100
-
-        opt = options.normalize_options({"resize": "101"})
-        assert opt["resize"][0] == 101
-        assert opt["resize"][1] == 101
-
-        for s in ["100x200", "100X200", "100 200", "100:200",
-                  "100,200", "100;200", u"100x200", b"100x200",
-                  [100, 200]]:
-            opt = options.normalize_options({"resize": s})
-            assert opt["resize"][0] == 100
-            assert opt["resize"][1] == 200
-
+    def test_invalid_resize_option(self):
         with pytest.raises(ValueError):
             options.normalize_options({"resize": "foobar"})
-
-    def test_jpeg_quality_option(self):
-        for q in [0.42, 42, "0.42", "42", ".42", b"42", u"42"]:
-            opt = options.normalize_options({"jpeg_quality": q})
-            assert opt["jpeg_quality"] == 0.42
-
-        for q in [1, 100, "1", "1.00", "100", 110, "110", "110.42"]:
-            opt = options.normalize_options({"jpeg_quality": q})
-            assert opt["jpeg_quality"] == 1
-
-    def test_opacity_threshold_option(self):
-        for th in [128, 0.5, "128", "0.5", ".5"]:
-            opt = options.normalize_options({"opacity_threshold": th})
-            assert opt["opacity_threshold"] == 128
-
-        for th in [255, "255", 300, "300", b"255", u"255"]:
-            opt = options.normalize_options({"opacity_threshold": th})
-            assert opt["opacity_threshold"] == 255
-
-        opt = options.normalize_options({"opacity_threshold": 1})
-        assert opt["opacity_threshold"] == 1
