@@ -13,3 +13,4 @@ _*.c*
 *.dll
 *.dylib
 .vscode
+.pytest_cache/
