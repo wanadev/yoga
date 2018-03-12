@@ -5,6 +5,7 @@ import pyguetzli
 import zopfli
 
 from .options import normalize_options
+from .helpers import image_have_alpha
 
 
 def optimize(input_file, output_file, options={}):
@@ -30,7 +31,12 @@ def optimize(input_file, output_file, options={}):
     elif options["output_format"] in ("jpeg", "png"):
         output_format = options["output_format"]
     else:  # auto
-        raise NotImplementedError()
+        if image_have_alpha(image, options["opacity_threshold"]):
+            output_format = "png"
+        else:
+            # XXX Maybe we should try to encode in both format
+            # and choose the smaller output?
+            output_format = "jpeg"
 
     # convert / optimize
     output_image_bytes = None

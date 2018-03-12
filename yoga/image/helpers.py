@@ -1,6 +1,7 @@
 def image_have_alpha(image, threshold=0xFE):
     if threshold <= 0:
         return False
+    # TODO find transparent colors in indexed images (image.mode == "P")
     if image.mode != "RGBA":
         return False
     alpha_band = image.getdata(band=3)  # bands: R=0, G=1, B=2, A=3

@@ -57,7 +57,9 @@ class Test_optimize(object):
     @pytest.mark.parametrize("image_path,format_,magic", [
         ("test/images/image1.jpg",       "orig", _MAGIC_JPEG),
         ("test/images/unused-alpha.png", "orig", _MAGIC_PNG),
-        # TODO format=auto
+        ("test/images/alpha.png",        "auto", _MAGIC_PNG),
+        ("test/images/unused-alpha.png", "auto", _MAGIC_JPEG),
+        ("test/images/image1.jpg",       "auto", _MAGIC_JPEG),
         ("test/images/image1.jpg",       "jpeg", _MAGIC_JPEG),
         ("test/images/unused-alpha.png", "jpeg", _MAGIC_JPEG),
         ("test/images/image1.jpg",       "png",  _MAGIC_PNG),
