@@ -5,6 +5,44 @@ import os.path
 import yoga.image
 
 
+def find_valid_path(path, root_path):
+    tested_path = path
+    if os.path.isfile(tested_path):
+        return tested_path
+
+    tested_path = os.path.join(root_path, path)
+    if os.path.isfile(tested_path):
+        return tested_path
+
+    tested_path = os.path.join(root_path, os.path.basename(path))
+    if os.path.isfile(tested_path):
+        return tested_path
+
+    # Still not able to find it, it might be a Windows path,
+    # while this program is executed on Linux.
+    # So paths like "..\\image.png" are seen as entire filename,
+    # we try some trick.
+
+    path = path.replace("\\", "/")
+
+    tested_path = path
+    if os.path.isfile(tested_path):
+        return tested_path
+
+    tested_path = os.path.join(root_path, path)
+    if os.path.isfile(tested_path):
+        return tested_path
+
+    tested_path = os.path.join(root_path, os.path.basename(path))
+    if os.path.isfile(tested_path):
+        return tested_path
+
+    raise RuntimeError(
+        "Cannot resolve file %s, root_path is %s"
+        % (path, root_path)
+        )
+
+
 def model_embed_images(images, images_bytes,
                        optimize_textures, root_path, image_options):
     image = images
@@ -13,14 +51,7 @@ def model_embed_images(images, images_bytes,
             continue
 
         image_path = ffi.string(image.path).decode("utf-8")
-        valid_image_path = image_path
-        if not os.path.isfile(valid_image_path):
-            valid_image_path = os.path.join(root_path, image_path)
-            if not os.path.isfile(valid_image_path):
-                raise RuntimeError(
-                    "Cannot resolve image file %s, root_path is %s"
-                    % (image_path, root_path)
-                    )
+        valid_image_path = find_valid_path(image_path, root_path)
 
         # Optimizing images
         image_io = io.BytesIO(open(valid_image_path, "rb").read())
