@@ -127,17 +127,25 @@ ImageNode* extract_image_nodes(aiScene* pScene) {
 
 void import_image_nodes(aiScene* pScene, ImageNode* images) {
     std::unordered_map<std::string, std::string> texturesMap;
+    std::unordered_map<int, std::string> seenTextures;
     
     // Embed all images
     auto image = images;
     while (image != nullptr) {
         if (image->bytes_length > 0 && image->path[0] != '*') {
-            add_texture(pScene, image->bytes, image->bytes_length);
+            // Images might have different paths at first,
+            // they still can point to the same image - as identified by their id.
+            if (seenTextures.find(image->id) != std::end(seenTextures)) {
+                texturesMap[image->path] = seenTextures[image->id];
+            } else {
+                add_texture(pScene, image->bytes, image->bytes_length);
 
-            auto embeddedTextureId = pScene->mNumTextures - 1u;
-            std::stringstream path;
-            path << "*" << embeddedTextureId;
-            texturesMap[image->path] = path.str();
+                auto embeddedTextureId = pScene->mNumTextures - 1u;
+                std::stringstream path;
+                path << "*" << embeddedTextureId;
+                texturesMap[image->path] = path.str();
+                seenTextures[image->id] = path.str();
+            }
         }
 
         image = image->next;

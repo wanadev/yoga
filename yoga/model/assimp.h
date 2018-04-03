@@ -6,6 +6,12 @@ typedef struct ImageNode {
     // If bytes_length is non zero, bytes is filled.
     // Otherwise, path is a file path.
     const char* path;
+
+    // Set by yoga.
+    // If two paths are resolved to the same file,
+    // they will share the same id.
+    int id;
+
     char* bytes;
     int bytes_length;
 } ImageNode;

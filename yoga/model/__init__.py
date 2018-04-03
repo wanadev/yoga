@@ -35,7 +35,7 @@ def optimize(input_file, output_file, options={}):
     # Embed images
     # @note We save the bytes to a dictionnary so that the garbage collector
     # does not occur before exporting the scene a bit later
-    images_bytes = dict()
+    images_bytes = {}
     model_embed_images(
         scene["cffi_pointer"].images,
         images_bytes,
