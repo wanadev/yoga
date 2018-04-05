@@ -37,5 +37,9 @@ Convert and optimize a 3D model from CLI::
 Changelog
 ---------
 
-* **0.9.0-beta1:** First release (only GLB output for models, no image auto
+* **0.9.1b1:**
+  * Automatic selection of the output format (png or jpeg),
+  * Prevent duplication of textures that are shared between materials,
+  * Fixes Windows paths of textures.
+* **0.9.0b1:** First release (only GLB output for models, no image auto
   output format)
