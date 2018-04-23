@@ -43,8 +43,35 @@ def find_valid_path(path, root_path):
         )
 
 
+def find_valid_texture_path(path, textures):
+    # In textures, all paths are supposed to be relative
+
+    tested_path = path
+    if tested_path in textures:
+        return tested_path
+
+    tested_path = os.path.basename(path)
+    if tested_path in textures:
+        return tested_path
+
+    path = path.replace("\\", "/")
+
+    tested_path = path
+    if tested_path in textures:
+        return tested_path
+
+    tested_path = os.path.basename(path)
+    if tested_path in textures:
+        return tested_path
+
+    raise RuntimeError(
+        "Cannot resolve file %s within the textures dictionary"
+        % (path)
+        )
+
+
 def model_embed_images(images, images_bytes,
-                       optimize_textures, root_path, image_options):
+                       optimize_textures, root_path, image_options, textures):
     optimized_images = {}
 
     image = images
@@ -53,22 +80,33 @@ def model_embed_images(images, images_bytes,
             continue
 
         image_path = ffi.string(image.path).decode("utf-8")
-        valid_image_path = find_valid_path(image_path, root_path)
-        valid_image_path = os.path.abspath(valid_image_path)
+        image_io = None
 
-        # If valid_image_path have already been seen, do not reoptimize...
-        if valid_image_path in optimized_images:
-            optimized_image = optimized_images[valid_image_path]
+        # If textures exists, we don't look for files on the file system
+        if textures is not None:
+            image_path = find_valid_texture_path(image_path, textures)
+        else:
+            image_path = find_valid_path(image_path, root_path)
+            image_path = os.path.abspath(image_path)
+
+        # If image_path have already been seen, do not reoptimize...
+        if image_path in optimized_images:
+            optimized_image = optimized_images[image_path]
             image.bytes_length = optimized_image.bytes_length
             image.bytes = optimized_image.bytes
             image.id = optimized_image.id
             image = image.next
             continue
 
-        # Optimizing images
-        image_io = io.BytesIO(open(valid_image_path, "rb").read())
+        # Get the bytes indeed
+        if textures is not None:
+            image_io = textures[image_path]
+        else:
+            image_io = io.BytesIO(open(image_path, "rb").read())
+
+        # Optimizing the texture if requested
         if optimize_textures:
-            print("Optimizing texture %s..." % valid_image_path)
+            print("Optimizing texture %s..." % image_path)
             output_io = io.BytesIO()
             yoga.image.optimize(image_io, output_io, image_options)
             image_io = output_io
@@ -82,9 +120,9 @@ def model_embed_images(images, images_bytes,
         image.bytes = image_bytes_c
         image.id = len(optimized_images)
 
-        optimized_images[valid_image_path] = image
+        optimized_images[image_path] = image
         image = image.next
 
         # @note Save the bytes to a dictionnary so that the garbage collector
         # does not occur before exporting the scene a bit later
-        images_bytes[valid_image_path] = image_bytes_c
+        images_bytes[image_path] = image_bytes_c

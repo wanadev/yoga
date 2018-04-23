@@ -80,7 +80,7 @@ void assimp_free_bytes(char** bytes) {
 }
 
 void assimp_free_scene(Scene* scene) {
-    delete scene->assimp_scene;
+    free(reinterpret_cast<aiScene*>(scene->assimp_scene));
 
     auto image = scene->images;
     while (image != nullptr) {

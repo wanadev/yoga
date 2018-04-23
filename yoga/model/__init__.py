@@ -5,7 +5,7 @@ from .helpers import model_embed_images
 import os.path
 
 
-def optimize(input_file, output_file, options={}):
+def optimize(input_file, output_file, options={}, textures=None):
     model_options = normalize_options(options)
     image_options = extract_image_options(options)
 
@@ -41,7 +41,8 @@ def optimize(input_file, output_file, options={}):
         images_bytes,
         not model_options["no_textures_optimization"],
         root_path,
-        image_options
+        image_options,
+        textures
         )
 
     # Export the scene

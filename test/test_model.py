@@ -41,6 +41,22 @@ class Test_optimize(object):
         output.seek(0)
         assert output.read().startswith(_MAGIC_GLB)
 
+    def test_textures_empty_dictionary(self):
+        with pytest.raises(RuntimeError):
+            input_ = open("test/models/model.fbx", "rb")
+            output = io.BytesIO()
+            yoga.model.optimize(input_, output, {}, {})
+
+    def test_textures_dictionary(self):
+        input_ = open("test/models/model.fbx", "rb")
+        output = io.BytesIO()
+        yoga.model.optimize(input_, output, {}, {
+            "diffuse.jpg": open("test/models/diffuse.jpg", "rb")
+        })
+        input_.close()
+        output.seek(0)
+        assert output.read().startswith(_MAGIC_GLB)
+
     def test_output_file_path(self, tmpdir):
         output_path = os.path.join(str(tmpdir), "output1.glb")
         yoga.model.optimize("test/models/model.fbx", output_path)
