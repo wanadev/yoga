@@ -1,3 +1,4 @@
+import io
 import pytest
 
 from yoga.model import options
@@ -26,6 +27,23 @@ class Test_normalize_options(object):
 
         with pytest.raises(ValueError):
             options.normalize_options({"output_format": "foobar"})
+
+    def test_fallback_image(self):
+        opt = options.normalize_options({})
+        assert opt["fallback_texture"] is None
+
+        opt = options.normalize_options({"fallback_texture": None})
+        assert opt["fallback_texture"] is None
+
+        opt = options.normalize_options({"fallback_texture": "test/models/diffuse.jpg"})
+        assert opt["fallback_texture"] is not None
+
+        fallback_texture = io.BytesIO()
+        opt = options.normalize_options({"fallback_texture": fallback_texture})
+        assert opt["fallback_texture"] is not None
+
+        with pytest.raises(IOError):
+            opt = options.normalize_options({"fallback_texture": "non-existant.jpg"})
 
     def test_no_graph_optimization(self):
         opt = options.normalize_options({"no_graph_optimization": True})
