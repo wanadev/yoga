@@ -16,13 +16,13 @@ def add_main_cli_arguments(parser):
             type=argparse.FileType("wb")
             )
     parser.add_argument(
-            "--verbose",
+            "-v", "--verbose",
             help="enable verbose mode",
             default=False,
             action="store_true"
             )
     parser.add_argument(
-            "--quiet",
+            "-q", "--quiet",
             help="enable quiet mode (takes precedence over verbose)",
             default=False,
             action="store_true"
