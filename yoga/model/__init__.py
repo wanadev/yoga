@@ -1,11 +1,13 @@
 from .assimp import (assimp_import_from_bytes, assimp_export_to_bytes)
 from .options import (normalize_options, extract_image_options)
+from ..options import normalize_options as normalize_global_options
 from .helpers import model_embed_images
 
 import os.path
 
 
 def optimize(input_file, output_file, options={}):
+    global_options = normalize_global_options(options)
     model_options = normalize_options(options)
     image_options = extract_image_options(options)
 
@@ -29,7 +31,8 @@ def optimize(input_file, output_file, options={}):
     scene = assimp_import_from_bytes(
         input_file,
         not model_options["no_graph_optimization"],
-        not model_options["no_meshes_optimization"]
+        not model_options["no_meshes_optimization"],
+        global_options["verbose"]
         )
 
     # Embed images
@@ -41,6 +44,7 @@ def optimize(input_file, output_file, options={}):
         images_bytes,
         not model_options["no_textures_optimization"],
         root_path,
+        global_options,
         image_options
         )
 

@@ -43,8 +43,14 @@ def find_valid_path(path, root_path):
         )
 
 
-def model_embed_images(images, images_bytes,
-                       optimize_textures, root_path, image_options):
+def model_embed_images(
+        images,
+        images_bytes,
+        optimize_textures,
+        root_path,
+        global_options,
+        image_options
+        ):
     optimized_images = {}
 
     image = images
@@ -68,7 +74,8 @@ def model_embed_images(images, images_bytes,
         # Optimizing images
         image_io = io.BytesIO(open(valid_image_path, "rb").read())
         if optimize_textures:
-            print("Optimizing texture %s..." % valid_image_path)
+            if not global_options["quiet"]:
+                print("Optimizing texture %s..." % valid_image_path)
             output_io = io.BytesIO()
             yoga.image.optimize(image_io, output_io, image_options)
             image_io = output_io
