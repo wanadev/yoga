@@ -53,6 +53,7 @@ void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_fl
     // Free the ownership of the scene from the importer
     auto pScene = importer.GetOrphanedScene();
     scene_out->assimp_scene = pScene;
+    if (pScene == nullptr) return;
 
     // Extract image nodes
     scene_out->images = extract_image_nodes(pScene);
