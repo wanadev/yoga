@@ -6,6 +6,12 @@ import os.path
 
 
 def optimize(input_file, output_file, options={}, textures=None):
+    # TODO: Make a effective documentation.
+    # The textures arguments should be a dictionary that maps
+    # paths to bytes. When not None, there will be no file system
+    # reads in order to find referenced textures. We will
+    # look into that dictionary instead.
+
     model_options = normalize_options(options)
     image_options = extract_image_options(options)
 
