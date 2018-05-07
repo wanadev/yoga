@@ -1,11 +1,61 @@
 from ._assimp import ffi
 
 import io
+import re
 import os.path
+import unidecode
 import yoga.image
 
 
+def normalize_path(path):
+    # Expects a unicode path, returns a ascii one.
+    # Paths are normalized to a standard linux relative path,
+    # without a point, and lowercase.
+    # That is to say /images\subfolder/..\texture.png -> images/texture.png
+    # It does not correspond to an effective path,
+    # as the backslashes on linux are wrongly seen as separators.
+    # This function is meant to give a standard output.
+
+    path = unidecode.unidecode(path)
+    split_path = re.findall(r"[\w\s\-_.:]+", path)
+    normalized_path = ""
+    ignored_folders = 0
+
+    for i, name in enumerate(reversed(split_path)):
+        if name == "." or name[-1:] == ":":
+            continue
+        elif name == "..":
+            ignored_folders += 1
+        elif ignored_folders > 0:
+            ignored_folders -= 1
+        elif i == 0:
+            normalized_path = name
+        else:
+            normalized_path = name + "/" + normalized_path
+
+    normalized_path = normalized_path.lower()
+    return normalized_path
+
+
+def normalize_textures(textures):
+    if textures is None:
+        return None
+
+    # Normalizes all the paths in the texture dict.
+    normalized_textures = dict()
+    for path in textures:
+        normalized_path = normalize_path(path.decode("utf-8"))
+        if normalized_path in normalized_textures:
+            raise ValueError("Multiple textures are resolved to the same path %s." % normalized_path) # noqa
+        normalized_textures[normalized_path] = textures[path]
+
+    return normalized_textures
+
+
 def find_valid_path(path, root_path):
+    # Note: we cannot use normalized paths here,
+    # because we need to find a file on the system.
+
     tested_path = path
     if os.path.isfile(tested_path):
         return tested_path
@@ -41,39 +91,28 @@ def find_valid_path(path, root_path):
 
 
 def find_valid_texture_path(path, textures):
-    # In textures, all paths are supposed to be relative
+    # The path and the textures' paths are supposed to have
+    # already been normalized.
 
-    tested_path = path
-    if tested_path in textures:
-        return tested_path
+    split_path = reversed(path.split("/"))
+    split_paths = map(lambda p: p.split("/"), textures.keys())
 
-    tested_path = os.path.basename(path)
-    if tested_path in textures:
-        return tested_path
+    for i, name in enumerate(split_path):
+        split_paths = filter(lambda sp: len(sp) > i and sp[-(i+1)] == name, split_paths) # noqa
 
-    path = path.replace("\\", "/")
-
-    tested_path = path
-    if tested_path in textures:
-        return tested_path
-
-    tested_path = os.path.basename(path)
-    if tested_path in textures:
-        return tested_path
+        if len(split_paths) == 0:
+            break
+        elif len(split_paths) == 1:
+            return "/".join(split_paths[0])
 
     return None
 
 
-def model_embed_images(
-        images,
-        images_bytes,
-        optimize_textures,
-        fallback_texture,
-        root_path,
-        image_options,
-        textures
-        ):
-    optimized_images = {}
+def model_embed_images(images, images_bytes,
+                       optimize_textures, fallback_texture, root_path,
+                       image_options, textures, quiet):
+    optimized_textures = {}
+    normalized_textures = normalize_textures(textures)
 
     image = images
     while image:
@@ -84,8 +123,9 @@ def model_embed_images(
 
         # If textures exists, we don't look for files on the file system
         valid_image_path = None
-        if textures is not None:
-            valid_image_path = find_valid_texture_path(image_path, textures)
+        if normalized_textures is not None:
+            valid_image_path = normalize_path(image_path)
+            valid_image_path = find_valid_texture_path(valid_image_path, normalized_textures)  # noqa
         else:
             valid_image_path = find_valid_path(image_path, root_path)
             if valid_image_path is not None:
@@ -97,14 +137,14 @@ def model_embed_images(
                 print("Warning: Cannot resolve file %s, using the fallback texture instead." % image_path) # noqa
                 valid_image_path = None
             else:
-                raise RuntimeError("Cannot resolve file %s" % image_path)
+                raise ValueError("Cannot resolve file %s" % image_path)
 
         # If valid_image_path have already been seen, do not reoptimize...
-        if valid_image_path in optimized_images:
-            optimized_image = optimized_images[valid_image_path]
-            image.bytes_length = optimized_image.bytes_length
-            image.bytes = optimized_image.bytes
-            image.id = optimized_image.id
+        if valid_image_path in optimized_textures:
+            optimized_texture = optimized_textures[valid_image_path]
+            image.bytes_length = optimized_texture.bytes_length
+            image.bytes = optimized_texture.bytes
+            image.id = optimized_texture.id
             image = image.next
             continue
 
@@ -119,10 +159,11 @@ def model_embed_images(
 
         # Optimizing the texture if requested
         if optimize_textures:
-            if valid_image_path is not None:
-                print("Optimizing texture %s..." % valid_image_path)
-            else:
-                print("Optimizing fallback texture...")
+            if not quiet:
+                if valid_image_path is not None:
+                    print("Optimizing texture %s..." % valid_image_path)
+                else:
+                    print("Optimizing fallback texture...")
             output_io = io.BytesIO()
             yoga.image.optimize(image_io, output_io, image_options)
             image_io = output_io
@@ -134,9 +175,9 @@ def model_embed_images(
         image_bytes_c = ffi.new("char[%d]" % len(image_bytes), image_bytes)
         image.bytes_length = len(image_bytes)
         image.bytes = image_bytes_c
-        image.id = len(optimized_images)
+        image.id = len(optimized_textures)
 
-        optimized_images[valid_image_path] = image
+        optimized_textures[valid_image_path] = image
         image = image.next
 
         # @note Save the bytes to a dictionnary so that the garbage collector

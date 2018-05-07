@@ -22,10 +22,11 @@ ImageNode* extract_image_nodes(aiScene* pScene);
 void import_image_nodes(aiScene* pScene, ImageNode* images);
 void add_texture(aiScene* pScene, char* bytes, int bytes_length);
 
-void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_flags_in, Scene* scene_out) {
-    // @note To enable a verbose mode for assimp, uncomment the following line
-    // DefaultLogger::create(nullptr, Logger::NORMAL, aiDefaultLogStream_STDOUT);
-    DefaultLogger::get()->attachStream(LogStream::createDefaultStream(aiDefaultLogStream_STDERR), Assimp::Logger::Err);
+void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_flags_in, Scene* scene_out, int verbose) {
+    // Enable verbose mode if asked
+    if (verbose) {
+        DefaultLogger::create(nullptr, Logger::NORMAL, aiDefaultLogStream_STDOUT);
+    }
 
     unsigned int flags = 0u
         // | aiProcess_FindDegenerates          // Do not use, this can generate points and lines
@@ -53,6 +54,7 @@ void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_fl
     // Free the ownership of the scene from the importer
     auto pScene = importer.GetOrphanedScene();
     scene_out->assimp_scene = pScene;
+    if (pScene == nullptr) return;
 
     // Extract image nodes
     scene_out->images = extract_image_nodes(pScene);

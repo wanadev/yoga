@@ -1,6 +1,8 @@
 YOGA - Yummy Optimizer for Gorgeous Assets
 ==========================================
 
+|Build Status| |PYPI Version| |License| |Gitter|
+
 .. figure:: https://github.com/wanadev/yoga/raw/master/logo.png
    :alt:
 
@@ -45,3 +47,12 @@ Changelog
 
 * **0.9.0b1:** First release (only GLB output for models, no image auto
   output format)
+
+.. |Build Status| image:: https://travis-ci.org/wanadev/yoga.svg?branch=master
+   :target: https://travis-ci.org/wanadev/yoga
+.. |PYPI Version| image:: https://img.shields.io/pypi/v/yoga.svg
+   :target: https://pypi.python.org/pypi/yoga
+.. |License| image:: https://img.shields.io/pypi/l/yoga.svg
+   :target: https://github.com/wanadev/yoga/blob/master/LICENSE
+.. |Gitter| image:: https://badges.gitter.im/gitter.svg
+   :target: https://gitter.im/wanadev/yoga

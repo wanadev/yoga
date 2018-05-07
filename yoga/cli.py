@@ -15,6 +15,18 @@ def add_main_cli_arguments(parser):
             help="Output file path",
             type=argparse.FileType("wb")
             )
+    parser.add_argument(
+            "-v", "--verbose",
+            help="enable verbose mode",
+            default=False,
+            action="store_true"
+            )
+    parser.add_argument(
+            "-q", "--quiet",
+            help="enable quiet mode (takes precedence over verbose)",
+            default=False,
+            action="store_true"
+            )
 
 
 def generate_image_cli(parser=None):

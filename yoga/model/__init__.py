@@ -5,9 +5,19 @@ from .helpers import model_embed_images
 import os.path
 
 
-def optimize(input_file, output_file, options={}, textures=None):
+def optimize(input_file, output_file, options={}, textures=None,
+             verbose=False, quiet=False):
+    # TODO: Make a effective documentation.
+    # The textures arguments should be a dictionary that maps
+    # paths to bytes. When not None, there will be no file system
+    # reads in order to find referenced textures. We will
+    # look into that dictionary instead.
+
     model_options = normalize_options(options)
     image_options = extract_image_options(options)
+
+    if quiet:
+        verbose = False
 
     # Open file if possible
     if not hasattr(input_file, "read"):
@@ -29,7 +39,8 @@ def optimize(input_file, output_file, options={}, textures=None):
     scene = assimp_import_from_bytes(
         input_file,
         not model_options["no_graph_optimization"],
-        not model_options["no_meshes_optimization"]
+        not model_options["no_meshes_optimization"],
+        verbose
         )
 
     # Embed images
@@ -43,7 +54,8 @@ def optimize(input_file, output_file, options={}, textures=None):
         model_options["fallback_texture"],
         root_path,
         image_options,
-        textures
+        textures,
+        quiet
         )
 
     # Export the scene
