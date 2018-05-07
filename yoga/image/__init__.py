@@ -8,7 +8,7 @@ from .options import normalize_options
 from .helpers import image_have_alpha
 
 
-def optimize(input_file, output_file, options={}):
+def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     options = normalize_options(options)
 
     image = Image.open(input_file)

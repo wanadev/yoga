@@ -115,7 +115,8 @@ def find_valid_texture_path(path, textures):
 
 
 def model_embed_images(images, images_bytes,
-                       optimize_textures, root_path, image_options, textures):
+                       optimize_textures, root_path, image_options, textures,
+                       quiet):
     optimized_textures = {}
     normalized_textures = normalize_textures(textures)
 
@@ -153,7 +154,8 @@ def model_embed_images(images, images_bytes,
 
         # Optimizing the texture if requested
         if optimize_textures:
-            print("Optimizing texture %s..." % valid_image_path)
+            if not quiet:
+                print("Optimizing texture %s..." % valid_image_path)
             output_io = io.BytesIO()
             yoga.image.optimize(image_io, output_io, image_options)
             image_io = output_io

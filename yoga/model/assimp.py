@@ -6,11 +6,17 @@ This module contains functions binded from the Assimp C++ API.
 from ._assimp import lib, ffi
 
 
-def assimp_import_from_bytes(bytes_in, optimize_graph, optimize_meshes):
+def assimp_import_from_bytes(
+        bytes_in,
+        optimize_graph,
+        optimize_meshes,
+        verbose
+        ):
     """Generates an abstract 3D scene from a model file's bytes.
     :param bytes_in: the input model's bytes
     :param optimize_graph: whether the graph scene should be optimized
     :param optimize_meshes: whether the meshes geometries should be optimized
+    :param verbose: whether verbose is active
     :returns: An abstract scene dict
     :raises ValueError: Assimp was not able to import the model
     """
@@ -32,7 +38,8 @@ def assimp_import_from_bytes(bytes_in, optimize_graph, optimize_meshes):
         bytes_in,
         len(bytes_in),
         optimization_flags,
-        scene["cffi_pointer"]
+        scene["cffi_pointer"],
+        verbose
         )
 
     if scene["cffi_pointer"].assimp_scene == ffi.NULL:
