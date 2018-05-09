@@ -15,7 +15,7 @@ def add_model_cli_options(parser):
             "--fallback-texture",
             help="fallback image used when unable to find a texture",
             metavar="<PATH>",
-            default=DEFAULT_OPTIONS["no_textures_optimization"],
+            default=DEFAULT_OPTIONS["fallback_texture"],
             type=argparse.FileType("rb")
             )
     parser.add_argument(
