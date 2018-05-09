@@ -44,6 +44,7 @@ setup(
         "cffi>=1.0.0",
         "pillow>=4.0.0",
         "pyguetzli>=1.0.0",
+        "unidecode>=1.0.0",
         "zopflipy>=1.0"
         ],
 

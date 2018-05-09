@@ -1,9 +1,10 @@
 from ._assimp import ffi
 
 import io
-import re
 import os.path
+
 import unidecode
+
 import yoga.image
 
 
@@ -17,24 +18,21 @@ def normalize_path(path):
     # This function is meant to give a standard output.
 
     path = unidecode.unidecode(path)
-    split_path = re.findall(r"[\w\s\-_.:]+", path)
-    normalized_path = ""
+    split_path = path.replace("\\", "/").split("/")[::-1]
+    normalized_path = []
     ignored_folders = 0
 
-    for i, name in enumerate(reversed(split_path)):
-        if name == "." or name[-1:] == ":":
+    for name in split_path:
+        if name == "" or name == "." or name[-1:] == ":":
             continue
         elif name == "..":
             ignored_folders += 1
         elif ignored_folders > 0:
             ignored_folders -= 1
-        elif i == 0:
-            normalized_path = name
         else:
-            normalized_path = name + "/" + normalized_path
+            normalized_path.append(name)
 
-    normalized_path = normalized_path.lower()
-    return normalized_path
+    return "/".join(normalized_path[::-1]).lower()
 
 
 def normalize_textures(textures):
@@ -94,16 +92,16 @@ def find_valid_texture_path(path, textures):
     # The path and the textures' paths are supposed to have
     # already been normalized.
 
-    split_path = reversed(path.split("/"))
-    split_paths = map(lambda p: p.split("/"), textures.keys())
+    split_path = path.split("/")[::-1]
+    split_paths = map(lambda p: p.split("/")[::-1], textures.keys())
 
     for i, name in enumerate(split_path):
-        split_paths = filter(lambda sp: len(sp) > i and sp[-(i+1)] == name, split_paths) # noqa
+        split_paths = filter(lambda sp: len(sp) > i and sp[i] == name, split_paths) # noqa
 
         if len(split_paths) == 0:
             break
         elif len(split_paths) == 1:
-            return "/".join(split_paths[0])
+            return "/".join(split_paths[0][::-1])
 
     return None
 
