@@ -123,7 +123,7 @@ def model_embed_images(images, images_bytes,
         valid_image_path = None
         if normalized_textures is not None:
             valid_image_path = normalize_path(image_path)
-            valid_image_path = find_valid_texture_path(valid_image_path, normalized_textures)  # noqa
+            valid_image_path = find_valid_texture_path(valid_image_path, normalized_textures) # noqa
         else:
             valid_image_path = find_valid_path(image_path, root_path)
             if valid_image_path is not None:
@@ -132,7 +132,8 @@ def model_embed_images(images, images_bytes,
         # Unable to find a valid image path
         if valid_image_path is None:
             if fallback_texture is not None:
-                print("Warning: Cannot resolve file %s, using the fallback texture instead." % image_path) # noqa
+                if not quiet:
+                    print("Warning: Cannot resolve file %s, using the fallback texture instead." % image_path) # noqa
                 valid_image_path = None
             else:
                 raise ValueError("Cannot resolve file %s" % image_path)
