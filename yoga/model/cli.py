@@ -1,3 +1,5 @@
+import argparse
+
 from .options import DEFAULT_OPTIONS
 
 
@@ -8,6 +10,13 @@ def add_model_cli_options(parser):
             metavar="{glb,gltf}",
             choices=["glb", "gltf"],
             default=DEFAULT_OPTIONS["output_format"]
+            )
+    parser.add_argument(
+            "--fallback-texture",
+            help="fallback image used when unable to find a texture",
+            metavar="<PATH>",
+            default=DEFAULT_OPTIONS["fallback_texture"],
+            type=argparse.FileType("rb")
             )
     parser.add_argument(
             "--no-graph-optimization",
