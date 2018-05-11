@@ -26,7 +26,7 @@ class Test_optimize(object):
         assert output.read().startswith(_MAGIC_GLB)
 
     def test_input_bytesio(self):
-        with pytest.raises(RuntimeError):
+        with pytest.raises(ValueError):
             input_ = io.BytesIO(open("test/models/model.fbx", "rb").read())
             output = io.BytesIO()
             yoga.model.optimize(input_, output)
@@ -38,6 +38,22 @@ class Test_optimize(object):
     def test_input_file_format(self, model_path):
         output = io.BytesIO()
         yoga.model.optimize(model_path, output)
+        output.seek(0)
+        assert output.read().startswith(_MAGIC_GLB)
+
+    def test_textures_empty_dictionary(self):
+        with pytest.raises(ValueError):
+            input_ = open("test/models/model.fbx", "rb")
+            output = io.BytesIO()
+            yoga.model.optimize(input_, output, {}, {})
+
+    def test_textures_dictionary(self):
+        input_ = open("test/models/model.fbx", "rb")
+        output = io.BytesIO()
+        yoga.model.optimize(input_, output, {}, {
+            "diffuse.jpg": open("test/models/diffuse.jpg", "rb")
+        })
+        input_.close()
         output.seek(0)
         assert output.read().startswith(_MAGIC_GLB)
 
