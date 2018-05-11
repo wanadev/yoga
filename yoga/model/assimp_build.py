@@ -14,7 +14,8 @@ ffibuilder.set_source(
         open(_ASSIMP_CPP, "r").read(),
         extra_objects=[
             os.path.join(_ROOT, "..", "..", "assimp", "build", "code", "libassimp.a"),  # noqa
-            os.path.join(_ROOT, "..", "..", "assimp", "build", "contrib", "irrXML", "libIrrXML.a")  # noqa
+            os.path.join(_ROOT, "..", "..", "assimp", "build", "contrib", "irrXML", "libIrrXML.a"), # noqa
+            os.path.join(_ROOT, "..", "..", "assimp", "build", "contrib", "zlib", "libzlibstatic.a")  # noqa
             ],
         include_dirs=[
             _ROOT,
