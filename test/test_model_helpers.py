@@ -65,9 +65,9 @@ class Test_model_helpers(object):
         assert helpers.find_valid_texture_path(
             "texture.png", textures) == "images/texture.png"
 
-        with pytest.raises(ValueError):
-            helpers.find_valid_texture_path("texture.jpg", textures)
-        with pytest.raises(ValueError):
-            helpers.find_valid_texture_path("non-existing.png", textures)
-        with pytest.raises(ValueError):
-            helpers.find_valid_texture_path("exture.png", textures)
+        assert helpers.find_valid_texture_path(
+            "texture.jpg", textures) is None
+        assert helpers.find_valid_texture_path(
+            "non-existing.png", textures) is None
+        assert helpers.find_valid_texture_path(
+            "exture.png", textures) is None

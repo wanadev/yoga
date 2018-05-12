@@ -42,7 +42,7 @@ def normalize_textures(textures):
     # Normalizes all the paths in the texture dict.
     normalized_textures = dict()
     for path in textures:
-        normalized_path = normalize_path(path.decode("utf-8"))
+        normalized_path = normalize_path(path)
         if normalized_path in normalized_textures:
             raise ValueError("Multiple textures are resolved to the same path %s." % normalized_path) # noqa
         normalized_textures[normalized_path] = textures[path]
@@ -96,7 +96,7 @@ def find_valid_texture_path(path, textures):
     split_paths = map(lambda p: p.split("/")[::-1], textures.keys())
 
     for i, name in enumerate(split_path):
-        split_paths = filter(lambda sp: len(sp) > i and sp[i] == name, split_paths) # noqa
+        split_paths = list(filter(lambda sp: len(sp) > i and sp[i] == name, split_paths)) # noqa
 
         if len(split_paths) == 0:
             break
