@@ -39,6 +39,12 @@ Convert and optimize a 3D model from CLI::
 Changelog
 ---------
 
+* **0.10.0b1**:
+
+  * Verbose and quiet modes,
+  * Allows to pass textures from memory instead of looking on the filesystem,
+  * Allows to pass a fallback texture instead of raising an error.
+
 * **0.9.1b1:**
 
   * Automatic selection of the output format (png or jpeg),
