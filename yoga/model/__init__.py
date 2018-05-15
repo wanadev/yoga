@@ -23,7 +23,7 @@ def optimize(input_file, output_file, options={}, textures=None,
     if not hasattr(input_file, "read"):
         input_file = open(input_file, "rb")
 
-    root_path = "."
+    root_path = None
     if hasattr(input_file, "name"):
         root_path = os.path.dirname(os.path.abspath(input_file.name))
 
