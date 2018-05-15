@@ -1,6 +1,7 @@
 from ._assimp import ffi
 
 import io
+import sys
 import os.path
 
 import unidecode
@@ -74,6 +75,9 @@ def find_valid_path(path, paths):
 def extract_files_dictionary(root_path):
     if root_path is None:
         return None
+
+    if sys.version_info.major == 2 and type(root_path) is str:
+        root_path = root_path.decode("utf-8")
 
     # Recursive walk of root_path files
     files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(root_path) for f in filenames] # noqa
