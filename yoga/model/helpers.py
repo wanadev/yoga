@@ -99,20 +99,20 @@ def model_embed_images(images, images_bytes,
         image_path = ffi.string(image.path).decode("utf-8")
 
         # If textures exists, we don't look for files on the file system
-        valid_image_path = normalize_path(image_path)
+        normalized_image_path = normalize_path(image_path)
         if normalized_textures is not None:
-            valid_image_path = find_valid_path(valid_image_path, normalized_textures) # noqa
+            valid_image_path = find_valid_path(normalized_image_path, normalized_textures) # noqa
         else:
-            valid_image_path = find_valid_path(valid_image_path, files)
+            valid_image_path = find_valid_path(normalized_image_path, files)
 
         # Unable to find a valid image path
         if valid_image_path is None:
             if fallback_texture is not None:
                 valid_image_path = None
                 if not quiet:
-                    print("Warning: Cannot resolve file %s, using the fallback texture instead." % image_path) # noqa
+                    print("Warning: Cannot resolve %s, using the fallback texture instead." % normalized_image_path) # noqa
             else:
-                raise ValueError("Cannot resolve file %s" % image_path)
+                raise ValueError("Cannot resolve %s" % normalized_image_path)
 
         # If valid_image_path have already been seen, do not reoptimize...
         if valid_image_path in optimized_textures:
@@ -136,7 +136,7 @@ def model_embed_images(images, images_bytes,
         if optimize_textures:
             if not quiet:
                 if valid_image_path is not None:
-                    print("Optimizing texture %s..." % valid_image_path)
+                    print("Optimizing texture %s..." % normalized_image_path)
                 else:
                     print("Optimizing fallback texture...")
             output_io = io.BytesIO()
