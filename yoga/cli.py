@@ -13,7 +13,7 @@ def add_main_cli_arguments(parser):
     parser.add_argument(
             "output",
             help="Output file path",
-            type=argparse.FileType("wb")
+            type=argparse.FileType("ab")
             )
     parser.add_argument(
             "-v", "--verbose",

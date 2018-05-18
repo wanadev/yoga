@@ -33,7 +33,7 @@ def optimize(input_file, output_file, options={}, textures=None,
 
     # output_file -> string (path), file-like
     if not hasattr(output_file, "write"):
-        output_file = open(output_file, "wb")
+        output_file = open(output_file, "ab")
 
     # Import the scene
     scene = assimp_import_from_bytes(
@@ -63,4 +63,8 @@ def optimize(input_file, output_file, options={}, textures=None,
         scene["cffi_pointer"],
         model_options["output_format"]
         )
+
+    # Truncate the file before writing (empty it)
+    output_file.seek(0)
+    output_file.truncate()
     output_file.write(bytes_out)
