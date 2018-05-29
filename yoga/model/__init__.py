@@ -1,8 +1,9 @@
+import sys
+import os.path
+
 from .assimp import (assimp_import_from_bytes, assimp_export_to_bytes)
 from .options import (normalize_options, extract_image_options)
 from .helpers import model_embed_images
-
-import os.path
 
 
 def optimize(input_file, output_file, options={}, textures=None,
@@ -27,13 +28,12 @@ def optimize(input_file, output_file, options={}, textures=None,
     if hasattr(input_file, "name"):
         root_path = os.path.dirname(os.path.abspath(input_file.name))
 
+    if sys.version_info.major == 2 and type(root_path) is str:
+        root_path = root_path.decode("utf-8")
+
     # input_file -> string (path), bytes, file-like
     if hasattr(input_file, "read"):
         input_file = input_file.read()
-
-    # output_file -> string (path), file-like
-    if not hasattr(output_file, "write"):
-        output_file = open(output_file, "ab")
 
     # Import the scene
     scene = assimp_import_from_bytes(
@@ -64,7 +64,8 @@ def optimize(input_file, output_file, options={}, textures=None,
         model_options["output_format"]
         )
 
-    # Truncate the file before writing (empty it)
-    output_file.seek(0)
-    output_file.truncate()
+    # Write to output
+    if not hasattr(output_file, "write"):
+        output_file = open(output_file, "wb")
+
     output_file.write(bytes_out)

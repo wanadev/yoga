@@ -39,7 +39,11 @@ Convert and optimize a 3D model from CLI::
 Changelog
 ---------
 
-* **0.10.0b1**:
+* **upcoming:**
+
+  * [#17] Prevent overwriting of the output file when an error occurs.
+
+* **0.10.0b1:**
 
   * Verbose and quiet modes,
   * Allows to pass textures from memory instead of looking on the filesystem,
