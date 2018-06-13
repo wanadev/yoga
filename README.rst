@@ -39,9 +39,10 @@ Convert and optimize a 3D model from CLI::
 Changelog
 ---------
 
-* **upcoming:**
+* **0.10.0:**
 
-  * [#17] Prevent overwriting of the output file when an error occurs.
+  * Prevent overwriting of the output file when an error occurs (#17).
+  * Uniode path support
 
 * **0.10.0b1:**
 
@@ -57,6 +58,7 @@ Changelog
 
 * **0.9.0b1:** First release (only GLB output for models, no image auto
   output format)
+
 
 .. |Build Status| image:: https://travis-ci.org/wanadev/yoga.svg?branch=master
    :target: https://travis-ci.org/wanadev/yoga
