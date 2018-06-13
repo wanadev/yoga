@@ -41,8 +41,8 @@ Changelog
 
 * **0.10.0:**
 
-  * Prevent overwriting of the output file when an error occurs (#17).
-  * Uniode path support
+  * Prevent overwriting of the output file when an error occurs (#17)
+  * Unicode path support (#16)
 
 * **0.10.0b1:**
 
