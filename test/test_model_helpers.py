@@ -36,38 +36,38 @@ class Test_model_helpers(object):
         assert helpers.normalize_path(
             u"somE_valid-caractères of files.png") == "some_valid-caracteres of files.png" # noqa
 
-    def test_normalize_textures(self):
-        textures = helpers.normalize_textures({
+    def test_normalize_paths(self):
+        paths = helpers.normalize_paths({
             "./images\\texture-1.png": True,
             "images/texture-2.png": True,
         })
-        assert "images/texture-1.png" in textures
-        assert "images/texture-2.png" in textures
+        assert "images/texture-1.png" in paths
+        assert "images/texture-2.png" in paths
 
         with pytest.raises(ValueError):
-            helpers.normalize_textures({
+            helpers.normalize_paths({
                 "images/texture.png": True,
                 "./images/texture.png": True,
             })
 
-    def test_find_valid_texture_path(self):
-        textures = dict({
+    def test_find_valid_path(self):
+        paths = dict({
             "images/texture.png": True,
             "images/texture.jpg": True,
             "other_images/texture.jpg": True,
             "texture.gif": True,
         })
 
-        assert helpers.find_valid_texture_path(
-            "images/texture.png", textures) == "images/texture.png"
-        assert helpers.find_valid_texture_path(
-            "images/texture.jpg", textures) == "images/texture.jpg"
-        assert helpers.find_valid_texture_path(
-            "texture.png", textures) == "images/texture.png"
+        assert helpers.find_valid_path(
+            "images/texture.png", paths) == "images/texture.png"
+        assert helpers.find_valid_path(
+            "images/texture.jpg", paths) == "images/texture.jpg"
+        assert helpers.find_valid_path(
+            "texture.png", paths) == "images/texture.png"
 
-        assert helpers.find_valid_texture_path(
-            "texture.jpg", textures) is None
-        assert helpers.find_valid_texture_path(
-            "non-existing.png", textures) is None
-        assert helpers.find_valid_texture_path(
-            "exture.png", textures) is None
+        assert helpers.find_valid_path(
+            "texture.jpg", paths) is None
+        assert helpers.find_valid_path(
+            "non-existing.png", paths) is None
+        assert helpers.find_valid_path(
+            "exture.png", paths) is None
