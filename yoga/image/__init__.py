@@ -16,9 +16,6 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     if options["output_format"] == "orig" and image.format not in ("JPEG", "PNG"):                      # noqa
         raise ValueError("The input image must be a JPEG or a PNG when setting 'output_format' to 'orig'")    # noqa
 
-    if not hasattr(output_file, "write"):
-        output_file = open(output_file, "wb")
-
     # resize
     if options["resize"] != "orig":
         image.thumbnail(options["resize"], Image.LANCZOS)
@@ -60,4 +57,7 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
         output_image_bytes = zopflipng.optimize(image_bytes)
 
     # write to output_file
+    if not hasattr(output_file, "write"):
+        output_file = open(output_file, "wb")
+
     output_file.write(output_image_bytes)

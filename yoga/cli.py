@@ -1,19 +1,27 @@
+import os
 import argparse
+from functools import partial
 
 from .image.cli import add_image_cli_options
 from .model.cli import add_model_cli_options
+
+
+def _type_path(mode, string):
+    if os.access(string, mode):
+        return string
+    raise argparse.ArgumentTypeError("can't access '%s'" % string)
 
 
 def add_main_cli_arguments(parser):
     parser.add_argument(
             "input",
             help="Input file path",
-            type=argparse.FileType("rb")
+            type=partial(_type_path, os.R_OK)
             )
     parser.add_argument(
             "output",
             help="Output file path",
-            type=argparse.FileType("wb")
+            type=partial(_type_path, os.W_OK)
             )
     parser.add_argument(
             "-v", "--verbose",
