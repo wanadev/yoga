@@ -35,6 +35,27 @@ Convert and optimize a 3D model from CLI::
 .. _Zopflipng: https://github.com/google/zopfli
 .. _assimp: https://github.com/assimp/assimp
 
+Installation on Debian/Ubuntu
+-----------------------------
+
+* **Prerequisites**
+Please install python python-dev, build-essential, cmake and python-setuptools::
+
+    apt install python python-dev build-essential cmake python-setuptools
+
+* **Installation**
+
+  - *With pip*::
+
+      pip install yoga
+
+  - *With virtualenv*::
+
+      git clone git@github.com:wanadev/yoga.git
+      cd yoga
+      virtualenv venv
+      source venv/bin/activate
+      python setup.py install
 
 Changelog
 ---------
