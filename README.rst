@@ -36,6 +36,39 @@ Convert and optimize a 3D model from CLI::
 .. _assimp: https://github.com/assimp/assimp
 
 
+Install
+-------
+
+From PYPI (Linux / Mac OS?)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Run the following command (as ``root`` on Linux)::
+
+    pip install yoga
+
+
+From this repository (Linux / Mac OS?)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Clone the repository::
+
+    git clone https://github.com/wanadev/yoga.git
+
+Go to the project's directory::
+
+    cd yoga
+
+Build and install using the following command::
+
+    python setup.py install
+
+
+Windows
+~~~~~~~
+
+Building YOGA on Windows is not supported yet...
+
+
 Changelog
 ---------
 
