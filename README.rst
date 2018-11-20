@@ -72,6 +72,10 @@ Building YOGA on Windows is not supported yet...
 Changelog
 ---------
 
+* **0.10.1:**
+
+  * Fixes an issue that occures when output file does not already exist
+
 * **0.10.0:**
 
   * Prevent overwriting of the output file when an error occurs (#17)
