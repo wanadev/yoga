@@ -7,9 +7,15 @@ from .model.cli import add_model_cli_options
 
 
 def _type_path(mode, string):
-    if os.access(string, mode):
-        return string
-    raise argparse.ArgumentTypeError("can't access '%s'" % string)
+    if os.path.isfile(string):
+        if os.access(string, mode):
+            return string
+        raise argparse.ArgumentTypeError("can't access '%s'" % string)
+    else:
+        path = os.path.dirname(os.path.abspath(string))
+        if os.access(path, mode):
+            return string
+        raise argparse.ArgumentTypeError("the '%s' folder does not exist" % path)  # noqa
 
 
 def add_main_cli_arguments(parser):
