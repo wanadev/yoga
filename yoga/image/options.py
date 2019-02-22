@@ -62,7 +62,7 @@ def normalize_options(options=None):
                 raise ValueError("Invalid value for 'resize': %s" % value)
 
         if type(value) in (int, float):
-                value = [value, value]
+            value = [value, value]
 
         result["resize"] = value
 
