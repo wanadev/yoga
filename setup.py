@@ -47,6 +47,13 @@ setup(
         "unidecode>=1.0.0",
         "zopflipy>=1.0"
         ],
+    extras_require={
+        "dev": [
+            "flake8",
+            "Sphinx",
+            "sphinx-rtd-theme",
+            "pytest",
+        ]},
 
     entry_points={
         "console_scripts": [

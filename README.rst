@@ -69,6 +69,12 @@ Windows
 Building YOGA on Windows is not supported yet...
 
 
+Installing Development Dependencies
+-----------------------------------
+
+    pip install .[dev]
+
+
 Changelog
 ---------
 

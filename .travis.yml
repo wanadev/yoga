@@ -2,7 +2,6 @@ language: python
 
 python:
     - "2.7"
-    - "3.4"
     - "3.5"
     - "3.6"
 
@@ -25,8 +24,7 @@ install:
     - export PATH=$PWD/gcc-symlinks:$PATH
     - git submodule init
     - git submodule update
-    - pip install -r requirements.txt
-    - pip install .
+    - pip install .[dev]
 
 script:
     - flake8 yoga test
