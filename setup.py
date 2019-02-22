@@ -14,7 +14,7 @@ class CustomBuildPy(build_py):
         os.environ["CPPFLAGS"] = "--std=c++11"
         subprocess.call("cd assimp/ && mkdir -p build && cd build && \
                          cmake .. -DBUILD_SHARED_LIBS=OFF -DASSIMP_BUILD_ASSIMP_TOOLS=OFF -DASSIMP_BUILD_TESTS=OFF -DASSIMP_BUILD_ZLIB=ON && \
-                         make", shell=True)
+                         make", shell=True)  # noqa
         build_py.run(self)
 
 
