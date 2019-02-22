@@ -78,6 +78,10 @@ Installing Development Dependencies
 Changelog
 ---------
 
+* **0.10.2:**
+
+  * Updates assimp and python libraries
+
 * **0.10.1:**
 
   * Fixes an issue that occures when output file does not already exist
