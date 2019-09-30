@@ -42,7 +42,11 @@ Install
 From PYPI (Linux / Mac OS?)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Run the following command (as ``root`` on Linux)::
+First install the build dependencies::
+
+   sudo apt install build-essential cmake python-dev python-setuptools
+
+Then run the following command (as ``root`` on Linux)::
 
     pip install yoga
 
@@ -50,7 +54,11 @@ Run the following command (as ``root`` on Linux)::
 From this repository (Linux / Mac OS?)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Clone the repository::
+First install the build dependencies::
+
+   sudo apt install build-essential cmake git python-dev python-setuptools
+
+Then clone the repository::
 
     git clone https://github.com/wanadev/yoga.git
 
