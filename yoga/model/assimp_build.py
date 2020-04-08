@@ -1,4 +1,5 @@
 import os
+from distutils import ccompiler
 
 from cffi import FFI
 
@@ -8,15 +9,35 @@ _ASSIMP_CPP = os.path.join(_ROOT, "assimp.cpp")
 _ASSIMP_H = os.path.join(_ROOT, "assimp.h")
 
 
+if ccompiler.get_default_compiler() == "unix":
+    # Default libs path for Unix systems
+    _LIB_ASSIMP = os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "libassimp.a")  # noqa
+    _LIB_IRRXML = os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "libIrrXML.a")  # noqa
+    _LIB_ZLIB = os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "libzlibstatic.a")  # noqa
+if ccompiler.get_default_compiler() == "msvc":
+    # Default libs path for Windows
+    _LIB_ASSIMP = os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "Release", "assimp.lib")  # noqa
+    _LIB_IRRXML = os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "Release", "IrrXML.lib")  # noqa
+    _LIB_ZLIB = os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "Release", "zlibstatic.lib")  # noqa
+else:
+    _LIB_ASSIMP = None
+    _LIB_IRRXML = None
+    _LIB_ZLIB = None
+
+# Allow to override path through env vars
+if "YOGA_BUILD_LIB_ASSIMP" in os.environ:
+    _LIB_ASSIMP = os.environ["YOGA_BUILD_LIB_ASSIMP"]
+if "YOGA_BUILD_LIB_IRRXML" in os.environ:
+    _LIB_IRRXML = os.environ["YOGA_BUILD_LIB_IRRXML"]
+if "YOGA_BUILD_LIB_ZLIB" in os.environ:
+    _LIB_ZLIB = os.environ["YOGA_BUILD_LIB_ZLIB"]
+
+
 ffibuilder = FFI()
 ffibuilder.set_source(
         "yoga.model._assimp",
         open(_ASSIMP_CPP, "r").read(),
-        extra_objects=[
-            os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "libassimp.a"),  # noqa
-            os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "libIrrXML.a"),  # noqa
-            os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "libzlibstatic.a")  # noqa
-            ],
+        extra_objects=[_LIB_ASSIMP, _LIB_IRRXML, _LIB_ZLIB],
         include_dirs=[
             _ROOT,
             os.path.join(_ROOT, "..", "..", "assimp", "include"),
