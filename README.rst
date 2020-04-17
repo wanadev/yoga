@@ -74,7 +74,11 @@ Build and install using the following command::
 Windows
 ~~~~~~~
 
-Building YOGA on Windows is not supported yet...
+The simplest way to use YOGA on Windows is to download the standalone builds available here:
+
+* https://github.com/wanadev/yoga/releases
+
+If you need YOGA as a library or if you really want to build it yourself, look in the ``winbuild`` folder.
 
 
 Installing Development Dependencies
