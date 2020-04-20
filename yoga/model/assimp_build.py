@@ -9,20 +9,20 @@ _ASSIMP_CPP = os.path.join(_ROOT, "assimp.cpp")
 _ASSIMP_H = os.path.join(_ROOT, "assimp.h")
 
 
+_LIB_ASSIMP = None
+_LIB_IRRXML = None
+_LIB_ZLIB = None
+
 if ccompiler.get_default_compiler() == "unix":
     # Default libs path for Unix systems
     _LIB_ASSIMP = os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "libassimp.a")  # noqa
     _LIB_IRRXML = os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "libIrrXML.a")  # noqa
     _LIB_ZLIB = os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "libzlibstatic.a")  # noqa
-if ccompiler.get_default_compiler() == "msvc":
+elif ccompiler.get_default_compiler() == "msvc":
     # Default libs path for Windows
     _LIB_ASSIMP = os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "Release", "assimp.lib")  # noqa
     _LIB_IRRXML = os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "Release", "IrrXML.lib")  # noqa
     _LIB_ZLIB = os.path.join(_ROOT, "..", "..", "assimp", "build", "lib", "Release", "zlibstatic.lib")  # noqa
-else:
-    _LIB_ASSIMP = None
-    _LIB_IRRXML = None
-    _LIB_ZLIB = None
 
 # Allow to override path through env vars
 if "YOGA_BUILD_LIB_ASSIMP" in os.environ:
@@ -31,6 +31,13 @@ if "YOGA_BUILD_LIB_IRRXML" in os.environ:
     _LIB_IRRXML = os.environ["YOGA_BUILD_LIB_IRRXML"]
 if "YOGA_BUILD_LIB_ZLIB" in os.environ:
     _LIB_ZLIB = os.environ["YOGA_BUILD_LIB_ZLIB"]
+
+if not _LIB_ASSIMP:
+    raise Exception("Please provide the path to the assimp library using the YOGA_BUILD_LIB_ASSIMP environment variable")  # noqa
+if not _LIB_IRRXML:
+    raise Exception("Please provide the path to the IrrXML library using the YOGA_BUILD_LIB_IRRXML environment variable")  # noqa
+if not _LIB_ZLIB:
+    raise Exception("Please provide the path to the zlib library using the YOGA_BUILD_LIB_ZLIB environment variable")  # noqa
 
 
 ffibuilder = FFI()
