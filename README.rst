@@ -74,11 +74,13 @@ Build and install using the following command::
 Windows
 ~~~~~~~
 
-The simplest way to use YOGA on Windows is to download the standalone builds available here:
+The simplest way to use YOGA on Windows is to download the lastest tandalone build here:
 
 * https://github.com/wanadev/yoga/releases
 
-If you need YOGA as a library or if you really want to build it yourself, look in the ``winbuild`` folder.
+You will have to install Microsoft Visual C++ Redistribuable for Visual Studio 2019 to run YOGA. You will find more information in the Zip you downloaded or on in `this document <https://github.com/wanadev/yoga/blob/master/winbuild/README-windows-dist.md>`_.
+
+If you need YOGA as a library or if you really want to build it yourself, look in the `winbuild <https://github.com/wanadev/yoga/tree/master/winbuild>`_ folder.
 
 
 Installing Development Dependencies
