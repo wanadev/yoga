@@ -23,7 +23,7 @@ Clone this repository (using Git Bash):
     git submodule init
     git submodule update
 
-Run the build script:
+Run the build script (from the root directory of this repository):
 
     ./winbuild/builddist.bat
 
