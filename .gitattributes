@@ -1,0 +1,3 @@
+LICENSE eol=crlf
+winbuild/README-windows-dist.md eol=crlf
+*.bat eol=crlf

@@ -3,18 +3,59 @@
 
 import os
 import subprocess
+from distutils import ccompiler
 
 from setuptools import setup, find_packages
 from setuptools.command.build_py import build_py
 
 
+def _find_msbuild(plat_spec="x64"):
+    # https://github.com/python/cpython/blob/master/Lib/distutils/_msvccompiler.py
+    import distutils._msvccompiler as msvc
+    vc_env = msvc._get_vc_env(plat_spec)
+    if "vsinstalldir" not in vc_env:
+        raise Exception("Unable to find any Visual Studio installation")
+    return os.path.join(vc_env["vsinstalldir"], "MSBuild", "Current", "Bin", "MSBuild.exe")  # noqa
+
+
 class CustomBuildPy(build_py):
 
     def run(self):
-        os.environ["CPPFLAGS"] = "--std=c++11"
-        subprocess.call("cd assimp/ && mkdir -p build && cd build && \
-                         cmake .. -DBUILD_SHARED_LIBS=OFF -DASSIMP_BUILD_ASSIMP_TOOLS=OFF -DASSIMP_BUILD_TESTS=OFF -DASSIMP_BUILD_ZLIB=ON && \
-                         make", shell=True)  # noqa
+        if not os.path.isdir("./assimp/build"):
+            os.mkdir("./assimp/build")
+
+        os.chdir("./assimp/build")
+
+        if ccompiler.get_default_compiler() == "unix":
+            os.environ["CPPFLAGS"] = "--std=c++11"
+            subprocess.call([
+                "cmake", "..",
+                "-DBUILD_SHARED_LIBS=OFF",
+                "-DASSIMP_BUILD_ASSIMP_TOOLS=OFF",
+                "-DASSIMP_BUILD_TESTS=OFF",
+                "-DASSIMP_BUILD_ZLIB=ON",
+                ])
+            subprocess.call(["make"])
+        elif ccompiler.get_default_compiler() == "msvc":
+            msbuild = _find_msbuild()
+            subprocess.call([
+                "cmake", "..",
+                "-DBUILD_SHARED_LIBS=OFF",
+                "-DASSIMP_BUILD_ASSIMP_TOOLS=OFF",
+                "-DASSIMP_BUILD_TESTS=OFF",
+                "-DASSIMP_BUILD_ZLIB=ON",
+                "-DLIBRARY_SUFFIX=",
+                ])
+            subprocess.call([
+                msbuild,
+                "-p:Configuration=Release",
+                "Assimp.sln"
+                ])
+        else:
+            raise Exception("Unhandled platform")
+
+        os.chdir("../..")
+
         build_py.run(self)
 
 
