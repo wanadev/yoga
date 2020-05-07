@@ -96,6 +96,11 @@ Installing Development Dependencies
 Changelog
 ---------
 
+* **0.11.0:**
+
+  * Allows to build YOGA on Windows
+  * Scripts and workflow to build Windows standalone versions
+
 * **0.10.2:**
 
   * Updates assimp and python libraries
