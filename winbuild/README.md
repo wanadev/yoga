@@ -27,6 +27,6 @@ Run the build script (from the root directory of this repository):
 
     ./winbuild/builddist.bat
 
-Once the build finished, you will find the result in the `yogawin.dist` folder. To run YOGA, use the `yogawin.exe` executable:
+Once the build finished, you will find the result in the `yogawin.dist` folder. To run YOGA, use the `yoga.exe` executable:
 
-    ./yogawin.dist/yogawin.exe -h
+    ./yogawin.dist/yoga.exe -h

@@ -5,13 +5,13 @@
 YOGA is a command-line tool that:
 
 * converts and optimizes images from various format to JPEG and PNG,
-* convertq and optimizeq 3D models from various formats to GLB.
+* converts and optimizes 3D models from various formats to GLB.
 
 
 ## Requirements
 
-Before using YOGA, you must install Microsoft Visual C++ Redistribuable x64 for
-Visual Studio 2019. You can download it from the Microsoft's website
+Before using YOGA, you must install Microsoft Visual C++ Redistributable x64
+for Visual Studio 2019. You can download it from the Microsoft's website
 (`vc_redist.x64.exe`):
 
 * https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads
@@ -19,8 +19,8 @@ Visual Studio 2019. You can download it from the Microsoft's website
 
 ## Install
 
-YOGA do not need any installation. Just unzip the content of this directory and
-you are ready to go! :)
+YOGA does not need any installation. Just unzip the content of this directory
+and you are ready to go! :)
 
 
 ## Usage
