@@ -26,7 +26,8 @@ and you are ready to go! :)
 ## Usage
 
 YOGA is a CLI (command line) program. To use it, open a terminal in this folder
-and just use one of the following command, depending the terminal you are using.
+and just use one of the following commands, depending on the terminal you are
+using.
 
 For CMD.EXE:
 
