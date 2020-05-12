@@ -130,8 +130,8 @@ Changelog
   output format)
 
 
-.. |Build Status| image:: https://travis-ci.org/wanadev/yoga.svg?branch=master
-   :target: https://travis-ci.org/wanadev/yoga
+.. |Build Status| image:: https://github.com/wanadev/yoga/workflows/Python%20CI/badge.svg
+   :target: https://github.com/wanadev/yoga/actions
 .. |PYPI Version| image:: https://img.shields.io/pypi/v/yoga.svg
    :target: https://pypi.python.org/pypi/yoga
 .. |License| image:: https://img.shields.io/pypi/l/yoga.svg
