@@ -18,7 +18,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Nox
       run: |
-        pip3 install nox
+        pip3 install setuptools nox
     - name: Lint with flake8
       run: |
         nox --session lint
