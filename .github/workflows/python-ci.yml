@@ -22,7 +22,7 @@ jobs:
         pip3 install nox
     - name: Lint with flake8
       run: |
-        nox --session lint
+        python3 -m nox --session lint
     - name: Test with pytest
       run: |
-        nox --session test-${{ matrix.python-version }}
+        python3 -m nox --session test-${{ matrix.python-version }}
