@@ -90,10 +90,11 @@ setup(
         ],
     extras_require={
         "dev": [
+            "nox",
             "flake8",
+            "pytest",
             "Sphinx",
             "sphinx-rtd-theme",
-            "pytest",
         ]},
 
     entry_points={

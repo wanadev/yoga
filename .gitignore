@@ -3,6 +3,7 @@ dist
 __env*__
 .cache
 .tox
+.nox
 *.pyc
 __pycache__
 *.egg*
