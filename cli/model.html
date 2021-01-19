@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>YOGA Model Command Line Interface &mdash; YOGA  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python API" href="../python/index.html" />
+    <link rel="prev" title="YOGA Image Command Line Interface" href="image.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> YOGA
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing YOGA</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Command Line Interface</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="image.html">YOGA Image Command Line Interface</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">YOGA Model Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-format">Output Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#disabling-optimizations">Disabling Optimizations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#images-options">Images Options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">YOGA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Command Line Interface</a> &raquo;</li>
+        
+      <li>YOGA Model Command Line Interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/cli/model.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="yoga-model-command-line-interface">
+<h1>YOGA Model Command Line Interface<a class="headerlink" href="#yoga-model-command-line-interface" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: yoga model [-h] [-v] [-q] [--output-format {glb,gltf}] [--fallback-texture &lt;PATH&gt;]
+                  [--no-graph-optimization] [--no-meshes-optimization]
+                  [--no-textures-optimization] [--image-output-format {orig,auto,jpeg,png}]
+                  [--image-resize {orig,&lt;SIZE&gt;,&lt;WIDTH&gt;x&lt;HEIGHT&gt;}]
+                  [--image-jpeg-quality 0-100] [--image-opacity-threshold 0-255]
+                  input output
+
+positional arguments:
+  input                 Input file path
+  output                Output file path
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --verbose         enable verbose mode
+  -q, --quiet           enable quiet mode (takes precedence over verbose)
+
+model options:
+  --output-format {glb,gltf}
+                        format of the output model (default: glb)
+  --fallback-texture &lt;PATH&gt;
+                        fallback image used when unable to find a texture
+  --no-graph-optimization
+                        disable empty graph nodes merging
+  --no-meshes-optimization
+                        disable meshes optimization
+  --no-textures-optimization
+                        disable textures optimization using yoga image
+
+image options:
+  --image-output-format {orig,auto,jpeg,png}
+                        format of the output image
+  --image-resize {orig,&lt;SIZE&gt;,&lt;WIDTH&gt;x&lt;HEIGHT&gt;}
+                        resize the image
+  --image-jpeg-quality 0-100
+                        JPEG quality if the output format is set to &#39;jpeg&#39;
+  --image-opacity-threshold 0-255
+                        threshold below which a pixel is considered transparent
+</pre></div>
+</div>
+<div class="section" id="basic-usage">
+<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<p>To convert and optimize a 3D model using YOGA, you can use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">model</span>  <span class="nb">input</span><span class="o">.</span><span class="n">fbx</span>  <span class="n">output</span><span class="o">.</span><span class="n">glb</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output-format">
+<h2>Output Format<a class="headerlink" href="#output-format" title="Permalink to this headline">¶</a></h2>
+<p>You can choose the output format between one of the two that are supported using the <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">model</span>  <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">format</span><span class="o">=</span><span class="n">glb</span>  <span class="nb">input</span><span class="o">.</span><span class="n">fbx</span>  <span class="n">output</span><span class="o">.</span><span class="n">glb</span>
+</pre></div>
+</div>
+<p>The supported output formats are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">glb</span></code> (default),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gltf</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="disabling-optimizations">
+<h2>Disabling Optimizations<a class="headerlink" href="#disabling-optimizations" title="Permalink to this headline">¶</a></h2>
+<p>By default, YOGA optimize the 3D models and its textures. The optimizations can be disabled using the following options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-graph-optimization</span></code>: disables empty graph nodes merging,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-meshes-optimization</span></code>: disable mesh optimization,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-textures-optimization</span></code>: disable texture optimizations (textures will not be optimized using YOGA Image).</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">model</span>  <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">graph</span><span class="o">-</span><span class="n">optimization</span>  <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">meshes</span><span class="o">-</span><span class="n">optimization</span>  <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">textures</span><span class="o">-</span><span class="n">optimization</span>  <span class="nb">input</span><span class="o">.</span><span class="n">fbx</span>  <span class="n">output</span><span class="o">.</span><span class="n">glb</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="images-options">
+<h2>Images Options<a class="headerlink" href="#images-options" title="Permalink to this headline">¶</a></h2>
+<p>YOGA Model optimizes textures using YOGA Images, so there are options equivalent to the YOGA Image ones available:</p>
+<ul class="simple">
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-output-format</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> of  YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-resize</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--resize</span></code> of  YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-jpeg-quality</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--jpeg-quality</span></code> of  YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-opacity-threshold</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--opacity-threshold</span></code> of  YOGA Image,</p></li>
+</ul>
+<p>See the <a class="reference internal" href="image.html"><span class="doc">YOGA Image Command Line Interface</span></a> documentation for more information.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../python/index.html" class="btn btn-neutral float-right" title="Python API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="image.html" class="btn btn-neutral float-left" title="YOGA Image Command Line Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Wanadev.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
