@@ -49,7 +49,7 @@ The output format can be specified using the ``--output-format`` option::
 The following formats are supported:
 
 * ``orig``: This is the default. The output format will be the same as the one of the input image.
-* ``auto``: The output format is automatically selected. YOGA will generate a PNG if the input image is using transparency (see also TODO), else it will generate a JPEG.
+* ``auto``: The output format is automatically selected. YOGA will generate a PNG if the input image is using transparency, else it will generate a JPEG.
 * ``png``: Outputs a PNG image.
 * ``jpeg``: Outputs a JPEG image.
 
