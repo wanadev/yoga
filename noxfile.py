@@ -17,5 +17,5 @@ def test(session):
 @nox.session
 def gendoc(session):
     session.install("sphinx", "sphinx-rtd-theme")
-    session.install("-e", ".")
+    session.install(".")
     session.run("sphinx-build", "-M", "html", "doc", "build")
