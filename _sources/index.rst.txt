@@ -28,7 +28,7 @@ reference images, they are processed by YOGA's image optimizer.
    ./install.rst
    ./cli/index.rst
    ./python/index.rst
-
+   ./contributing.rst
 
 
 Indices and tables
