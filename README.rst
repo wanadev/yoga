@@ -17,13 +17,13 @@ Zopflipng_ (for PNGs).
 **3D Models** are converted and optimized using assimp_. If models contain or
 reference images, they are processed by YOGA's image optimizer.
 
-Convert and optimize an image from CLI::
+EXAMPLE: Converting and optimizing an image from CLI::
 
     yoga  image  input.png  output.png
     yoga  image  --output-format=jpeg  --jpeg-quality=84  input.png  output.jpg
     yoga  image  --help
 
-Convert and optimize a 3D model from CLI::
+EXAMPLE: Converting and optimizing a 3D model from CLI::
 
     yoga  model  input.fbx  output.glb
     yoga  model  --no-graph-optimization  --no-meshes-optimization  --image-output-format=jpeg  --image-jpeg-quality=84  input.fbx  output.glb
@@ -39,58 +39,15 @@ Convert and optimize a 3D model from CLI::
 Install
 -------
 
-From PYPI (Linux / Mac OS?)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-First install the build dependencies::
-
-   sudo apt install build-essential cmake python-dev python-setuptools
-
-Then run the following command (as ``root`` on Linux)::
-
-    pip install yoga
+* See `the install section of the documentation <https://wanadev.github.io/yoga/install.html>`_
 
 
-From this repository (Linux / Mac OS?)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Documentation
+-------------
 
-First install the build dependencies::
-
-   sudo apt install build-essential cmake git python-dev python-setuptools
-
-Then clone the repository::
-
-    git clone https://github.com/wanadev/yoga.git
-
-Go to the project's directory::
-
-    cd yoga
-
-Build and install using the following command::
-
-    python setup.py install
-
-
-Windows
-~~~~~~~
-
-The simplest way to use YOGA on Windows is to download the latest standalone build here:
-
-* https://github.com/wanadev/yoga/releases
-
-You will have to install Microsoft Visual C++ Redistribuable for Visual Studio
-2019 to run YOGA. You will find more information in the Zip you downloaded or
-in `this document <https://github.com/wanadev/yoga/blob/master/winbuild/README-windows-dist.md>`_.
-
-If you need YOGA as a library or if you really want to build it yourself, look
-in the `winbuild <https://github.com/wanadev/yoga/tree/master/winbuild>`_
-folder.
-
-
-Installing Development Dependencies
------------------------------------
-
-    pip install .[dev]
+* `Command Line Interface (CLI) <https://wanadev.github.io/yoga/cli/index.html>`_
+* `Python API <https://wanadev.github.io/yoga/python/index.html>`_
+* `Contributing <https://wanadev.github.io/yoga/contributing.html>`_
 
 
 Changelog
