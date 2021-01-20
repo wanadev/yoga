@@ -37,6 +37,15 @@ Please note that your code must pass tests and follow the coding style defined
 by the `pep8 <https://pep8.org/>`_.
 
 
+Installing Development Dependencies
+-----------------------------------
+
+You can install YOGA with its development dependencies using the following
+command::
+
+    pip install .[dev]
+
+
 Running the Tests
 -----------------
 
