@@ -90,7 +90,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../cli/index.html">Command Line Interface</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Python API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="image.html">YOGA Image Python API</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">YOGA Model Python API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">YOGA Model Python API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#available-model-options">Available Model Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#output-format">output_format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fallback-texture">fallback_texture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#no-graph-optimization">no_graph_optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#no-meshes-optimization">no_meshes_optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#no-textures-optimization">no_textures_optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#available-image-options">Available Image Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
@@ -165,6 +178,154 @@
             
   <div class="section" id="module-yoga.model">
 <span id="yoga-model-python-api"></span><h1>YOGA Model Python API<a class="headerlink" href="#module-yoga.model" title="Permalink to this headline">¶</a></h1>
+<p>This module allows to convert and optimize 3D models.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>converting and optimizing a model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yoga.model</span>
+<span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can also tune the output by passing options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="c1"># Model options</span>
+    <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;glb&quot;</span><span class="p">,</span>             <span class="c1"># &quot;glb&quot;|&quot;gltf&quot;</span>
+    <span class="s2">&quot;fallback_texture&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>           <span class="c1"># None|&lt;FileLike&gt;|&quot;.//image.png&quot;</span>
+    <span class="s2">&quot;no_graph_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>     <span class="c1"># True|False</span>
+    <span class="s2">&quot;no_meshes_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>    <span class="c1"># True|False</span>
+    <span class="s2">&quot;no_textures_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># True|False</span>
+
+    <span class="c1"># Images (textures) options</span>
+    <span class="s2">&quot;image_output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>      <span class="c1"># &quot;orig&quot;|&quot;auto&quot;|&quot;jpeg&quot;|&quot;png&quot;</span>
+    <span class="s2">&quot;image_resize&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>             <span class="c1"># &quot;orig&quot;|[width,height]</span>
+    <span class="s2">&quot;image_jpeg_quality&quot;</span><span class="p">:</span> <span class="mf">0.84</span><span class="p">,</span>         <span class="c1"># 0.00-1.0</span>
+    <span class="s2">&quot;image_opacity_threshold&quot;</span><span class="p">:</span> <span class="mi">254</span><span class="p">,</span>     <span class="c1"># 0-255</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="available-model-options">
+<h2>Available Model Options<a class="headerlink" href="#available-model-options" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="output-format">
+<h3>output_format<a class="headerlink" href="#output-format" title="Permalink to this headline">¶</a></h3>
+<p>The format of the output model.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;glb&quot;</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>The following formats are supported:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">glb</span></code> (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gltf</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="fallback-texture">
+<h3>fallback_texture<a class="headerlink" href="#fallback-texture" title="Permalink to this headline">¶</a></h3>
+<p>This option allows you to provide a fallback texture that will be used when
+YOGA is unable to find one of the model textures.</p>
+<p>The following values are allowed:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>: no fallback texture,</p></li>
+<li><p>a Python <code class="docutils literal notranslate"><span class="pre">str</span></code> (and <code class="docutils literal notranslate"><span class="pre">unicode</span></code> for Python 2): path of a fallback image
+file (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;./fallback.png&quot;</span></code>),</p></li>
+<li><p>a “File-like” object (file, <code class="docutils literal notranslate"><span class="pre">BytesIO</span></code>, etc.).</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;fallback_texture&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;fallback_texture&quot;</span><span class="p">:</span> <span class="s2">&quot;./fallback.png&quot;</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">image_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./fallback.png&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+<span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;fallback_texture&quot;</span><span class="p">:</span> <span class="n">image_file</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="no-graph-optimization">
+<h3>no_graph_optimization<a class="headerlink" href="#no-graph-optimization" title="Permalink to this headline">¶</a></h3>
+<p>Disables empty graph nodes merging.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;no_graph_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="no-meshes-optimization">
+<h3>no_meshes_optimization<a class="headerlink" href="#no-meshes-optimization" title="Permalink to this headline">¶</a></h3>
+<p>Disable mesh optimization.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;no_meshes_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="no-textures-optimization">
+<h3>no_textures_optimization<a class="headerlink" href="#no-textures-optimization" title="Permalink to this headline">¶</a></h3>
+<p>Disable texture optimizations (textures will not be optimized using YOGA
+Image).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;no_textures_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="available-image-options">
+<h2>Available Image Options<a class="headerlink" href="#available-image-options" title="Permalink to this headline">¶</a></h2>
+<p>YOGA Model optimizes textures using YOGA Images, so there are options
+equivalent to the YOGA Image ones available:</p>
+<ul class="simple">
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">image_output_format</span></code> option is equivalent to the
+<code class="docutils literal notranslate"><span class="pre">output_format</span></code> of YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">image_resize</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">resize</span></code> of
+YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">image_jpeg_quality</span></code> option is equivalent to the
+<code class="docutils literal notranslate"><span class="pre">jpeg_quality</span></code> of YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">image_opacity_threshold</span></code> option is equivalent to the
+<code class="docutils literal notranslate"><span class="pre">opacity_threshold</span></code> of YOGA Image,</p></li>
+</ul>
+<p>See <a class="reference internal" href="image.html#yoga-image-api-options"><span class="std std-ref">YOGA Image options</span></a> for more information.</p>
+</div>
+<div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="yoga.model.optimize">
+<code class="sig-prename descclassname">yoga.model.</code><code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_file</span></em>, <em class="sig-param"><span class="n">output_file</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">textures</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#yoga.model.optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimize given model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_file</strong> (<em>str</em><em>,</em><em>file-like</em>) – The input model file.</p></li>
+<li><p><strong>output_file</strong> (<em>str</em><em>,</em><em>file-like</em>) – The output model file.</p></li>
+<li><p><strong>options</strong> (<em>dict</em>) – Optimization options (see above).</p></li>
+<li><p><strong>textures</strong> (<em>dict</em>) – A dictionnary that maps textures path to bytes. When
+not <code class="docutils literal notranslate"><span class="pre">None</span></code>, there will be no file system reads in
+order to find referenced textures. YOGA will look into
+that dictionary instead.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, Assmimp debug message will be print to
+stdout.</p></li>
+<li><p><strong>quiet</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, YOGA will not write any warning on stdout
+or stderr.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example <code class="docutils literal notranslate"><span class="pre">textures</span></code> dictionary:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">textures</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;images/texture1.png&quot;</span><span class="p">:</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./images/texture1.png&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span>
+    <span class="s2">&quot;texture2.png&quot;</span><span class="p">:</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./texture1.png&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
 </div>
 
 

@@ -176,10 +176,10 @@
             
   <div class="section" id="module-yoga.image">
 <span id="yoga-image-python-api"></span><h1>YOGA Image Python API<a class="headerlink" href="#module-yoga.image" title="Permalink to this headline">¶</a></h1>
-<p>This module allows to optimize images.</p>
+<p>This module allows to convert and optimize images.</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p>Optimizing an image:</p>
+<p>Converting and optimizing an image:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yoga.image</span>
 <span class="n">yoga</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.png&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.png&quot;</span><span class="p">)</span>
 </pre></div>
@@ -195,7 +195,7 @@
 </div>
 </div>
 <div class="section" id="available-options">
-<h2>Available Options<a class="headerlink" href="#available-options" title="Permalink to this headline">¶</a></h2>
+<span id="yoga-image-api-options"></span><h2>Available Options<a class="headerlink" href="#available-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="output-format">
 <h3>output_format<a class="headerlink" href="#output-format" title="Permalink to this headline">¶</a></h3>
 <p>The format of the output image.</p>
@@ -288,8 +288,8 @@ only useful when <code class="docutils literal notranslate"><span class="pre">ou
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_file</strong> (<em>str</em>) – The path of the input image.</p></li>
-<li><p><strong>output_file</strong> (<em>str</em>) – The path of the output image.</p></li>
+<li><p><strong>input_file</strong> (<em>str</em><em>,</em><em>file-like</em>) – The path of the input image.</p></li>
+<li><p><strong>output_file</strong> (<em>str</em><em>,</em><em>file-like</em>) – The path of the output image.</p></li>
 <li><p><strong>options</strong> (<em>dict</em>) – Optimization options (see above).</p></li>
 <li><p><strong>verbose</strong> (<em>bool</em>) – ignored parameter.</p></li>
 <li><p><strong>quiet</strong> (<em>bool</em>) – ignored parameter.</p></li>
