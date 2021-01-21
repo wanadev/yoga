@@ -1,3 +1,148 @@
+"""
+This module allows to convert and optimize 3D models.
+
+
+Usage
+-----
+
+converting and optimizing a model::
+
+    import yoga.model
+    yoga.model.optimize("./input.fbx", "./output.glb")
+
+You can also tune the output by passing options::
+
+    yoga.model.optimize("./input.fbx", "./output.glb", options={
+        # Model options
+        "output_format": "glb",             # "glb"|"gltf"
+        "fallback_texture": None,           # None|<FileLike>|".//image.png"
+        "no_graph_optimization": False,     # True|False
+        "no_meshes_optimization": False,    # True|False
+        "no_textures_optimization": False,  # True|False
+
+        # Images (textures) options
+        "image_output_format": "orig",      # "orig"|"auto"|"jpeg"|"png"
+        "image_resize": "orig",             # "orig"|[width,height]
+        "image_jpeg_quality": 0.84,         # 0.00-1.0
+        "image_opacity_threshold": 254,     # 0-255
+    })
+
+
+Available Model Options
+-----------------------
+
+output_format
+~~~~~~~~~~~~~
+
+The format of the output model.
+
+::
+
+    yoga.model.optimize("./input.fbx", "./output.glb", options={
+        "output_format": "glb",
+    })
+
+The following formats are supported:
+
+* ``glb`` (default)
+* ``gltf``
+
+
+fallback_texture
+~~~~~~~~~~~~~~~~
+
+This option allows you to provide a fallback texture that will be used when
+YOGA is unable to find one of the model textures.
+
+The following values are allowed:
+
+* ``None``: no fallback texture,
+* a Python ``str`` (and ``unicode`` for Python 2): path of a fallback image
+  file (e.g. ``"./fallback.png"``),
+* a "File-like" object (file, ``BytesIO``, etc.).
+
+::
+
+    yoga.model.optimize("./input.fbx", "./output.glb", options={
+        "fallback_texture": None,
+    })
+
+::
+
+    yoga.model.optimize("./input.fbx", "./output.glb", options={
+        "fallback_texture": "./fallback.png",
+    })
+
+::
+
+    image_file = open("./fallback.png", "rb")
+    yoga.model.optimize("./input.fbx", "./output.glb", options={
+        "fallback_texture": image_file,
+    })
+
+
+no_graph_optimization
+~~~~~~~~~~~~~~~~~~~~~
+
+Disables empty graph nodes merging.
+
+::
+
+    yoga.model.optimize("./input.fbx", "./output.glb", options={
+        "no_graph_optimization": False,
+    })
+
+
+no_meshes_optimization
+~~~~~~~~~~~~~~~~~~~~~~
+
+Disable mesh optimization.
+
+::
+
+    yoga.model.optimize("./input.fbx", "./output.glb", options={
+        "no_meshes_optimization": False,
+    })
+
+
+no_textures_optimization
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Disable texture optimizations (textures will not be optimized using YOGA
+Image).
+
+::
+
+    yoga.model.optimize("./input.fbx", "./output.glb", options={
+        "no_textures_optimization": False,
+    })
+
+
+Available Image Options
+-----------------------
+
+YOGA Model optimizes textures using YOGA Images, so there are options
+equivalent to the YOGA Image ones available:
+
+* The YOGA Model ``image_output_format`` option is equivalent to the
+  ``output_format`` of YOGA Image,
+
+* The YOGA Model ``image_resize`` option is equivalent to the ``resize`` of
+  YOGA Image,
+
+* The YOGA Model ``image_jpeg_quality`` option is equivalent to the
+  ``jpeg_quality`` of YOGA Image,
+
+* The YOGA Model ``image_opacity_threshold`` option is equivalent to the
+  ``opacity_threshold`` of YOGA Image,
+
+See :ref:`YOGA Image options <yoga_image_api_options>` for more information.
+
+
+API
+---
+"""
+
 import sys
 import os.path
 
@@ -8,11 +153,27 @@ from .helpers import model_embed_images
 
 def optimize(input_file, output_file, options={}, textures=None,
              verbose=False, quiet=False):
-    # TODO: Make a effective documentation.
-    # The textures arguments should be a dictionary that maps
-    # paths to bytes. When not None, there will be no file system
-    # reads in order to find referenced textures. We will
-    # look into that dictionary instead.
+    """Optimize given model.
+
+    :param str,file-like input_file: The input model file.
+    :param str,file-like output_file: The output model file.
+    :param dict options: Optimization options (see above).
+    :param dict textures: A dictionnary that maps textures path to bytes. When
+                          not ``None``, there will be no file system reads in
+                          order to find referenced textures. YOGA will look into
+                          that dictionary instead.
+    :param bool verbose: If ``True``, Assmimp debug message will be print to
+                         stdout.
+    :param bool quiet: If ``True``, YOGA will not write any warning on stdout
+                                    or stderr.
+
+    Example ``textures`` dictionary::
+
+        textures = {
+            "images/texture1.png": open("./images/texture1.png", "rb").read(),
+            "texture2.png": open("./texture1.png", "rb").read(),
+        }
+    """
 
     model_options = normalize_options(options)
     image_options = extract_image_options(options)

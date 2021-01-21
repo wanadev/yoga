@@ -1,10 +1,10 @@
 """
-This module allows to optimize images.
+This module allows to convert and optimize images.
 
 Usage
 -----
 
-Optimizing an image::
+Converting and optimizing an image::
 
     import yoga.image
     yoga.image.optimize("./input.png", "./output.png")
@@ -18,6 +18,8 @@ You can also tune the output by passing options::
         "opacity_threshold": 254,  # 0-255
     })
 
+
+.. _yoga_image_api_options:
 
 Available Options
 -----------------
@@ -120,6 +122,7 @@ The value is a number between ``0`` and ``255`` (``254`` by default):
 API
 ---
 """
+
 import io
 
 from PIL import Image
@@ -133,8 +136,8 @@ from .helpers import image_have_alpha
 def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     """Optimize given image.
 
-    :param str input_file: The path of the input image.
-    :param str output_file: The path of the output image.
+    :param str,file-like input_file: The path of the input image.
+    :param str,file-like output_file: The path of the output image.
     :param dict options: Optimization options (see above).
     :param bool verbose: ignored parameter.
     :param bool quiet: ignored parameter.
