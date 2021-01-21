@@ -190,7 +190,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
     <span class="c1"># Model options</span>
     <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;glb&quot;</span><span class="p">,</span>             <span class="c1"># &quot;glb&quot;|&quot;gltf&quot;</span>
-    <span class="s2">&quot;fallback_texture&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>           <span class="c1"># None|&lt;FileLike&gt;|&quot;.//image.png&quot;</span>
+    <span class="s2">&quot;fallback_texture&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>           <span class="c1"># None|&lt;FileLike&gt;|&quot;./image.png&quot;</span>
     <span class="s2">&quot;no_graph_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>     <span class="c1"># True|False</span>
     <span class="s2">&quot;no_meshes_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>    <span class="c1"># True|False</span>
     <span class="s2">&quot;no_textures_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># True|False</span>
@@ -307,8 +307,8 @@ YOGA Image,</p></li>
 <li><p><strong>options</strong> (<em>dict</em>) – Optimization options (see above).</p></li>
 <li><p><strong>textures</strong> (<em>dict</em>) – A dictionnary that maps textures path to bytes. When
 not <code class="docutils literal notranslate"><span class="pre">None</span></code>, there will be no file system reads in
-order to find referenced textures. YOGA will look into
-that dictionary instead.</p></li>
+order to find referenced textures. YOGA will look
+into that dictionary instead.</p></li>
 <li><p><strong>verbose</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, Assmimp debug message will be print to
 stdout.</p></li>
 <li><p><strong>quiet</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, YOGA will not write any warning on stdout
