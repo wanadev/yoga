@@ -15,7 +15,7 @@ You can also tune the output by passing options::
     yoga.model.optimize("./input.fbx", "./output.glb", options={
         # Model options
         "output_format": "glb",             # "glb"|"gltf"
-        "fallback_texture": None,           # None|<FileLike>|".//image.png"
+        "fallback_texture": None,           # None|<FileLike>|"./image.png"
         "no_graph_optimization": False,     # True|False
         "no_meshes_optimization": False,    # True|False
         "no_textures_optimization": False,  # True|False
@@ -160,8 +160,8 @@ def optimize(input_file, output_file, options={}, textures=None,
     :param dict options: Optimization options (see above).
     :param dict textures: A dictionnary that maps textures path to bytes. When
                           not ``None``, there will be no file system reads in
-                          order to find referenced textures. YOGA will look into
-                          that dictionary instead.
+                          order to find referenced textures. YOGA will look
+                          into that dictionary instead.
     :param bool verbose: If ``True``, Assmimp debug message will be print to
                          stdout.
     :param bool quiet: If ``True``, YOGA will not write any warning on stdout
