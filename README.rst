@@ -1,7 +1,7 @@
 YOGA - Yummy Optimizer for Gorgeous Assets
 ==========================================
 
-|Build Status| |PYPI Version| |License| |Gitter|
+|Github| |Discord| |PYPI Version| |Build Status| |License|
 
 .. figure:: https://github.com/wanadev/yoga/raw/master/logo.png
    :alt:
@@ -87,11 +87,13 @@ Changelog
   output format)
 
 
-.. |Build Status| image:: https://github.com/wanadev/yoga/workflows/Python%20CI/badge.svg
-   :target: https://github.com/wanadev/yoga/actions
+.. |Github| image:: https://img.shields.io/github/stars/wanadev/yoga?label=Github&logo=github
+   :target: https://github.com/wanadev/yoga
+.. |Discord| image:: https://img.shields.io/badge/chat-Discord-8c9eff?logo=discord&logoColor=ffffff
+   :target: https://discord.gg/BmUkEdMuFp
 .. |PYPI Version| image:: https://img.shields.io/pypi/v/yoga.svg
    :target: https://pypi.python.org/pypi/yoga
+.. |Build Status| image:: https://github.com/wanadev/yoga/workflows/Python%20CI/badge.svg
+   :target: https://github.com/wanadev/yoga/actions
 .. |License| image:: https://img.shields.io/pypi/l/yoga.svg
    :target: https://github.com/wanadev/yoga/blob/master/LICENSE
-.. |Gitter| image:: https://badges.gitter.im/gitter.svg
-   :target: https://gitter.im/wanadev/yoga
