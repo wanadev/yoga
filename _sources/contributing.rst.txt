@@ -8,8 +8,10 @@ to contribute.
 Questions
 ---------
 
-If you have any question, you can `open an issue
-<https://github.com/wanadev/yoga/issues>`_ on Github.
+If you have any question, you can
+
+* `chat with us <https://discord.gg/BmUkEdMuFp>`_ on Discord,
+* or `open an issue <https://github.com/wanadev/yoga/issues>`_ on Github.
 
 
 Bugs
