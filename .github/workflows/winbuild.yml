@@ -19,9 +19,14 @@ jobs:
         with:
           python-version: 3.9
 
+      - name: "Get some useful debug information"
+        run: |
+          python -VV
+          python -c "from distutils import ccompiler; print(ccompiler.get_default_compiler())"
+
       - name: "Build YOGA Windows Standelone Version"
         run: |
-           winbuild\builddist.bat
+          winbuild\builddist.bat
 
       - name: Archive Windows Build
         uses: actions/upload-artifact@v2
