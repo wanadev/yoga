@@ -19,9 +19,9 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: "Install Python dependencies"
+      - name: "Build YOGA Windows Standelone Version"
         run: |
-          call winbuild\builddist.bat
+           winbuild\builddist.bat
 
       - name: Archive Windows Build
         uses: actions/upload-artifact@v2
