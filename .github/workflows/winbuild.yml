@@ -1,0 +1,31 @@
+name: "Windows Build"
+
+on: [push]
+
+jobs:
+
+  winbuild:
+    runs-on: windows-latest
+
+    steps:
+
+      - name: "Checkout"
+        uses: actions/checkout@v2
+
+      - name: Checkout submodules
+        uses: textbook/git-checkout-submodule-action@master
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: "Install Python dependencies"
+        run: |
+          call winbuild\builddist.bat
+
+      - name: Archive Windows Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: yoga-win-build
+          path: yogawin.dist
