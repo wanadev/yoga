@@ -1,0 +1,38 @@
+name: "Windows Build"
+
+on:
+  push:
+    branches: master
+    tags: v[0-9]+.[0-9]+.[0-9]+
+
+jobs:
+
+  winbuild:
+    runs-on: windows-latest
+
+    steps:
+
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: "Get some useful debug information"
+        run: |
+          python -VV
+          python -c "from distutils import ccompiler; print(ccompiler.get_default_compiler())"
+
+      - name: "Build YOGA Windows Standelone Version"
+        run: |
+          winbuild\builddist.bat
+
+      - name: Archive Windows Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: yoga-vX.X.X_win_standalone_x86-64
+          path: yogawin.dist
