@@ -1,6 +1,9 @@
 name: "Windows Build"
 
-on: [push]
+on:
+  push:
+    branches: master
+    tags: v[0-9]+.[0-9]+.[0-9]+
 
 jobs:
 
@@ -31,5 +34,5 @@ jobs:
       - name: Archive Windows Build
         uses: actions/upload-artifact@v2
         with:
-          name: yoga-win-build
+          name: yoga-vX.X.X_win_standalone_x86-64
           path: yogawin.dist
