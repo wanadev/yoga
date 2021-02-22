@@ -8,15 +8,6 @@ YOGA is a command-line tool that:
 * converts and optimizes 3D models from various formats to GLB.
 
 
-## Requirements
-
-Before using YOGA, you must install Microsoft Visual C++ Redistributable x64
-for Visual Studio 2019. You can download it from the Microsoft's website
-(`vc_redist.x64.exe`):
-
-* https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads
-
-
 ## Install
 
 YOGA does not need any installation. Just unzip the content of this directory
@@ -43,6 +34,10 @@ For Git Bash:
 Project page and source code:
 
 * https://github.com/wanadev/yoga
+
+Documentation:
+
+* https://wanadev.github.io/yoga/
 
 Please report any issue on our bug tracker:
 
