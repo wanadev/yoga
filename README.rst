@@ -53,6 +53,11 @@ Documentation
 Changelog
 ---------
 
+* **0.11.1:**
+
+  * Automated workflow for deploying the PyPI packages
+  * Wheel are now distributed on PyPI
+
 * **0.11.0:**
 
   * Allows to build YOGA on Windows
