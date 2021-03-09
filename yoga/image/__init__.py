@@ -174,7 +174,6 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
         output_image_bytes = pyguetzli.process_pil_image(
                 image, int(options["jpeg_quality"] * 100))
     else:
-        pass
         image_io = io.BytesIO()
         image.save(image_io, format="PNG", optimize=False)
         image_io.seek(0)
