@@ -2,18 +2,18 @@ name: "Build and deploy Github pages"
 
 on:
   push:
-    branches:
-      - master
-      - documentation
+    branches: master
 
 jobs:
 
   build-and-deploy:
+
+    name: "Build and deploy Sphinx documentation"
     runs-on: ubuntu-latest
 
     steps:
 
-      - name: "Checkout"
+      - name: "Checkout the repository"
         uses: actions/checkout@v2
         with:
           persist-credentials: false

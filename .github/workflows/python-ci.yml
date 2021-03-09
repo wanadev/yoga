@@ -1,30 +1,39 @@
-name: Python CI
+name: "Python Lint and Tests"
 
 on: [push, pull_request]
 
 jobs:
-  build:
 
-    runs-on: ubuntu-latest
+  build-and-test:
+
     strategy:
       matrix:
         python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9]
 
+    name: "Build and test YOGA"
+    runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Checkout submodules
-      uses: textbook/git-checkout-submodule-action@master
-    - name: Set up Python ${{ matrix.python-version }}
+
+      - name: "Checkout the repository"
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+    - name: "Set up Python ${{ matrix.python-version }}"
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install Nox
+
+    - name: "Install Nox"
       run: |
         pip3 install setuptools
         pip3 install nox
-    - name: Lint with flake8
+
+    - name: "Lint with flake8"
       run: |
         python3 -m nox --session lint
-    - name: Test with pytest
+
+    - name: "Test with pytest"
       run: |
         python3 -m nox --session test-${{ matrix.python-version }}
