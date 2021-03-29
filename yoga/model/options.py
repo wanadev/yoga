@@ -1,10 +1,10 @@
 DEFAULT_OPTIONS = {
-        "output_format": "glb",             # glb|gltf
-        "fallback_texture": None,
-        "no_graph_optimization": False,
-        "no_meshes_optimization": False,
-        "no_textures_optimization": False,
-        }
+    "output_format": "glb",  # glb|gltf
+    "fallback_texture": None,
+    "no_graph_optimization": False,
+    "no_meshes_optimization": False,
+    "no_textures_optimization": False,
+}
 
 
 def normalize_options(options=None):
@@ -18,7 +18,7 @@ def normalize_options(options=None):
         value = options["output_format"].lower()
 
         if value not in ("gltf", "glb"):
-            raise ValueError("Invalid value for 'output_format': '%s'" % value) # noqa
+            raise ValueError("Invalid value for 'output_format': '%s'" % value)
 
         result["output_format"] = value
 
@@ -33,8 +33,11 @@ def normalize_options(options=None):
             result["fallback_texture"] = fallback_texture_file
 
     # Optimization flags
-    for key in ("no_graph_optimization", "no_meshes_optimization",
-                "no_textures_optimization"):
+    for key in (
+        "no_graph_optimization",
+        "no_meshes_optimization",
+        "no_textures_optimization",
+    ):
         if key in options:
             result[key] = bool(options[key])
 

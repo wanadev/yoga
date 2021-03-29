@@ -45,7 +45,10 @@ def normalize_paths(paths):
     for path in paths:
         normalized_path = normalize_path(path)
         if normalized_path in normalized_paths:
-            raise ValueError("Multiple paths are resolved to the same path %s." % normalized_path) # noqa
+            raise ValueError(
+                "Multiple paths are resolved to the same path %s."
+                % normalized_path
+            )
         normalized_paths[normalized_path] = paths[path]
 
     return normalized_paths
@@ -62,7 +65,9 @@ def find_valid_path(path, paths):
     split_paths = map(lambda p: p.split("/")[::-1], paths.keys())
 
     for i, name in enumerate(split_path):
-        split_paths = list(filter(lambda sp: len(sp) > i and sp[i] == name, split_paths)) # noqa
+        split_paths = list(
+            filter(lambda sp: len(sp) > i and sp[i] == name, split_paths)
+        )
 
         if len(split_paths) == 0:
             break
@@ -80,13 +85,24 @@ def extract_files_dictionary(root_path):
         root_path = root_path.decode("utf-8")
 
     # Recursive walk of root_path files
-    files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(root_path) for f in filenames] # noqa
+    files = [
+        os.path.join(dp, f)
+        for dp, dn, filenames in os.walk(root_path)
+        for f in filenames
+    ]
     return normalize_paths(dict(zip(files, files)))
 
 
-def model_embed_images(images, images_bytes,
-                       optimize_textures, fallback_texture, root_path,
-                       image_options, textures, quiet):
+def model_embed_images(
+    images,
+    images_bytes,
+    optimize_textures,
+    fallback_texture,
+    root_path,
+    image_options,
+    textures,
+    quiet,
+):
     optimized_textures = {}
     normalized_textures = normalize_paths(textures)
     files = extract_files_dictionary(root_path)
@@ -101,7 +117,9 @@ def model_embed_images(images, images_bytes,
         # If textures exists, we don't look for files on the file system
         normalized_image_path = normalize_path(image_path)
         if normalized_textures is not None:
-            valid_image_path = find_valid_path(normalized_image_path, normalized_textures) # noqa
+            valid_image_path = find_valid_path(
+                normalized_image_path, normalized_textures
+            )
         else:
             valid_image_path = find_valid_path(normalized_image_path, files)
 
@@ -110,7 +128,10 @@ def model_embed_images(images, images_bytes,
             if fallback_texture is not None:
                 valid_image_path = None
                 if not quiet:
-                    print("Warning: Cannot resolve %s, using the fallback texture instead." % normalized_image_path) # noqa
+                    print(
+                        "Warning: Cannot resolve %s, using the fallback texture instead."  # noqa: E501
+                        % normalized_image_path
+                    )
             else:
                 raise ValueError("Cannot resolve %s" % normalized_image_path)
 

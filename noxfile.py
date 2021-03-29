@@ -1,10 +1,19 @@
 import nox
 
 
+PYTHON_FILES = [
+    "yoga",
+    "test",
+    "setup.py",
+    "noxfile.py",
+]
+
+
 @nox.session
 def lint(session):
-    session.install("flake8")
-    session.run("flake8", "yoga", "test", "noxfile.py")
+    session.install("flake8", "black")
+    session.run("flake8", *PYTHON_FILES)
+    session.run("black", "--line-length=79", "--check", *PYTHON_FILES)
 
 
 @nox.session(python=["2.7", "3.5", "3.6", "3.7", "3.8", "3.9"])

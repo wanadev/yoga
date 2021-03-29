@@ -14,8 +14,8 @@ def main():
         args.output,
         options=vars(args),
         verbose=args.verbose,
-        quiet=args.quiet
-        )
+        quiet=args.quiet,
+    )
 
 
 if __name__ == "__main__":

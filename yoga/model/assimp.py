@@ -7,11 +7,8 @@ from ._assimp import lib, ffi
 
 
 def assimp_import_from_bytes(
-        bytes_in,
-        optimize_graph,
-        optimize_meshes,
-        verbose
-        ):
+    bytes_in, optimize_graph, optimize_meshes, verbose
+):
     """Generates an abstract 3D scene from a model file's bytes.
     :param bytes_in: the input model's bytes
     :param optimize_graph: whether the graph scene should be optimized
@@ -29,7 +26,7 @@ def assimp_import_from_bytes(
 
     scene = {
         "cffi_pointer": None,
-        "cffi_gc": None
+        "cffi_gc": None,
     }
     scene["cffi_pointer"] = ffi.new("Scene*")
     scene["cffi_gc"] = ffi.gc(scene["cffi_pointer"], lib.assimp_free_scene)
@@ -39,11 +36,13 @@ def assimp_import_from_bytes(
         len(bytes_in),
         optimization_flags,
         scene["cffi_pointer"],
-        verbose
-        )
+        verbose,
+    )
 
     if scene["cffi_pointer"].assimp_scene == ffi.NULL:
-        raise ValueError("Invalid model: Assimp was not able to import the model")  # noqa
+        raise ValueError(
+            "Invalid model: Assimp was not able to import the model"
+        )
 
     return scene
 
@@ -58,21 +57,24 @@ def assimp_export_to_bytes(scene_p, output_format):
     """
 
     if output_format not in ("glb", "gltf"):
-        raise ValueError("Invalid output format: should be glb or gltf but is %s" % output_format)  # noqa
+        raise ValueError(
+            "Invalid output format: should be glb or gltf but is %s"
+            % output_format
+        )
 
-    output_format_dict = dict({
+    output_format_dict = dict(
+        {
             "glb": lib.OUTPUT_FORMAT_GLB,
-            "gltf": lib.OUTPUT_FORMAT_GLTF
-        })
+            "gltf": lib.OUTPUT_FORMAT_GLTF,
+        }
+    )
 
     bytes_out_p = ffi.new("char**")
     bytes_out_p_gc = ffi.gc(bytes_out_p, lib.assimp_free_bytes)
 
     length = lib.assimp_export_to_bytes(
-        scene_p,
-        output_format_dict[output_format],
-        bytes_out_p
-        )
+        scene_p, output_format_dict[output_format], bytes_out_p
+    )
 
     if length == 0:
         raise ValueError("Invalid model: Assimp was not able to export")

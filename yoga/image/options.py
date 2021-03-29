@@ -1,16 +1,19 @@
 import re
 
 
+# fmt: off
 DEFAULT_OPTIONS = {
-        "output_format": "orig",  # orig|auto|jpeg|png
-        "resize": "orig",         # orig|[w,h]
-        "jpeg_quality": 0.84,     # 0.00-1.00
-        "opacity_threshold": 254  # 0-255
-        }
+    "output_format": "orig",  # orig|auto|jpeg|png
+    "resize": "orig",         # orig|[w,h]
+    "jpeg_quality": 0.84,     # 0.00-1.00
+    "opacity_threshold": 254  # 0-255
+}
+# fmt: on
 
 
 _RESIZE_OPTION_REGEXP = re.compile(
-        r"^([0-9]+)[x\s:,;]([0-9]+)$", flags=re.IGNORECASE)
+    r"^([0-9]+)[x\s:,;]([0-9]+)$", flags=re.IGNORECASE
+)
 
 
 def normalize_options(options=None):
@@ -28,7 +31,7 @@ def normalize_options(options=None):
             value = "jpeg"
 
         if value not in ("orig", "auto", "jpeg", "png"):
-            raise ValueError("Invalid value for 'output_format': '%s'" % value)  # noqa
+            raise ValueError("Invalid value for 'output_format': '%s'" % value)
 
         result["output_format"] = value
 
@@ -55,9 +58,9 @@ def normalize_options(options=None):
             elif _RESIZE_OPTION_REGEXP.match(value):
                 match = _RESIZE_OPTION_REGEXP.match(value)
                 value = [
-                        int(match.group(1)),
-                        int(match.group(2)),
-                        ]
+                    int(match.group(1)),
+                    int(match.group(2)),
+                ]
             elif value != "orig":
                 raise ValueError("Invalid value for 'resize': %s" % value)
 

@@ -146,8 +146,13 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
 
     image = Image.open(input_file)
 
-    if options["output_format"] == "orig" and image.format not in ("JPEG", "PNG"):                      # noqa
-        raise ValueError("The input image must be a JPEG or a PNG when setting 'output_format' to 'orig'")    # noqa
+    if options["output_format"] == "orig" and image.format not in (
+        "JPEG",
+        "PNG",
+    ):
+        raise ValueError(
+            "The input image must be a JPEG or a PNG when setting 'output_format' to 'orig'"  # noqa: E501
+        )
 
     # resize
     if options["resize"] != "orig":
@@ -172,7 +177,8 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     output_image_bytes = None
     if output_format == "jpeg":
         output_image_bytes = pyguetzli.process_pil_image(
-                image, int(options["jpeg_quality"] * 100))
+            image, int(options["jpeg_quality"] * 100)
+        )
     else:
         image_io = io.BytesIO()
         image.save(image_io, format="PNG", optimize=False)
