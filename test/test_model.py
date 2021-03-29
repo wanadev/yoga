@@ -10,7 +10,6 @@ _MAGIC_GLB = b"glTF"
 
 
 class Test_optimize(object):
-
     def test_input_file_path(self):
         output = io.BytesIO()
         yoga.model.optimize("test/models/model.fbx", output)
@@ -31,10 +30,13 @@ class Test_optimize(object):
             output = io.BytesIO()
             yoga.model.optimize(input_, output)
 
-    @pytest.mark.parametrize("model_path", [
-        "test/models/model.fbx",
-        "test/models/model.dae",
-        ])
+    @pytest.mark.parametrize(
+        "model_path",
+        [
+            "test/models/model.fbx",
+            "test/models/model.dae",
+        ],
+    )
     def test_input_file_format(self, model_path):
         output = io.BytesIO()
         yoga.model.optimize(model_path, output)
@@ -50,9 +52,12 @@ class Test_optimize(object):
     def test_textures_dictionary(self):
         input_ = open("test/models/model.fbx", "rb")
         output = io.BytesIO()
-        yoga.model.optimize(input_, output, {}, {
-            "diffuse.jpg": open("test/models/diffuse.jpg", "rb")
-        })
+        yoga.model.optimize(
+            input_,
+            output,
+            {},
+            {"diffuse.jpg": open("test/models/diffuse.jpg", "rb")},
+        )
         input_.close()
         output.seek(0)
         assert output.read().startswith(_MAGIC_GLB)
@@ -79,18 +84,18 @@ class Test_optimize(object):
 
     def test_glb_output_format(self):
         output = io.BytesIO()
-        yoga.model.optimize("test/models/model.fbx", output, {
-            "output_format": "glb"
-            })
+        yoga.model.optimize(
+            "test/models/model.fbx", output, {"output_format": "glb"}
+        )
         output.seek(0)
         assert output.read().startswith(_MAGIC_GLB)
 
     @pytest.mark.skip("Format not supported yet")
     def test_gltf_output_format(self):
         output = io.BytesIO()
-        yoga.model.optimize("test/models/model.fbx", output, {
-            "output_format": "gltf"
-            })
+        yoga.model.optimize(
+            "test/models/model.fbx", output, {"output_format": "gltf"}
+        )
         output.seek(0)
         assert json.load(output)["asset"]["version"] == "2.0"
 

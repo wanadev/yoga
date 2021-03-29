@@ -6,7 +6,6 @@ from yoga.model import options
 
 
 class Test_normalize_options(object):
-
     def test_no_parameter_returns_default_options(self):
         opt = options.normalize_options()
 
@@ -36,7 +35,9 @@ class Test_normalize_options(object):
         opt = options.normalize_options({"fallback_texture": None})
         assert opt["fallback_texture"] is None
 
-        opt = options.normalize_options({"fallback_texture": "test/models/diffuse.jpg"}) # noqa
+        opt = options.normalize_options(
+            {"fallback_texture": "test/models/diffuse.jpg"}
+        )
         assert opt["fallback_texture"] is not None
 
         fallback_texture = io.BytesIO()
@@ -44,7 +45,9 @@ class Test_normalize_options(object):
         assert opt["fallback_texture"] is not None
 
         with pytest.raises(IOError):
-            opt = options.normalize_options({"fallback_texture": "non-existant.jpg"}) # noqa
+            opt = options.normalize_options(
+                {"fallback_texture": "non-existant.jpg"}
+            )
 
     def test_no_graph_optimization(self):
         opt = options.normalize_options({"no_graph_optimization": True})
