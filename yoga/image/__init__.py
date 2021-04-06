@@ -123,12 +123,9 @@ API
 ---
 """
 
-import io
-
 from PIL import Image
-import pyguetzli
-import zopfli
 
+from . import encoders
 from .options import normalize_options
 from .helpers import image_have_alpha
 
@@ -176,23 +173,11 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     # convert / optimize
     output_image_bytes = None
     if output_format == "jpeg":
-        output_image_bytes = pyguetzli.process_pil_image(
-            image, int(options["jpeg_quality"] * 100)
-        )
+        output_image_bytes = encoders.jpeg(image, options["jpeg_quality"])
+    elif output_format == "png":
+        output_image_bytes = encoders.png(image)
     else:
-        image_io = io.BytesIO()
-        image.save(image_io, format="PNG", optimize=False)
-        image_io.seek(0)
-        image_bytes = image_io.read()
-
-        # Optimize using zopflipng
-        zopflipng = zopfli.ZopfliPNG()
-        zopflipng.lossy_8bit = True
-        zopflipng.lossy_transparent = True
-        zopflipng.filter_strategies = "01234mepb"
-        zopflipng.iterations = 20
-        zopflipng.iterations_large = 7
-        output_image_bytes = zopflipng.optimize(image_bytes)
+        raise ValueError("Invalid output format %s" % output_format)
 
     # write to output_file
     if not hasattr(output_file, "write"):
