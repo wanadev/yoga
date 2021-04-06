@@ -12,7 +12,7 @@ def jpeg(image, quality):
 
     :returns: The encoded image's bytes.
     """
-    if not 0.00 < quality < 1.00:
+    if not 0.00 <= quality <= 1.00:
         raise ValueError("JPEG quality value must be between 0.00 and 1.00")
     return pyguetzli.process_pil_image(image, int(quality * 100))
 

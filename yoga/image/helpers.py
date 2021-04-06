@@ -57,7 +57,7 @@ def guess_image_format(image_bytes):
     if image_bytes.startswith(b"RIFF"):
         riff = get_riff_structure(image_bytes)
         if riff["formtype"] == "WEBP":
-            chunks = [chunk["id"] for chunk in riff["chunks"]]
+            chunks = [chunk["type"] for chunk in riff["chunks"]]
             if "VP8 " in chunks:
                 return "webp"
             if "VP8L" in chunks:
