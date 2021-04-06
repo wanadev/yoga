@@ -35,14 +35,14 @@ def get_riff_structure(data):
 
     while offset < len(data):
         chunk = {
-            "id": data[offset : offset + 4].decode(),
+            "type": data[offset : offset + 4].decode(),
             "data_offset": offset + 8,
-            "length": little_endian_unint32_bytes_to_python_int(
+            "size": little_endian_unint32_bytes_to_python_int(
                 data[offset + 4 : offset + 8]
             ),
         }
         result["chunks"].append(chunk)
-        offset += 8 + chunk["length"] + chunk["length"] % 2
+        offset += 8 + chunk["size"] + chunk["size"] % 2
 
     return result
 

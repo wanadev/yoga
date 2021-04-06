@@ -57,11 +57,11 @@ class Test_get_riff_structure(object):
         assert riff["formtype"] == "WEBP"
         assert riff["size"] == 11868
         assert len(riff["chunks"]) == 5
-        assert riff["chunks"][0]["id"] == "VP8X"
-        assert riff["chunks"][1]["id"] == "ICCP"
-        assert riff["chunks"][2]["id"] == "VP8L"
-        assert riff["chunks"][3]["id"] == "EXIF"
-        assert riff["chunks"][4]["id"] == "XMP "
+        assert riff["chunks"][0]["type"] == "VP8X"
+        assert riff["chunks"][1]["type"] == "ICCP"
+        assert riff["chunks"][2]["type"] == "VP8L"
+        assert riff["chunks"][3]["type"] == "EXIF"
+        assert riff["chunks"][4]["type"] == "XMP "
 
 
 class Test_guess_image_format(object):
