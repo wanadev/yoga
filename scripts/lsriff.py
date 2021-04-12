@@ -2,7 +2,7 @@
 
 import sys
 
-from yoga.image.helpers import get_riff_structure
+from yoga.image.encoders.webp import get_riff_structure
 
 
 def print_riff_info(input_path):

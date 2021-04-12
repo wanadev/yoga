@@ -125,7 +125,8 @@ API
 
 from PIL import Image
 
-from . import encoders
+from .encoders.jpeg import optimize_jpeg
+from .encoders.png import optimize_png
 from .options import normalize_options
 from .helpers import image_have_alpha
 
@@ -173,9 +174,9 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     # convert / optimize
     output_image_bytes = None
     if output_format == "jpeg":
-        output_image_bytes = encoders.jpeg(image, options["jpeg_quality"])
+        output_image_bytes = optimize_jpeg(image, options["jpeg_quality"])
     elif output_format == "png":
-        output_image_bytes = encoders.png(image)
+        output_image_bytes = optimize_png(image)
     else:
         raise ValueError("Invalid output format %s" % output_format)
 

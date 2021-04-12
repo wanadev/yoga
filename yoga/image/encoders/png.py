@@ -1,23 +1,20 @@
 import io
 
-import pyguetzli
 import zopfli
 
 
-def jpeg(image, quality):
-    """Encode image to JPEG using Guetzli.
+def is_png(file_bytes):
+    """Whether or not the given bytes represent a PNG file.
 
-    :param PIL.Image image: The image to encode.
-    :param float quality: The output JPEG quality (from ``0.00``to ``1.00``).
+    :params bytes file_bytes: The bytes of the file to check.
 
-    :returns: The encoded image's bytes.
+    :rtype: bool
+    :return: ``True`` if the bytes represent a PNG file, ``False`` else.
     """
-    if not 0.00 <= quality <= 1.00:
-        raise ValueError("JPEG quality value must be between 0.00 and 1.00")
-    return pyguetzli.process_pil_image(image, int(quality * 100))
+    return file_bytes.startswith(b"\x89PNG\r\n")
 
 
-def png(image):
+def optimize_png(image):
     """Encode image to PNG using ZopfliPNG.
 
     :param PIL.Image image: The image to encode.

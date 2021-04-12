@@ -1,4 +1,7 @@
-import struct
+from .encoders.jpeg import is_jpeg
+from .encoders.png import is_png
+from .encoders.webp import is_lossy_webp
+from .encoders.webp_lossless import is_lossless_webp
 
 
 def image_have_alpha(image, threshold=0xFE):
@@ -14,53 +17,16 @@ def image_have_alpha(image, threshold=0xFE):
     return False
 
 
-def little_endian_unint32_bytes_to_python_int(bytes_):
-    return struct.unpack("<L", bytes_)[0]
-
-
-def get_riff_structure(data):
-    if data[0:4] != b"RIFF":
-        raise ValueError("Unvalid RIFF: Not a RIFF file")
-
-    result = {
-        "formtype": data[8:12].decode(),
-        "size": little_endian_unint32_bytes_to_python_int(data[4:8]),
-        "chunks": [],
+def guess_image_format(image_bytes):
+    FORMATS = {
+        "jpeg": is_jpeg,
+        "png": is_png,
+        "webp": is_lossy_webp,
+        "webpl": is_lossless_webp,
     }
 
-    if result["size"] + 8 != len(data):
-        raise ValueError("Unvalid RIFF: Truncated data")
-
-    offset = 12  # RIFF header length
-
-    while offset < len(data):
-        chunk = {
-            "type": data[offset : offset + 4].decode(),
-            "data_offset": offset + 8,
-            "size": little_endian_unint32_bytes_to_python_int(
-                data[offset + 4 : offset + 8]
-            ),
-        }
-        result["chunks"].append(chunk)
-        offset += 8 + chunk["size"] + chunk["size"] % 2
-
-    return result
-
-
-def guess_image_format(image_bytes):
-    if image_bytes.startswith(b"\xFF\xD8\xFF\xE0"):
-        return "jpeg"
-
-    if image_bytes.startswith(b"\x89PNG\r\n"):
-        return "png"
-
-    if image_bytes.startswith(b"RIFF"):
-        riff = get_riff_structure(image_bytes)
-        if riff["formtype"] == "WEBP":
-            chunks = [chunk["type"] for chunk in riff["chunks"]]
-            if "VP8 " in chunks:
-                return "webp"
-            if "VP8L" in chunks:
-                return "webpl"
+    for format_, checker in FORMATS.items():
+        if checker(image_bytes):
+            return format_
 
     raise ValueError("Unsupported image format")
