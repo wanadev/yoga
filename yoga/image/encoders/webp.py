@@ -1,3 +1,4 @@
+import io
 import struct
 
 
@@ -64,3 +65,26 @@ def is_lossy_webp(file_bytes):
             return True
 
     return False
+
+
+def optimize_lossy_webp(image, quality):
+    """Encode image to lossy WEBP using Pillow.
+
+    :param PIL.Image image: The image to encode.
+    :param float quality: The output WEBP quality (from ``0.00``to ``1.00``).
+
+    :returns: The encoded image's bytes.
+    """
+    if not 0.00 <= quality <= 1.00:
+        raise ValueError("WEBP quality value must be between 0.00 and 1.00")
+
+    image_io = io.BytesIO()
+    image.save(
+        image_io,
+        format="WEBP",
+        lossless=False,
+        quality=int(quality * 100),
+        method=6,
+    )
+    image_io.seek(0)
+    return image_io.read()
