@@ -107,16 +107,18 @@ class Test_encode_lossy_webp(object):
         output_image_bytes = webp.optimize_lossy_webp(input_image, 0.90)
         riff = webp.get_riff_structure(output_image_bytes)
 
+        # Checks there is only wanted chunks in the file
         for chunk in riff["chunks"]:
-            assert chunk["type"] in ["VP8X", "VP8 "]
+            assert chunk["type"] in ["VP8 "]
 
     def test_unused_alpha(self):
         input_image = Image.open("test/images/unused-alpha.png")
         output_image_bytes = webp.optimize_lossy_webp(input_image, 0.90)
         riff = webp.get_riff_structure(output_image_bytes)
 
+        # Checks there is only wanted chunks in the file
         for chunk in riff["chunks"]:
-            assert chunk["type"] in ["VP8X", "VP8 "]
+            assert chunk["type"] in ["VP8 "]
 
     @pytest.mark.parametrize(
         "image_path",
@@ -130,8 +132,40 @@ class Test_encode_lossy_webp(object):
         output_image_bytes = webp.optimize_lossy_webp(input_image, 0.90)
         riff = webp.get_riff_structure(output_image_bytes)
 
+        # Checks there is only wanted chunks in the file
         for chunk in riff["chunks"]:
             assert chunk["type"] in ["VP8X", "VP8 ", "ALPH"]
+
+        # Checks that the ALPH (alpha channel) chunk is present in the file
+        alph_chunk_found = False
+        for chunk in riff["chunks"]:
+            if chunk["type"] == "ALPH":
+                alph_chunk_found = True
+        assert alph_chunk_found
+
+    @pytest.mark.parametrize(
+        "image_path",
+        [
+            "test/images/alpha.png",
+            "test/images/threshold.png",
+        ],
+    )
+    def test_alpha_vp8x_flags(self, image_path):
+        input_image = Image.open(image_path)
+        output_image_bytes = webp.optimize_lossy_webp(input_image, 0.90)
+        riff = webp.get_riff_structure(output_image_bytes)
+
+        vp8x_chunk = [c for c in riff["chunks"] if c["type"] == "VP8X"][0]
+        vp8x_data = output_image_bytes[
+            vp8x_chunk["data_offset"] : vp8x_chunk["data_offset"]
+            + vp8x_chunk["size"]
+        ]
+        vp8x_info = webp.get_vp8x_info(vp8x_data)
+        assert vp8x_info["has_alpha"] is True
+        assert vp8x_info["has_icc"] is False
+        assert vp8x_info["has_exif"] is False
+        assert vp8x_info["has_xmp"] is False
+        assert vp8x_info["has_anim"] is False
 
     def test_qualiy(self):
         input_image = Image.open("test/images/alpha.png")
