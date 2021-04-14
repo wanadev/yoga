@@ -29,6 +29,7 @@ typedef enum OutputFormat {
 typedef enum OptimizationFlag {
     OPTIMIZATION_FLAG_GRAPH = 1,
     OPTIMIZATION_FLAG_MESHES = 2,
+    FIX_FLAG_NORMALS = 4,
 } OptimizationFlag;
 
 // Import an input model.

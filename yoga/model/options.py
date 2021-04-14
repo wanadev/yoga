@@ -4,6 +4,7 @@ DEFAULT_OPTIONS = {
     "no_graph_optimization": False,
     "no_meshes_optimization": False,
     "no_textures_optimization": False,
+    "no_fix_infacing_normals": False,
 }
 
 
@@ -37,6 +38,7 @@ def normalize_options(options=None):
         "no_graph_optimization",
         "no_meshes_optimization",
         "no_textures_optimization",
+        "no_fix_infacing_normals",
     ):
         if key in options:
             result[key] = bool(options[key])

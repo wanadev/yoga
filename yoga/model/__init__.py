@@ -19,6 +19,7 @@ You can also tune the output by passing options::
         "no_graph_optimization": False,     # True|False
         "no_meshes_optimization": False,    # True|False
         "no_textures_optimization": False,  # True|False
+        "no_fix_infacing_normals": False,   # True|False
 
         # Images (textures) options
         "image_output_format": "orig",      # "orig"|"auto"|"jpeg"|"png"
@@ -118,6 +119,19 @@ Image).
     })
 
 
+no_fix_infacing_normals
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Disable infacing normals fix (This option tries to determine which meshes 
+have normal vectors that are facing inwards and inverts them.).
+
+::
+
+    yoga.model.optimize("./input.fbx", "./output.glb", options={
+        "no_fix_infacing_normals": False,
+    })
+
+
 Available Image Options
 -----------------------
 
@@ -207,6 +221,7 @@ def optimize(
         input_file,
         not model_options["no_graph_optimization"],
         not model_options["no_meshes_optimization"],
+        not model_options["no_fix_infacing_normals"],
         verbose,
     )
 

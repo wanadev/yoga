@@ -37,7 +37,6 @@ void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_fl
         | aiProcess_GenSmoothNormals
         | aiProcess_ImproveCacheLocality
         | aiProcess_RemoveRedundantMaterials
-        | aiProcess_FixInfacingNormals
         | aiProcess_FindInvalidData
         | aiProcess_GenUVCoords;
 
@@ -46,6 +45,9 @@ void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_fl
     }
     if (optimization_flags_in & OPTIMIZATION_FLAG_MESHES) {
         flags |= aiProcess_OptimizeMeshes;
+    }
+    if (optimization_flags_in & FIX_FLAG_NORMALS) {
+        flags |= aiProcess_FixInfacingNormals;
     }
 
     Importer importer;

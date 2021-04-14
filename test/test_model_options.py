@@ -87,3 +87,16 @@ class Test_normalize_options(object):
 
         opt = options.normalize_options({"no_textures_optimization": "foobar"})
         assert opt["no_textures_optimization"] is True
+
+    def test_no_fix_infacing_normals(self):
+        opt = options.normalize_options({"no_fix_infacing_normals": True})
+        assert opt["no_fix_infacing_normals"] is True
+
+        opt = options.normalize_options({"no_fix_infacing_normals": False})
+        assert opt["no_fix_infacing_normals"] is False
+
+        opt = options.normalize_options({"no_fix_infacing_normals": ""})
+        assert opt["no_fix_infacing_normals"] is False
+
+        opt = options.normalize_options({"no_fix_infacing_normals": "foobar"})
+        assert opt["no_fix_infacing_normals"] is True

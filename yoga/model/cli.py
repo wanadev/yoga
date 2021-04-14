@@ -37,3 +37,9 @@ def add_model_cli_options(parser):
         default=DEFAULT_OPTIONS["no_textures_optimization"],
         action="store_true",
     )
+    parser.add_argument(
+        "--no-fix-infacing-normals",
+        help="disable fix infacing normals",
+        default=DEFAULT_OPTIONS["no_fix_infacing_normals"],
+        action="store_true",
+    )
