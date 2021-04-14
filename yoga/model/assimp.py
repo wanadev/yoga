@@ -27,8 +27,6 @@ def assimp_import_from_bytes(
     if fix_infacing_normals:
         optimization_flags |= lib.FIX_FLAG_NORMALS
 
-    print(bin(optimization_flags))
-    
     scene = {
         "cffi_pointer": None,
         "cffi_gc": None,

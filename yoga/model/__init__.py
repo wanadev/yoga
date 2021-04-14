@@ -122,7 +122,7 @@ Image).
 no_fix_infacing_normals
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Disable infacing normals fix (This option tries to determine which meshes 
+Disable infacing normals fix (This option tries to determine which meshes
 have normal vectors that are facing inwards and inverts them.).
 
 ::
