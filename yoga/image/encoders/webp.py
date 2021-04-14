@@ -35,6 +35,36 @@ def get_riff_structure(data):
     return result
 
 
+def get_vp8x_info(data):
+    # fmt: off
+    #                   RRILEXAR
+    VP8X_FLAG_ICC   = 0b00100000  # noqa: E221
+    VP8X_FLAG_ALPHA = 0b00010000  # noqa: E221
+    VP8X_FLAG_EXIF  = 0b00001000  # noqa: E221
+    VP8X_FLAG_XMP   = 0b00000100  # noqa: E221
+    VP8X_FLAG_ANIM  = 0b00000010  # noqa: E221
+    # fmt: on
+
+    if len(data) != 10:
+        ValueError("Invaild VP8X data")
+
+    return {
+        "has_icc": bool(data[0] & VP8X_FLAG_ICC),
+        "has_alpha": bool(data[0] & VP8X_FLAG_ALPHA),
+        "has_exif": bool(data[0] & VP8X_FLAG_EXIF),
+        "has_xmp": bool(data[0] & VP8X_FLAG_XMP),
+        "has_anim": bool(data[0] & VP8X_FLAG_ANIM),
+        "canvas_width": little_endian_unint32_bytes_to_python_int(
+            data[4:7] + b"\x00"
+        )
+        + 1,
+        "canvas_height": little_endian_unint32_bytes_to_python_int(
+            data[7:10] + b"\x00"
+        )
+        + 1,
+    }
+
+
 def is_riff(file_bytes):
     """Whether or not the given bytes represent a RIFF file.
 

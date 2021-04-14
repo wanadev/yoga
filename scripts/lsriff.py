@@ -2,7 +2,7 @@
 
 import sys
 
-from yoga.image.encoders.webp import get_riff_structure
+from yoga.image.encoders.webp import get_riff_structure, get_vp8x_info
 
 
 def print_riff_info(input_path):
@@ -20,6 +20,14 @@ def print_riff_info(input_path):
             "        +-- %s [offset: %i, size: %i]"
             % (chunk["type"], chunk["data_offset"], chunk["size"])
         )
+        if chunk["type"] == "VP8X":
+            vp8x_info = get_vp8x_info(
+                image[
+                    chunk["data_offset"] : chunk["data_offset"] + chunk["size"]
+                ]
+            )
+            for key, value in vp8x_info.items():
+                print("            +-- %s: %i" % (key, value))
 
 
 if __name__ == "__main__":

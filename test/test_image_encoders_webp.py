@@ -29,6 +29,70 @@ class Test_get_riff_structure(object):
         assert riff["chunks"][4]["type"] == "XMP "
 
 
+class Test_get_vp8x_info(object):
+    def test_flag_icc(self):
+        vp8x_info = webp.get_vp8x_info(
+            b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        )
+        assert vp8x_info["has_icc"] is False
+        vp8x_info = webp.get_vp8x_info(
+            b"\x20\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        )
+        assert vp8x_info["has_icc"] is True
+
+    def test_flag_alpha(self):
+        vp8x_info = webp.get_vp8x_info(
+            b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        )
+        assert vp8x_info["has_alpha"] is False
+        vp8x_info = webp.get_vp8x_info(
+            b"\x10\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        )
+        assert vp8x_info["has_alpha"] is True
+
+    def test_flag_exif(self):
+        vp8x_info = webp.get_vp8x_info(
+            b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        )
+        assert vp8x_info["has_exif"] is False
+        vp8x_info = webp.get_vp8x_info(
+            b"\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        )
+        assert vp8x_info["has_exif"] is True
+
+    def test_flag_xmp(self):
+        vp8x_info = webp.get_vp8x_info(
+            b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        )
+        assert vp8x_info["has_xmp"] is False
+        vp8x_info = webp.get_vp8x_info(
+            b"\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        )
+        assert vp8x_info["has_xmp"] is True
+
+    def test_flag_animation(self):
+        vp8x_info = webp.get_vp8x_info(
+            b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        )
+        assert vp8x_info["has_anim"] is False
+        vp8x_info = webp.get_vp8x_info(
+            b"\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        )
+        assert vp8x_info["has_anim"] is True
+
+    def test_canvas_width(self):
+        vp8x_info = webp.get_vp8x_info(
+            b"\x00\x00\x00\x00\xAA\xBB\xCC\x00\x00\x00"
+        )
+        assert vp8x_info["canvas_width"] == 0xCCBBAA + 1
+
+    def test_canvas_height(self):
+        vp8x_info = webp.get_vp8x_info(
+            b"\x00\x00\x00\x00\x00\x00\x00\xAA\xBB\xCC"
+        )
+        assert vp8x_info["canvas_height"] == 0xCCBBAA + 1
+
+
 class Test_encode_lossy_webp(object):
     @pytest.mark.parametrize(
         "image_path",
