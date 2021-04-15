@@ -30,6 +30,8 @@ YOGA Model Command Line Interface
                             disable meshes optimization
       --no-textures-optimization
                             disable textures optimization using yoga image
+      --no-fix-infacing-normals
+                            disable fix infacing normals
 
     image options:
       --image-output-format {orig,auto,jpeg,png}
@@ -75,6 +77,18 @@ By default, YOGA optimize the 3D models and its textures. The optimizations can 
 ::
 
     yoga  model  --no-graph-optimization  --no-meshes-optimization  --no-textures-optimization  input.fbx  output.glb
+
+
+Disabling Postprocesses
+-----------------------
+
+By default, YOGA use several Postprocesses, they can be disabled using the following options:
+
+* ``--no-fix-infacing-normals``: disable fix infacing normals.
+
+::
+
+    yoga  model  --no-fix-infacing-normals  input.fbx  output.glb
 
 
 Images Options
