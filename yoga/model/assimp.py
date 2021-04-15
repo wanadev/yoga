@@ -20,13 +20,13 @@ def assimp_import_from_bytes(
     :raises ValueError: Assimp was not able to import the model
     """
 
-    optimization_flags = 0
+    flags = 0
     if optimize_graph:
-        optimization_flags |= lib.FLAG_OPTIMIZE_GRAPH
+        flags |= lib.FLAG_OPTIMIZE_GRAPH
     if optimize_meshes:
-        optimization_flags |= lib.FLAG_OPTIMIZE_MESHES
+        flags |= lib.FLAG_OPTIMIZE_MESHES
     if fix_infacing_normals:
-        optimization_flags |= lib.FLAG_FIX_INFACING_NORMALS
+        flags |= lib.FLAG_FIX_INFACING_NORMALS
 
     scene = {
         "cffi_pointer": None,
@@ -38,7 +38,7 @@ def assimp_import_from_bytes(
     lib.assimp_import_from_bytes(
         bytes_in,
         len(bytes_in),
-        optimization_flags,
+        flags,
         scene["cffi_pointer"],
         verbose,
     )

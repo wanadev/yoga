@@ -33,7 +33,7 @@ typedef enum Flag {
 } Flag;
 
 // Import an input model.
-void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_flags_in, Scene* scene_out, int verbose);
+void assimp_import_from_bytes(char* bytes_in, int length_in, int flags_in, Scene* scene_out, int verbose);
 
 // Returns *bytes_out length.
 int assimp_export_to_bytes(Scene* scene_in, OutputFormat output_format_in, char** bytes_out);
