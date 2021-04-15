@@ -100,3 +100,5 @@ class Test_optimize(object):
         assert json.load(output)["asset"]["version"] == "2.0"
 
     # TODO Tests for no_graph_optimization and such
+
+    # TODO Tests for no_fix_infacing_normals and such

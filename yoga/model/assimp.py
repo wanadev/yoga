@@ -7,22 +7,26 @@ from ._assimp import lib, ffi
 
 
 def assimp_import_from_bytes(
-    bytes_in, optimize_graph, optimize_meshes, verbose
+    bytes_in, optimize_graph, optimize_meshes, fix_infacing_normals, verbose
 ):
     """Generates an abstract 3D scene from a model file's bytes.
     :param bytes_in: the input model's bytes
     :param optimize_graph: whether the graph scene should be optimized
     :param optimize_meshes: whether the meshes geometries should be optimized
+    :param fix_infacing_normals: disable the assimp's "fix-infancing-normals"
+                                 postprocess
     :param verbose: whether verbose is active
     :returns: An abstract scene dict
     :raises ValueError: Assimp was not able to import the model
     """
 
-    optimization_flags = 0
+    flags = 0
     if optimize_graph:
-        optimization_flags |= lib.OPTIMIZATION_FLAG_GRAPH
+        flags |= lib.FLAG_OPTIMIZE_GRAPH
     if optimize_meshes:
-        optimization_flags |= lib.OPTIMIZATION_FLAG_MESHES
+        flags |= lib.FLAG_OPTIMIZE_MESHES
+    if fix_infacing_normals:
+        flags |= lib.FLAG_FIX_INFACING_NORMALS
 
     scene = {
         "cffi_pointer": None,
@@ -34,7 +38,7 @@ def assimp_import_from_bytes(
     lib.assimp_import_from_bytes(
         bytes_in,
         len(bytes_in),
-        optimization_flags,
+        flags,
         scene["cffi_pointer"],
         verbose,
     )

@@ -26,13 +26,14 @@ typedef enum OutputFormat {
     OUTPUT_FORMAT_GLB,
 } OutputFormat;
 
-typedef enum OptimizationFlag {
-    OPTIMIZATION_FLAG_GRAPH = 1,
-    OPTIMIZATION_FLAG_MESHES = 2,
-} OptimizationFlag;
+typedef enum Flag {
+    FLAG_OPTIMIZE_GRAPH = 1,
+    FLAG_OPTIMIZE_MESHES = 2,
+    FLAG_FIX_INFACING_NORMALS = 4,
+} Flag;
 
 // Import an input model.
-void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_flags_in, Scene* scene_out, int verbose);
+void assimp_import_from_bytes(char* bytes_in, int length_in, int flags_in, Scene* scene_out, int verbose);
 
 // Returns *bytes_out length.
 int assimp_export_to_bytes(Scene* scene_in, OutputFormat output_format_in, char** bytes_out);
