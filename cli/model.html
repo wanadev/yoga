@@ -93,6 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-format">Output Format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#disabling-optimizations">Disabling Optimizations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#disabling-postprocesses">Disabling Postprocesses</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#images-options">Images Options</a></li>
 </ul>
 </li>
@@ -198,6 +199,8 @@ model options:
                         disable meshes optimization
   --no-textures-optimization
                         disable textures optimization using yoga image
+  --no-fix-infacing-normals
+                        disable fix infacing normals
 
 image options:
   --image-output-format {orig,auto,jpeg,png}
@@ -238,6 +241,20 @@ image options:
 <li><p><code class="docutils literal notranslate"><span class="pre">--no-textures-optimization</span></code>: disable texture optimizations (textures will not be optimized using YOGA Image).</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">model</span>  <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">graph</span><span class="o">-</span><span class="n">optimization</span>  <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">meshes</span><span class="o">-</span><span class="n">optimization</span>  <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">textures</span><span class="o">-</span><span class="n">optimization</span>  <span class="nb">input</span><span class="o">.</span><span class="n">fbx</span>  <span class="n">output</span><span class="o">.</span><span class="n">glb</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="disabling-postprocesses">
+<h2>Disabling Postprocesses<a class="headerlink" href="#disabling-postprocesses" title="Permalink to this headline">¶</a></h2>
+<p>By default, YOGA use several postprocesses, some can be disabled using the following options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-fix-infacing-normals</span></code>: disable the “fix infacing normals”
+postprocess. This postprocess tries to determine which meshes have normal
+vectors that are facing inwards and inverts them. See the <a class="reference external" href="http://assimp.sourceforge.net/lib_html/postprocess_8h.html">assimp
+documentation</a>
+for more details.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">model</span>  <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">fix</span><span class="o">-</span><span class="n">infacing</span><span class="o">-</span><span class="n">normals</span>  <span class="nb">input</span><span class="o">.</span><span class="n">fbx</span>  <span class="n">output</span><span class="o">.</span><span class="n">glb</span>
 </pre></div>
 </div>
 </div>

@@ -98,6 +98,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#no-graph-optimization">no_graph_optimization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#no-meshes-optimization">no_meshes_optimization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#no-textures-optimization">no_textures_optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#no-fix-infacing-normals">no_fix_infacing_normals</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#available-image-options">Available Image Options</a></li>
@@ -194,6 +195,7 @@
     <span class="s2">&quot;no_graph_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>     <span class="c1"># True|False</span>
     <span class="s2">&quot;no_meshes_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>    <span class="c1"># True|False</span>
     <span class="s2">&quot;no_textures_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># True|False</span>
+    <span class="s2">&quot;no_fix_infacing_normals&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>   <span class="c1"># True|False</span>
 
     <span class="c1"># Images (textures) options</span>
     <span class="s2">&quot;image_output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>      <span class="c1"># &quot;orig&quot;|&quot;auto&quot;|&quot;jpeg&quot;|&quot;png&quot;</span>
@@ -272,6 +274,18 @@ file (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;./
 Image).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
     <span class="s2">&quot;no_textures_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="no-fix-infacing-normals">
+<h3>no_fix_infacing_normals<a class="headerlink" href="#no-fix-infacing-normals" title="Permalink to this headline">¶</a></h3>
+<p>Disables the assimp’s infacing normals fix. This postprocess tries to determine
+which meshes have normal vectors that are facing inwards and inverts them. See
+the <a class="reference external" href="http://assimp.sourceforge.net/lib_html/postprocess_8h.html">assimp documentation</a> for more
+details.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;no_fix_infacing_normals&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">})</span>
 </pre></div>
 </div>
