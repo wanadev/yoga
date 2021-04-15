@@ -40,8 +40,8 @@ def add_image_cli_options(parser, prefix=""):
     parser.add_argument(
         "--%soutput-format" % prefix,
         help="format of the output image",
-        metavar="{orig,auto,jpeg,png}",
-        choices=["orig", "auto", "jpeg", "jpg", "png"],
+        metavar="{orig,auto,jpeg,png,webp,webpl}",
+        choices=["orig", "auto", "jpeg", "jpg", "png", "webp", "webpl"],
         default=DEFAULT_OPTIONS["output_format"],
     )
     parser.add_argument(
@@ -57,6 +57,13 @@ def add_image_cli_options(parser, prefix=""):
         metavar="0-100",
         type=partial(_type_range, 0, 100),
         default=DEFAULT_OPTIONS["jpeg_quality"],
+    )
+    parser.add_argument(
+        "--%swebp-quality" % prefix,
+        help="WEBP quality if the output format is set to 'webp'",
+        metavar="0-100",
+        type=partial(_type_range, 0, 100),
+        default=DEFAULT_OPTIONS["webp_quality"],
     )
     parser.add_argument(
         "--%sopacity-threshold" % prefix,

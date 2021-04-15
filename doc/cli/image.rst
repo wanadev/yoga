@@ -16,11 +16,12 @@ YOGA Image Command Line Interface
       -h, --help            show this help message and exit
       -v, --verbose         enable verbose mode
       -q, --quiet           enable quiet mode (takes precedence over verbose)
-      --output-format {orig,auto,jpeg,png}
+      --output-format {orig,auto,jpeg,png,webp,webpl}
                             format of the output image
       --resize {orig,<SIZE>,<WIDTH>x<HEIGHT>}
                             resize the image
       --jpeg-quality 0-100  JPEG quality if the output format is set to 'jpeg'
+      --webp-quality 0-100  WEBP quality if the output format is set to 'webp'
       --opacity-threshold 0-255
                             threshold below which a pixel is considered transparent
 
@@ -92,6 +93,25 @@ The default JPEG quality is ``84%``.
 .. NOTE::
 
    This option has effect only when the output image is a JPEG.
+
+
+Output WEBP Quality
+-------------------
+
+YOGA allows you to tune the desired quality of the WEBP it outputs with the ``--webp-quality`` option. This option takes an integer between ``0`` and ``100`` as parameter:
+
+* ``0``: ugly images but smaller files,
+* ``100``: best quality images but larger files.
+
+The default WEBP quality is ``90%``.
+
+::
+
+    yoga  image  --output-format=webp  --webp-quality=90  input.png  output.webp
+
+.. NOTE::
+
+   This option has effect only when the output image is a lossy WEBP.
 
 
 Opacity Threshold
