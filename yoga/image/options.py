@@ -3,7 +3,7 @@ import re
 
 # fmt: off
 DEFAULT_OPTIONS = {
-    "output_format": "orig",  # orig|auto|jpeg|png
+    "output_format": "orig",  # orig|auto|jpeg|png|webp|webpl
     "resize": "orig",         # orig|[w,h]
     "jpeg_quality": 0.84,     # 0.00-1.00
     "webp_quality": 0.90,     # 0.00-1.00
@@ -31,7 +31,7 @@ def normalize_options(options=None):
         if value == "jpg":
             value = "jpeg"
 
-        if value not in ("orig", "auto", "jpeg", "png"):
+        if value not in ("orig", "auto", "jpeg", "png", "webp", "webpl"):
             raise ValueError("Invalid value for 'output_format': '%s'" % value)
 
         result["output_format"] = value

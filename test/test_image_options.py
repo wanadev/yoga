@@ -24,6 +24,8 @@ class Test_normalize_options(object):
             ("output_format", "AuTo", "auto"),
             ("output_format", "jpg", "jpeg"),
             ("output_format", "JPG", "jpeg"),
+            ("output_format", "WEBP", "webp"),
+            ("output_format", "WEBPL", "webpl"),
             # resize
             ("resize", "orig", "orig"),
             ("resize", "OrIg", "orig"),
