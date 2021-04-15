@@ -1,4 +1,5 @@
 import io
+import sys
 import struct
 
 
@@ -48,12 +49,18 @@ def get_vp8x_info(data):
     if len(data) != 10:
         ValueError("Invaild VP8X data")
 
+    # TODO Remove this once Python 2.7 support is dropped
+    if sys.version_info.major == 2:
+        _py27_str_to_int_fix = ord
+    else:
+        _py27_str_to_int_fix = lambda b: b  # noqa: E731
+
     return {
-        "has_icc": bool(data[0] & VP8X_FLAG_ICC),
-        "has_alpha": bool(data[0] & VP8X_FLAG_ALPHA),
-        "has_exif": bool(data[0] & VP8X_FLAG_EXIF),
-        "has_xmp": bool(data[0] & VP8X_FLAG_XMP),
-        "has_anim": bool(data[0] & VP8X_FLAG_ANIM),
+        "has_icc": bool(_py27_str_to_int_fix(data[0]) & VP8X_FLAG_ICC),
+        "has_alpha": bool(_py27_str_to_int_fix(data[0]) & VP8X_FLAG_ALPHA),
+        "has_exif": bool(_py27_str_to_int_fix(data[0]) & VP8X_FLAG_EXIF),
+        "has_xmp": bool(_py27_str_to_int_fix(data[0]) & VP8X_FLAG_XMP),
+        "has_anim": bool(_py27_str_to_int_fix(data[0]) & VP8X_FLAG_ANIM),
         "canvas_width": little_endian_unint32_bytes_to_python_int(
             data[4:7] + b"\x00"
         )
