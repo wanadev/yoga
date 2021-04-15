@@ -39,6 +39,18 @@ class Test_normalize_options(object):
             ("jpeg_quality", u"0.42", 0.42),
             ("jpeg_quality", u".42", 0.42),
             ("jpeg_quality", u"42", 0.42),
+            # webp_quality
+            ("webp_quality", 0.42, 0.42),
+            ("webp_quality", 42, 0.42),
+            ("webp_quality", "0.42", 0.42),
+            ("webp_quality", ".42", 0.42),
+            ("webp_quality", "42", 0.42),
+            ("webp_quality", b"0.42", 0.42),
+            ("webp_quality", b".42", 0.42),
+            ("webp_quality", b"42", 0.42),
+            ("webp_quality", u"0.42", 0.42),
+            ("webp_quality", u".42", 0.42),
+            ("webp_quality", u"42", 0.42),
             # opacity_threshold
             ("opacity_threshold", 128, 128),
             ("opacity_threshold", 0.5, 128),

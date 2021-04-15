@@ -6,6 +6,7 @@ DEFAULT_OPTIONS = {
     "output_format": "orig",  # orig|auto|jpeg|png
     "resize": "orig",         # orig|[w,h]
     "jpeg_quality": 0.84,     # 0.00-1.00
+    "webp_quality": 0.90,     # 0.00-1.00
     "opacity_threshold": 254  # 0-255
 }
 # fmt: on
@@ -85,6 +86,23 @@ def normalize_options(options=None):
             value = 1
 
         result["jpeg_quality"] = value
+
+    # 0-100 -> 0.00-1.00
+    # 110   -> 1.00
+    # "100" -> 1.00
+    if "webp_quality" in options:
+        value = options["webp_quality"]
+
+        if type(value) in (str, type(u""), bytes):
+            value = float(value)
+
+        if value > 1:
+            value = value / 100.0
+
+        if value > 1:
+            value = 1
+
+        result["webp_quality"] = value
 
     # 0.00-1.00[ -> 0-255
     # 300        -> 255
