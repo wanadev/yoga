@@ -82,9 +82,13 @@ By default, YOGA optimize the 3D models and its textures. The optimizations can 
 Disabling Postprocesses
 -----------------------
 
-By default, YOGA use several Postprocesses, they can be disabled using the following options:
+By default, YOGA use several postprocesses, some can be disabled using the following options:
 
-* ``--no-fix-infacing-normals``: disable fix infacing normals.
+* ``--no-fix-infacing-normals``: disable the "fix infacing normals"
+  postprocess. This postprocess tries to determine which meshes have normal
+  vectors that are facing inwards and inverts them. See the `assimp
+  documentation <http://assimp.sourceforge.net/lib_html/postprocess_8h.html>`_
+  for more details.
 
 ::
 
