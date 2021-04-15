@@ -93,6 +93,20 @@ class Test_get_vp8x_info(object):
         assert vp8x_info["canvas_height"] == 0xCCBBAA + 1
 
 
+class Test_is_lossy_webp(object):
+    def test_with_lossy_webp(object):
+        image_bytes = open("test/images/alpha.lossy.webp", "rb").read()
+        assert webp.is_lossy_webp(image_bytes) is True
+
+    def test_with_lossless_webp(object):
+        image_bytes = open("test/images/alpha.lossless.webp", "rb").read()
+        assert webp.is_lossy_webp(image_bytes) is False
+
+    def test_with_png(object):
+        image_bytes = open("test/images/alpha.png", "rb").read()
+        assert webp.is_lossy_webp(image_bytes) is False
+
+
 class Test_encode_lossy_webp(object):
     @pytest.mark.parametrize(
         "image_path",

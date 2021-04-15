@@ -1,4 +1,7 @@
-from .webp import is_riff, get_riff_structure
+import io
+
+from .webp import is_riff
+from .webp import get_riff_structure
 
 
 def is_lossless_webp(file_bytes):
@@ -21,3 +24,22 @@ def is_lossless_webp(file_bytes):
             return True
 
     return False
+
+
+def optimize_lossless_webp(image):
+    """Encode image to lossless WEBP using Pillow.
+
+    :param PIL.Image image: The image to encode.
+
+    :returns: The encoded image's bytes.
+    """
+    image_io = io.BytesIO()
+    image.save(
+        image_io,
+        format="WEBP",
+        lossless=True,
+        quality=100,
+        method=6,
+    )
+    image_io.seek(0)
+    return image_io.read()
