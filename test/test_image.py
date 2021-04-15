@@ -5,10 +5,8 @@ import pytest
 from PIL import Image
 
 import yoga.image
-
-
-_MAGIC_PNG = b"\x89PNG\r\n"
-_MAGIC_JPEG = b"\xFF\xD8\xFF\xE0"
+from yoga.image.encoders.jpeg import is_jpeg
+from yoga.image.encoders.png import is_png
 
 
 class Test_optimize(object):
@@ -24,13 +22,13 @@ class Test_optimize(object):
         output = io.BytesIO()
         yoga.image.optimize(input_, output)
         output.seek(0)
-        assert output.read().startswith(_MAGIC_PNG)
+        assert is_png(output.read())
 
     def test_output_path(self, tmpdir):
         output_path = os.path.join(str(tmpdir), "output1.png")
         yoga.image.optimize("test/images/alpha.png", output_path)
         output = open(output_path, "rb")
-        assert output.read().startswith(_MAGIC_PNG)
+        assert is_png(output.read())
 
     def test_output_file(self, tmpdir):
         output_path = os.path.join(str(tmpdir), "output2.png")
@@ -38,48 +36,48 @@ class Test_optimize(object):
         yoga.image.optimize("test/images/alpha.png", output)
         output.close()
         output = open(output_path, "rb")
-        assert output.read().startswith(_MAGIC_PNG)
+        assert is_png(output.read())
 
     def test_output_bytesio(self):
         output = io.BytesIO()
         yoga.image.optimize("test/images/alpha.png", output)
         output.seek(0)
-        assert output.read().startswith(_MAGIC_PNG)
+        assert is_png(output.read())
 
     @pytest.mark.parametrize(
-        "image_path,magic",
+        "image_path,format_checker",
         [
-            ("test/images/image1.jpg", _MAGIC_JPEG),
-            ("test/images/unused-alpha.png", _MAGIC_PNG),
+            ("test/images/image1.jpg", is_jpeg),
+            ("test/images/unused-alpha.png", is_png),
         ],
     )
-    def test_option_output_format_default(self, image_path, magic):
+    def test_option_output_format_default(self, image_path, format_checker):
         output = io.BytesIO()
         yoga.image.optimize(image_path, output)
         output.seek(0)
-        assert output.read().startswith(magic)
+        assert format_checker(output.read())
 
     @pytest.mark.parametrize(
-        "image_path,format_,magic",
+        "image_path,format_,format_checker",
         [
             # fmt: off
-            ("test/images/image1.jpg",       "orig", _MAGIC_JPEG),
-            ("test/images/unused-alpha.png", "orig", _MAGIC_PNG),
-            ("test/images/alpha.png",        "auto", _MAGIC_PNG),
-            ("test/images/unused-alpha.png", "auto", _MAGIC_JPEG),
-            ("test/images/image1.jpg",       "auto", _MAGIC_JPEG),
-            ("test/images/image1.jpg",       "jpeg", _MAGIC_JPEG),
-            ("test/images/unused-alpha.png", "jpeg", _MAGIC_JPEG),
-            ("test/images/image1.jpg",       "png",  _MAGIC_PNG),
-            ("test/images/unused-alpha.png", "png",  _MAGIC_PNG),
+            ("test/images/image1.jpg",       "orig", is_jpeg),
+            ("test/images/unused-alpha.png", "orig", is_png),
+            ("test/images/alpha.png",        "auto", is_png),
+            ("test/images/unused-alpha.png", "auto", is_jpeg),
+            ("test/images/image1.jpg",       "auto", is_jpeg),
+            ("test/images/image1.jpg",       "jpeg", is_jpeg),
+            ("test/images/unused-alpha.png", "jpeg", is_jpeg),
+            ("test/images/image1.jpg",       "png",  is_png),
+            ("test/images/unused-alpha.png", "png",  is_png),
             # fmt: on
         ],
     )
-    def test_option_output_format(self, image_path, format_, magic):
+    def test_option_output_format(self, image_path, format_, format_checker):
         output = io.BytesIO()
         yoga.image.optimize(image_path, output, {"output_format": format_})
         output.seek(0)
-        assert output.read().startswith(magic)
+        assert format_checker(output.read())
 
     def test_option_output_format_orig_with_unsuported_output_format(self):
         output = io.BytesIO()
