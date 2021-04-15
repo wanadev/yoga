@@ -128,7 +128,7 @@ from PIL import Image
 from .encoders.jpeg import optimize_jpeg
 from .encoders.png import optimize_png
 from .options import normalize_options
-from .helpers import image_have_alpha
+from . import helpers
 
 
 def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
@@ -142,46 +142,47 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     """
     options = normalize_options(options)
 
-    image = Image.open(input_file)
+    # Image as file-like object
+    if type(input_file) in (str, type(u"")):
+        image_file = open(input_file, "rb")
+    elif hasattr(input_file, "read") and hasattr(input_file, "seek"):
+        image_file = input_file
+    else:
+        raise ValueError("Unsupported parameter type for 'input_file'")
 
-    if options["output_format"] == "orig" and image.format not in (
-        "JPEG",
-        "PNG",
-    ):
-        raise ValueError(
-            "The input image must be a JPEG or a PNG when setting 'output_format' to 'orig'"  # noqa: E501
-        )
+    # Open the image with Pillow
+    image = Image.open(image_file)
 
-    # resize
+    # Resize image if requested
     if options["resize"] != "orig":
         image.thumbnail(options["resize"], Image.LANCZOS)
 
-    # output format
-    output_format = None
-
+    # Output format
     if options["output_format"] == "orig":
-        output_format = image.format.lower()
-    elif options["output_format"] in ("jpeg", "png"):
-        output_format = options["output_format"]
-    else:  # auto
-        if image_have_alpha(image, options["opacity_threshold"]):
+        image_file.seek(0)  # PIL.Image already read the file
+        output_format = helpers.guess_image_format(image_file.read())
+    elif options["output_format"] == "auto":
+        if helpers.image_have_alpha(image, options["opacity_threshold"]):
             output_format = "png"
         else:
-            # XXX Maybe we should try to encode in both format
-            # and choose the smaller output?
+            # XXX Maybe we should try to encode in both format and choose the
+            # smaller output?
             output_format = "jpeg"
+    else:
+        output_format = options["output_format"]
 
-    # convert / optimize
-    output_image_bytes = None
+    # Convert / Optimize
     if output_format == "jpeg":
         output_image_bytes = optimize_jpeg(image, options["jpeg_quality"])
     elif output_format == "png":
         output_image_bytes = optimize_png(image)
-    else:
-        raise ValueError("Invalid output format %s" % output_format)
 
-    # write to output_file
+    # Write to output_file
     if not hasattr(output_file, "write"):
         output_file = open(output_file, "wb")
 
     output_file.write(output_image_bytes)
+
+    # Close input file if we opened it
+    if type(input_file) in (str, type(u"")):
+        image_file.close()
