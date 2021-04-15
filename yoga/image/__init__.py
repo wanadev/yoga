@@ -12,7 +12,7 @@ Converting and optimizing an image::
 You can also tune the output by passing options::
 
     yoga.image.optimize("./input.png", "./output.png", options={
-        "output_format": "orig",   # "orig"|"auto"|"jpeg"|"png"
+        "output_format": "orig",   # "orig"|"auto"|"jpeg"|"png"|"webp"|"webpl
         "resize": "orig",          # "orig"|[width,height]
         "jpeg_quality": 0.84,      # 0.00-1.0
         "opacity_threshold": 254,  # 0-255
@@ -43,6 +43,8 @@ The following formats are supported:
   PNG if the input image is using transparency, else it will generate a JPEG.
 * ``png``: Outputs a PNG image.
 * ``jpeg``: Outputs a JPEG image.
+* ``webp`` Outputs a lossy WEBP image.
+* ``webpl`` Outputs a lossless WEBP image.
 
 .. NOTE::
 
@@ -100,6 +102,28 @@ The value is a number between ``0.00`` and ``1.00`` (``0.84`` by default):
    This option has effect only when the output image is a JPEG.
 
 
+webp_quality
+~~~~~~~~~~~~
+
+The quality of the output WEBPs.
+
+The value is a number between ``0.00`` and ``1.00`` (``0.90`` by default):
+
+* ``0.00``: ugly images but smaller files,
+* ``1.00``: best quality images but larger files.
+
+::
+
+    yoga.image.optimize("./input.png", "./output.webp", options={
+        "output_format": "webp",
+        "webp_quality": 0.90,
+    })
+
+.. NOTE::
+
+   This option has effect only when the output image is a lossy WEBP.
+
+
 opacity_threshold
 ~~~~~~~~~~~~~~~~~
 
@@ -127,6 +151,8 @@ from PIL import Image
 
 from .encoders.jpeg import optimize_jpeg
 from .encoders.png import optimize_png
+from .encoders.webp import optimize_lossy_webp
+from .encoders.webp_lossless import optimize_lossless_webp
 from .options import normalize_options
 from . import helpers
 
@@ -176,6 +202,12 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
         output_image_bytes = optimize_jpeg(image, options["jpeg_quality"])
     elif output_format == "png":
         output_image_bytes = optimize_png(image)
+    elif output_format == "webp":
+        output_image_bytes = optimize_lossy_webp(
+            image, options["webp_quality"]
+        )
+    elif output_format == "webpl":
+        output_image_bytes = optimize_lossless_webp(image)
 
     # Write to output_file
     if not hasattr(output_file, "write"):

@@ -7,6 +7,8 @@ from PIL import Image
 import yoga.image
 from yoga.image.encoders.jpeg import is_jpeg
 from yoga.image.encoders.png import is_png
+from yoga.image.encoders.webp import is_lossy_webp
+from yoga.image.encoders.webp_lossless import is_lossless_webp
 
 
 class Test_optimize(object):
@@ -49,6 +51,8 @@ class Test_optimize(object):
         [
             ("test/images/image1.jpg", is_jpeg),
             ("test/images/unused-alpha.png", is_png),
+            ("test/images/alpha.lossy.webp", is_lossy_webp),
+            ("test/images/alpha.lossless.webp", is_lossless_webp),
         ],
     )
     def test_option_output_format_default(self, image_path, format_checker):
@@ -61,15 +65,19 @@ class Test_optimize(object):
         "image_path,format_,format_checker",
         [
             # fmt: off
-            ("test/images/image1.jpg",       "orig", is_jpeg),
-            ("test/images/unused-alpha.png", "orig", is_png),
-            ("test/images/alpha.png",        "auto", is_png),
-            ("test/images/unused-alpha.png", "auto", is_jpeg),
-            ("test/images/image1.jpg",       "auto", is_jpeg),
-            ("test/images/image1.jpg",       "jpeg", is_jpeg),
-            ("test/images/unused-alpha.png", "jpeg", is_jpeg),
-            ("test/images/image1.jpg",       "png",  is_png),
-            ("test/images/unused-alpha.png", "png",  is_png),
+            ("test/images/image1.jpg",          "orig",  is_jpeg),
+            ("test/images/unused-alpha.png",    "orig",  is_png),
+            ("test/images/alpha.png",           "auto",  is_png),
+            ("test/images/unused-alpha.png",    "auto",  is_jpeg),
+            ("test/images/image1.jpg",          "auto",  is_jpeg),
+            ("test/images/image1.jpg",          "jpeg",  is_jpeg),
+            ("test/images/unused-alpha.png",    "jpeg",  is_jpeg),
+            ("test/images/image1.jpg",          "png",   is_png),
+            ("test/images/unused-alpha.png",    "png",   is_png),
+            ("test/images/alpha.lossy.webp",    "webp",  is_lossy_webp),
+            ("test/images/alpha.lossy.webp",    "orig",  is_lossy_webp),
+            ("test/images/alpha.lossless.webp", "webpl", is_lossless_webp),
+            ("test/images/alpha.lossless.webp", "orig",  is_lossless_webp),
             # fmt: on
         ],
     )
@@ -127,6 +135,21 @@ class Test_optimize(object):
         output2 = io.BytesIO()
         yoga.image.optimize(
             "test/images/image1.jpg", output2, {"jpeg_quality": 0.50}
+        )
+        output2.seek(0)
+
+        assert len(output2.read()) < len(output1.read())
+
+    def test_webp_quality(self):
+        output1 = io.BytesIO()
+        yoga.image.optimize(
+            "test/images/alpha.lossy.webp", output1, {"webp_quality": 1.00}
+        )
+        output1.seek(0)
+
+        output2 = io.BytesIO()
+        yoga.image.optimize(
+            "test/images/alpha.lossy.webp", output2, {"webp_quality": 0.50}
         )
         output2.seek(0)
 
