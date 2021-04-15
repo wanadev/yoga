@@ -33,7 +33,7 @@ def normalize_options(options=None):
 
             result["fallback_texture"] = fallback_texture_file
 
-    # Optimization flags
+    # Flags
     for key in (
         "no_graph_optimization",
         "no_meshes_optimization",

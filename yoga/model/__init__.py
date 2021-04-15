@@ -122,8 +122,11 @@ Image).
 no_fix_infacing_normals
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Disable infacing normals fix (This option tries to determine which meshes
-have normal vectors that are facing inwards and inverts them.).
+Disables the assimp's infacing normals fix. This postprocess tries to determine
+which meshes have normal vectors that are facing inwards and inverts them. See
+the `assimp documentation
+<http://assimp.sourceforge.net/lib_html/postprocess_8h.html>`_ for more
+details.
 
 ::
 

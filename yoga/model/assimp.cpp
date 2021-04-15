@@ -22,7 +22,7 @@ ImageNode* extract_image_nodes(aiScene* pScene);
 void import_image_nodes(aiScene* pScene, ImageNode* images);
 void add_texture(aiScene* pScene, char* bytes, int bytes_length);
 
-void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_flags_in, Scene* scene_out, int verbose) {
+void assimp_import_from_bytes(char* bytes_in, int length_in, int flags_in, Scene* scene_out, int verbose) {
     // Enable verbose mode if asked
     if (verbose) {
         DefaultLogger::create(nullptr, Logger::NORMAL, aiDefaultLogStream_STDOUT);
@@ -40,13 +40,13 @@ void assimp_import_from_bytes(char* bytes_in, int length_in, int optimization_fl
         | aiProcess_FindInvalidData
         | aiProcess_GenUVCoords;
 
-    if (optimization_flags_in & OPTIMIZATION_FLAG_GRAPH) {
+    if (flags_in & FLAG_OPTIMIZE_GRAPH) {
         flags |= aiProcess_OptimizeGraph;
     }
-    if (optimization_flags_in & OPTIMIZATION_FLAG_MESHES) {
+    if (flags_in & FLAG_OPTIMIZE_MESHES) {
         flags |= aiProcess_OptimizeMeshes;
     }
-    if (optimization_flags_in & FIX_FLAG_NORMALS) {
+    if (flags_in & FLAG_FIX_INFACING_NORMALS) {
         flags |= aiProcess_FixInfacingNormals;
     }
 
