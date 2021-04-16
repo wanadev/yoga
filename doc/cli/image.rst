@@ -35,9 +35,9 @@ The simplest way to optimize an image is by using the following command::
 
 .. NOTE::
 
-   When the output format is not specified, YOGA outputs an image using the same format as the input one (``PNG`` → ``PNG``, ``JPEG`` → ``JPEG``).
+   When the output format is not specified, YOGA outputs an image using the same format as the input one (``PNG`` → ``PNG``, ``JPEG`` → ``JPEG``, ``WEBP`` → ``WEBP``, ``WEBP (lossless)`` → ``WEBP (lossless)``).
 
-   Only PNGs and JPEGs are supported as input when the output format is not explicitly specified.
+   Only PNGs, JPEGs and WEBPs are supported as input when the output format is not explicitly specified.
 
 
 Output Format
@@ -53,10 +53,12 @@ The following formats are supported:
 * ``auto``: The output format is automatically selected. YOGA will generate a PNG if the input image is using transparency, else it will generate a JPEG.
 * ``png``: Outputs a PNG image.
 * ``jpeg``: Outputs a JPEG image.
+* ``webp``: Outputs a lossy WEBP image.
+* ``webpl``: Outputs a lossless WEBP image.
 
 .. NOTE::
 
-   When using the ``"orig"`` output format, YOGA will only accept PNGs and JPEGs images as input.
+   When using the ``"orig"`` output format, YOGA will only accept PNG, JPEG and WEBP images as input.
 
 
 Resize Output Image

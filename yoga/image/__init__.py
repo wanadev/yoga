@@ -15,6 +15,7 @@ You can also tune the output by passing options::
         "output_format": "orig",   # "orig"|"auto"|"jpeg"|"png"|"webp"|"webpl
         "resize": "orig",          # "orig"|[width,height]
         "jpeg_quality": 0.84,      # 0.00-1.0
+        "webp_quality": 0.90,      # 0.00-1.0
         "opacity_threshold": 254,  # 0-255
     })
 
@@ -48,8 +49,8 @@ The following formats are supported:
 
 .. NOTE::
 
-   When using the ``"orig"`` output format, YOGA will only accept PNGs and
-   JPEGs images as input.
+   When using the ``"orig"`` output format, YOGA will only accept PNG, JPEG and
+   WEBP images as input.
 
 
 resize
