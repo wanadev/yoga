@@ -77,7 +77,7 @@ setup(
     url="https://github.com/wanadev/yoga",
     license="BSD-3-Clause",
     long_description=long_description,
-    keywords="image jpeg png optimizer guetzli zopfli 3d model mesh assimp gltf glb converter",  # noqa
+    keywords="image webp jpeg png optimizer guetzli zopfli zopflipng libwebp 3d model mesh assimp gltf glb converter",
     author="Wanadev",
     author_email="contact@wanadev.fr",
     maintainer="Fabien LOISON, Alexis BREUST",

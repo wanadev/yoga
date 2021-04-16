@@ -1,3 +1,9 @@
+from .encoders.jpeg import is_jpeg
+from .encoders.png import is_png
+from .encoders.webp import is_lossy_webp
+from .encoders.webp_lossless import is_lossless_webp
+
+
 def image_have_alpha(image, threshold=0xFE):
     if threshold <= 0:
         return False
@@ -11,10 +17,16 @@ def image_have_alpha(image, threshold=0xFE):
     return False
 
 
-def guess_image_format(image_initial_bytes):
-    if image_initial_bytes.startswith(b"\xFF\xD8\xFF\xE0"):
-        return "jpeg"
-    elif image_initial_bytes.startswith(b"\x89PNG\r\n"):
-        return "png"
-    else:
-        raise ValueError("Unsupported image format")
+def guess_image_format(image_bytes):
+    FORMATS = {
+        "jpeg": is_jpeg,
+        "png": is_png,
+        "webp": is_lossy_webp,
+        "webpl": is_lossless_webp,
+    }
+
+    for format_, checker in FORMATS.items():
+        if checker(image_bytes):
+            return format_
+
+    raise ValueError("Unsupported image format")

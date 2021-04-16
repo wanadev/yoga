@@ -8,11 +8,11 @@ YOGA - Yummy Optimizer for Gorgeous Assets
 
 **YOGA** is a command-line tool and a library that can:
 
-* convert and optimize images from various format to JPEG and PNG,
+* convert and optimize images from various format to JPEG, PNG and WEBP,
 * convert and optimize 3D models from various formats to `glTF and GLB`_.
 
-**Images** are opened using Pillow_ and optimized using Guetzli_ (for JPEGs) and
-Zopflipng_ (for PNGs).
+**Images** are opened using Pillow_ and optimized using Guetzli_ (for JPEGs),
+Zopflipng_ (for PNGs) and libwebp_ (for WEBP).
 
 **3D Models** are converted and optimized using assimp_. If models contain or
 reference images, they are processed by YOGA's image optimizer.
@@ -33,6 +33,7 @@ EXAMPLE: Converting and optimizing a 3D model from CLI::
 .. _Pillow: https://github.com/python-pillow/Pillow
 .. _Guetzli: https://github.com/google/guetzli
 .. _Zopflipng: https://github.com/google/zopfli
+.. _libwebp: https://chromium.googlesource.com/webm/libwebp/
 .. _assimp: https://github.com/assimp/assimp
 
 

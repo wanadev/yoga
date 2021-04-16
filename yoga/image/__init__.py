@@ -12,9 +12,10 @@ Converting and optimizing an image::
 You can also tune the output by passing options::
 
     yoga.image.optimize("./input.png", "./output.png", options={
-        "output_format": "orig",   # "orig"|"auto"|"jpeg"|"png"
+        "output_format": "orig",   # "orig"|"auto"|"jpeg"|"png"|"webp"|"webpl
         "resize": "orig",          # "orig"|[width,height]
         "jpeg_quality": 0.84,      # 0.00-1.0
+        "webp_quality": 0.90,      # 0.00-1.0
         "opacity_threshold": 254,  # 0-255
     })
 
@@ -43,11 +44,13 @@ The following formats are supported:
   PNG if the input image is using transparency, else it will generate a JPEG.
 * ``png``: Outputs a PNG image.
 * ``jpeg``: Outputs a JPEG image.
+* ``webp`` Outputs a lossy WEBP image.
+* ``webpl`` Outputs a lossless WEBP image.
 
 .. NOTE::
 
-   When using the ``"orig"`` output format, YOGA will only accept PNGs and
-   JPEGs images as input.
+   When using the ``"orig"`` output format, YOGA will only accept PNG, JPEG and
+   WEBP images as input.
 
 
 resize
@@ -100,6 +103,28 @@ The value is a number between ``0.00`` and ``1.00`` (``0.84`` by default):
    This option has effect only when the output image is a JPEG.
 
 
+webp_quality
+~~~~~~~~~~~~
+
+The quality of the output WEBPs.
+
+The value is a number between ``0.00`` and ``1.00`` (``0.90`` by default):
+
+* ``0.00``: ugly images but smaller files,
+* ``1.00``: best quality images but larger files.
+
+::
+
+    yoga.image.optimize("./input.png", "./output.webp", options={
+        "output_format": "webp",
+        "webp_quality": 0.90,
+    })
+
+.. NOTE::
+
+   This option has effect only when the output image is a lossy WEBP.
+
+
 opacity_threshold
 ~~~~~~~~~~~~~~~~~
 
@@ -123,14 +148,14 @@ API
 ---
 """
 
-import io
-
 from PIL import Image
-import pyguetzli
-import zopfli
 
+from .encoders.jpeg import optimize_jpeg
+from .encoders.png import optimize_png
+from .encoders.webp import optimize_lossy_webp
+from .encoders.webp_lossless import optimize_lossless_webp
 from .options import normalize_options
-from .helpers import image_have_alpha
+from . import helpers
 
 
 def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
@@ -144,58 +169,53 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     """
     options = normalize_options(options)
 
-    image = Image.open(input_file)
+    # Image as file-like object
+    if type(input_file) in (str, type(u"")):
+        image_file = open(input_file, "rb")
+    elif hasattr(input_file, "read") and hasattr(input_file, "seek"):
+        image_file = input_file
+    else:
+        raise ValueError("Unsupported parameter type for 'input_file'")
 
-    if options["output_format"] == "orig" and image.format not in (
-        "JPEG",
-        "PNG",
-    ):
-        raise ValueError(
-            "The input image must be a JPEG or a PNG when setting 'output_format' to 'orig'"  # noqa: E501
-        )
+    # Open the image with Pillow
+    image = Image.open(image_file)
 
-    # resize
+    # Resize image if requested
     if options["resize"] != "orig":
         image.thumbnail(options["resize"], Image.LANCZOS)
 
-    # output format
-    output_format = None
-
+    # Output format
     if options["output_format"] == "orig":
-        output_format = image.format.lower()
-    elif options["output_format"] in ("jpeg", "png"):
-        output_format = options["output_format"]
-    else:  # auto
-        if image_have_alpha(image, options["opacity_threshold"]):
+        image_file.seek(0)  # PIL.Image already read the file
+        output_format = helpers.guess_image_format(image_file.read())
+    elif options["output_format"] == "auto":
+        if helpers.image_have_alpha(image, options["opacity_threshold"]):
             output_format = "png"
         else:
-            # XXX Maybe we should try to encode in both format
-            # and choose the smaller output?
+            # XXX Maybe we should try to encode in both format and choose the
+            # smaller output?
             output_format = "jpeg"
-
-    # convert / optimize
-    output_image_bytes = None
-    if output_format == "jpeg":
-        output_image_bytes = pyguetzli.process_pil_image(
-            image, int(options["jpeg_quality"] * 100)
-        )
     else:
-        image_io = io.BytesIO()
-        image.save(image_io, format="PNG", optimize=False)
-        image_io.seek(0)
-        image_bytes = image_io.read()
+        output_format = options["output_format"]
 
-        # Optimize using zopflipng
-        zopflipng = zopfli.ZopfliPNG()
-        zopflipng.lossy_8bit = True
-        zopflipng.lossy_transparent = True
-        zopflipng.filter_strategies = "01234mepb"
-        zopflipng.iterations = 20
-        zopflipng.iterations_large = 7
-        output_image_bytes = zopflipng.optimize(image_bytes)
+    # Convert / Optimize
+    if output_format == "jpeg":
+        output_image_bytes = optimize_jpeg(image, options["jpeg_quality"])
+    elif output_format == "png":
+        output_image_bytes = optimize_png(image)
+    elif output_format == "webp":
+        output_image_bytes = optimize_lossy_webp(
+            image, options["webp_quality"]
+        )
+    elif output_format == "webpl":
+        output_image_bytes = optimize_lossless_webp(image)
 
-    # write to output_file
+    # Write to output_file
     if not hasattr(output_file, "write"):
         output_file = open(output_file, "wb")
 
     output_file.write(output_image_bytes)
+
+    # Close input file if we opened it
+    if type(input_file) in (str, type(u"")):
+        image_file.close()
