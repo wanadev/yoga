@@ -95,6 +95,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#output-format">output_format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#resize">resize</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#jpeg-quality">jpeg_quality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#webp-quality">webp_quality</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#opacity-threshold">opacity_threshold</a></li>
 </ul>
 </li>
@@ -186,9 +187,10 @@
 </div>
 <p>You can also tune the output by passing options:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.png&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.png&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
-    <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>   <span class="c1"># &quot;orig&quot;|&quot;auto&quot;|&quot;jpeg&quot;|&quot;png&quot;</span>
+    <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>   <span class="c1"># &quot;orig&quot;|&quot;auto&quot;|&quot;jpeg&quot;|&quot;png&quot;|&quot;webp&quot;|&quot;webpl</span>
     <span class="s2">&quot;resize&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>          <span class="c1"># &quot;orig&quot;|[width,height]</span>
     <span class="s2">&quot;jpeg_quality&quot;</span><span class="p">:</span> <span class="mf">0.84</span><span class="p">,</span>      <span class="c1"># 0.00-1.0</span>
+    <span class="s2">&quot;webp_quality&quot;</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">,</span>      <span class="c1"># 0.00-1.0</span>
     <span class="s2">&quot;opacity_threshold&quot;</span><span class="p">:</span> <span class="mi">254</span><span class="p">,</span>  <span class="c1"># 0-255</span>
 <span class="p">})</span>
 </pre></div>
@@ -212,11 +214,13 @@ of the input image.</p></li>
 PNG if the input image is using transparency, else it will generate a JPEG.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">png</span></code>: Outputs a PNG image.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">jpeg</span></code>: Outputs a JPEG image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">webp</span></code> Outputs a lossy WEBP image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">webpl</span></code> Outputs a lossless WEBP image.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When using the <code class="docutils literal notranslate"><span class="pre">&quot;orig&quot;</span></code> output format, YOGA will only accept PNGs and
-JPEGs images as input.</p>
+<p>When using the <code class="docutils literal notranslate"><span class="pre">&quot;orig&quot;</span></code> output format, YOGA will only accept PNG, JPEG and
+WEBP images as input.</p>
 </div>
 </div>
 <div class="section" id="resize">
@@ -260,6 +264,25 @@ provide as a box the image will fit in.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This option has effect only when the output image is a JPEG.</p>
+</div>
+</div>
+<div class="section" id="webp-quality">
+<h3>webp_quality<a class="headerlink" href="#webp-quality" title="Permalink to this headline">¶</a></h3>
+<p>The quality of the output WEBPs.</p>
+<p>The value is a number between <code class="docutils literal notranslate"><span class="pre">0.00</span></code> and <code class="docutils literal notranslate"><span class="pre">1.00</span></code> (<code class="docutils literal notranslate"><span class="pre">0.90</span></code> by default):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0.00</span></code>: ugly images but smaller files,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.00</span></code>: best quality images but larger files.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.png&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.webp&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;webp&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;webp_quality&quot;</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This option has effect only when the output image is a lossy WEBP.</p>
 </div>
 </div>
 <div class="section" id="opacity-threshold">

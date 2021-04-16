@@ -93,6 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#output-format">Output Format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#resize-output-image">Resize Output Image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-jpeg-quality">Output JPEG Quality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-webp-quality">Output WEBP Quality</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#opacity-threshold">Opacity Threshold</a></li>
 </ul>
 </li>
@@ -185,11 +186,12 @@ optional arguments:
   -h, --help            show this help message and exit
   -v, --verbose         enable verbose mode
   -q, --quiet           enable quiet mode (takes precedence over verbose)
-  --output-format {orig,auto,jpeg,png}
+  --output-format {orig,auto,jpeg,png,webp,webpl}
                         format of the output image
   --resize {orig,&lt;SIZE&gt;,&lt;WIDTH&gt;x&lt;HEIGHT&gt;}
                         resize the image
   --jpeg-quality 0-100  JPEG quality if the output format is set to &#39;jpeg&#39;
+  --webp-quality 0-100  WEBP quality if the output format is set to &#39;webp&#39;
   --opacity-threshold 0-255
                         threshold below which a pixel is considered transparent
 </pre></div>
@@ -202,8 +204,8 @@ optional arguments:
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When the output format is not specified, YOGA outputs an image using the same format as the input one (<code class="docutils literal notranslate"><span class="pre">PNG</span></code> → <code class="docutils literal notranslate"><span class="pre">PNG</span></code>, <code class="docutils literal notranslate"><span class="pre">JPEG</span></code> → <code class="docutils literal notranslate"><span class="pre">JPEG</span></code>).</p>
-<p>Only PNGs and JPEGs are supported as input when the output format is not explicitly specified.</p>
+<p>When the output format is not specified, YOGA outputs an image using the same format as the input one (<code class="docutils literal notranslate"><span class="pre">PNG</span></code> → <code class="docutils literal notranslate"><span class="pre">PNG</span></code>, <code class="docutils literal notranslate"><span class="pre">JPEG</span></code> → <code class="docutils literal notranslate"><span class="pre">JPEG</span></code>, <code class="docutils literal notranslate"><span class="pre">WEBP</span></code> → <code class="docutils literal notranslate"><span class="pre">WEBP</span></code>, <code class="docutils literal notranslate"><span class="pre">WEBP</span> <span class="pre">(lossless)</span></code> → <code class="docutils literal notranslate"><span class="pre">WEBP</span> <span class="pre">(lossless)</span></code>).</p>
+<p>Only PNGs, JPEGs and WEBPs are supported as input when the output format is not explicitly specified.</p>
 </div>
 </div>
 <div class="section" id="output-format">
@@ -218,10 +220,12 @@ optional arguments:
 <li><p><code class="docutils literal notranslate"><span class="pre">auto</span></code>: The output format is automatically selected. YOGA will generate a PNG if the input image is using transparency, else it will generate a JPEG.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">png</span></code>: Outputs a PNG image.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">jpeg</span></code>: Outputs a JPEG image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">webp</span></code>: Outputs a lossy WEBP image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">webpl</span></code>: Outputs a lossless WEBP image.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When using the <code class="docutils literal notranslate"><span class="pre">&quot;orig&quot;</span></code> output format, YOGA will only accept PNGs and JPEGs images as input.</p>
+<p>When using the <code class="docutils literal notranslate"><span class="pre">&quot;orig&quot;</span></code> output format, YOGA will only accept PNG, JPEG and WEBP images as input.</p>
 </div>
 </div>
 <div class="section" id="resize-output-image">
@@ -254,6 +258,22 @@ optional arguments:
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This option has effect only when the output image is a JPEG.</p>
+</div>
+</div>
+<div class="section" id="output-webp-quality">
+<h2>Output WEBP Quality<a class="headerlink" href="#output-webp-quality" title="Permalink to this headline">¶</a></h2>
+<p>YOGA allows you to tune the desired quality of the WEBP it outputs with the <code class="docutils literal notranslate"><span class="pre">--webp-quality</span></code> option. This option takes an integer between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">100</span></code> as parameter:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: ugly images but smaller files,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">100</span></code>: best quality images but larger files.</p></li>
+</ul>
+<p>The default WEBP quality is <code class="docutils literal notranslate"><span class="pre">90%</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">image</span>  <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">format</span><span class="o">=</span><span class="n">webp</span>  <span class="o">--</span><span class="n">webp</span><span class="o">-</span><span class="n">quality</span><span class="o">=</span><span class="mi">90</span>  <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">output</span><span class="o">.</span><span class="n">webp</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This option has effect only when the output image is a lossy WEBP.</p>
 </div>
 </div>
 <div class="section" id="opacity-threshold">
