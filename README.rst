@@ -12,7 +12,7 @@ YOGA - Yummy Optimizer for Gorgeous Assets
 * convert and optimize 3D models from various formats to `glTF and GLB`_.
 
 **Images** are opened using Pillow_ and optimized using Guetzli_ (for JPEGs),
-Zopflipng_ (for PNGs) and libwebp_ (for WEBP).
+Zopflipng_ (for PNGs) and libwebp_ (for WEBPs).
 
 **3D Models** are converted and optimized using assimp_. If models contain or
 reference images, they are processed by YOGA's image optimizer.

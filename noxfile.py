@@ -23,6 +23,12 @@ def lint(session):
     )
 
 
+@nox.session(reuse_venv=True)
+def black_fix(session):
+    session.install("black")
+    session.run("black", *PYTHON_FILES)
+
+
 @nox.session(python=["2.7", "3.7", "3.8", "3.9"], reuse_venv=True)
 def test(session):
     session.install("pytest")
