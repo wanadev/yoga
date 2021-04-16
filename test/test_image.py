@@ -155,8 +155,31 @@ class Test_optimize(object):
 
         assert len(output2.read()) < len(output1.read())
 
-    @pytest.mark.skip(reason="Requires output_format=auto")
-    def test_opacity_threshold(self):
-        raise NotImplementedError()  # TODO
+    @pytest.mark.parametrize(
+        "image_path,threshold,format_checker",
+        [
+            # fmt: off
+            ("test/images/alpha.png",      254,  is_png),
+            ("test/images/alpha.png",        0,  is_jpeg),
+            ("test/images/threshold.png",  254,  is_png),
+            ("test/images/threshold.png",  255,  is_png),
+            ("test/images/threshold.png",    0,  is_jpeg),
+            ("test/images/threshold.png",  230,  is_png),
+            ("test/images/threshold.png",  229,  is_jpeg),
+            # fmt: on
+        ],
+    )
+    def test_opacity_threshold(self, image_path, threshold, format_checker):
+        output = io.BytesIO()
+        yoga.image.optimize(
+            image_path,
+            output,
+            {
+                "output_format": "auto",
+                "opacity_threshold": threshold,
+            },
+        )
+        output.seek(0)
+        assert format_checker(output.read())
 
     # TODO test wrong image / fuzzy inputs
