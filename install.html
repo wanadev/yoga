@@ -87,16 +87,9 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installing YOGA</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#linux-sources">Linux (Sources)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#from-pypi">From PyPI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#from-this-repository">From this repository</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#windows-standalone-releases">Windows Standalone Releases</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#building-yoga-on-windows">Building YOGA on Windows</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#from-pypi">From PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#from-sources">From Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#windows-standalone-releases">Windows Standalone Releases</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cli/index.html">Command Line Interface</a></li>
@@ -171,22 +164,24 @@
             
   <div class="section" id="installing-yoga">
 <h1>Installing YOGA<a class="headerlink" href="#installing-yoga" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="linux-sources">
-<h2>Linux (Sources)<a class="headerlink" href="#linux-sources" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="from-pypi">
+<h2>From PyPI<a class="headerlink" href="#from-pypi" title="Permalink to this headline">¶</a></h2>
+<p>To install YOGA from PyPI, just run the following command (as <code class="docutils literal notranslate"><span class="pre">root</span></code> on Linux):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">yoga</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We provide precompiled YOGA packages for most common platforms. You may need to install additional build dependencies if there is no precompiled package available for your platform (see below).</p>
+</div>
+</div>
+<div class="section" id="from-sources">
+<h2>From Sources<a class="headerlink" href="#from-sources" title="Permalink to this headline">¶</a></h2>
 <p>To install YOGA from sources, you will have to install some build dependencies first.</p>
 <p>On Debian / Ubuntu, you can install everything you need using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">cmake</span> <span class="n">python3</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span>
 </pre></div>
 </div>
-<div class="section" id="from-pypi">
-<h3>From PyPI<a class="headerlink" href="#from-pypi" title="Permalink to this headline">¶</a></h3>
-<p>To install YOGA from PyPI following command (as <code class="docutils literal notranslate"><span class="pre">root</span></code> on Linux):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">yoga</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="from-this-repository">
-<h3>From this repository<a class="headerlink" href="#from-this-repository" title="Permalink to this headline">¶</a></h3>
 <p>Then clone the repository:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">wanadev</span><span class="o">/</span><span class="n">yoga</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
@@ -195,33 +190,17 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">yoga</span>
 </pre></div>
 </div>
-<p>Build and install using the following command:</p>
+<p>Build and install using the following command (as <code class="docutils literal notranslate"><span class="pre">root</span></code> on Linux):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="windows">
-<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="windows-standalone-releases">
-<h3>Windows Standalone Releases<a class="headerlink" href="#windows-standalone-releases" title="Permalink to this headline">¶</a></h3>
+<h2>Windows Standalone Releases<a class="headerlink" href="#windows-standalone-releases" title="Permalink to this headline">¶</a></h2>
 <p>The simplest way to use YOGA on Windows is to download the latest standalone build here:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/wanadev/yoga/releases">https://github.com/wanadev/yoga/releases</a></p></li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You will have to install Microsoft Visual C++ Redistribuable for Visual
-Studio 2019 to run YOGA. You will find more information in the Zip you
-downloaded or in <a class="reference external" href="https://github.com/wanadev/yoga/blob/master/winbuild/README-windows-dist.md">this document</a>.</p>
-</div>
-</div>
-<div class="section" id="building-yoga-on-windows">
-<h3>Building YOGA on Windows<a class="headerlink" href="#building-yoga-on-windows" title="Permalink to this headline">¶</a></h3>
-<p>If you need YOGA as a library or if you really want to build it yourself, look
-in the <a class="reference external" href="https://github.com/wanadev/yoga/tree/master/winbuild">winbuild/ folder of the source repository</a>
-folder.</p>
-</div>
 </div>
 </div>
 
