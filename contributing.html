@@ -92,8 +92,18 @@
 <li class="toctree-l2"><a class="reference internal" href="#questions">Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bugs">Bugs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pull-requests">Pull Requests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installing-development-dependencies">Installing Development Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-the-tests">Running the Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#developing-yoga">Developing YOGA</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-prerequisite">Installing Prerequisite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-virtualenv">Creating a Virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-the-python-dependencies">Installing the Python Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-the-c-part-of-yoga">Building the C++ Part of YOGA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#building-assimp">Building Assimp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#building-the-yoga-c-module">Building the YOGA C++ module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#linting-and-testing">Linting and Testing</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#building-the-documentation">Building the Documentation</a></li>
 </ul>
 </li>
@@ -194,50 +204,153 @@ before starting to work on a new feature. This will allow us to discuss the
 best way to do it. This is, of course, not necessary if you just want to fix
 some typo in the documentation or small errors in the code.</p>
 <p>Please note that your code must pass tests and follow the coding style defined
-by the <a class="reference external" href="https://pep8.org/">pep8</a>.</p>
+by the <a class="reference external" href="https://pep8.org/">pep8</a>. The code of this project is automatically
+checked by <a class="reference external" href="https://flake8.pycqa.org/en/latest/">Flake8</a> and the coding style is enforced using <a class="reference external" href="https://black.readthedocs.io/en/stable/">Black</a>.</p>
 </div>
-<div class="section" id="installing-development-dependencies">
-<h2>Installing Development Dependencies<a class="headerlink" href="#installing-development-dependencies" title="Permalink to this headline">¶</a></h2>
-<p>You can install YOGA with its development dependencies using the following
-command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span><span class="p">[</span><span class="n">dev</span><span class="p">]</span>
+<div class="section" id="developing-yoga">
+<h2>Developing YOGA<a class="headerlink" href="#developing-yoga" title="Permalink to this headline">¶</a></h2>
+<p>If you want to contribute to the YOGA development, you will find here all
+useful information to start. Please note that this guide assume you are using
+Linux as operating system and a POSIX shell (like Bash or ZSH).</p>
+<p>Programming languages used in this project:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.python.org/">Python</a> (2.7, 3.7, 3.8 and 3.9)</p></li>
+<li><p>C++</p></li>
+</ul>
+<p>Libraries:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cffi.readthedocs.io/en/latest/">CFFI</a>: C/Python binding</p></li>
+<li><p><a class="reference external" href="https://pillow.readthedocs.io/en/stable/">Pillow</a>: Image processing library</p></li>
+<li><p><a class="reference external" href="https://github.com/wanadev/pyguetzli">PyGuetzli</a>: JPEG optimization</p></li>
+<li><p><a class="reference external" href="https://github.com/hattya/zopflipy">ZopfliPy</a>: PNG Optimization</p></li>
+</ul>
+<p>Development tools:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://black.readthedocs.io/en/stable/">Black</a>: Code formater</p></li>
+<li><p><a class="reference external" href="https://flake8.pycqa.org/en/latest/">Flake8</a>: Linter</p></li>
+<li><p><a class="reference external" href="https://docs.pytest.org/">Pytest</a>: Unit test</p></li>
+</ul>
+<p>Documentation:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a>: Static documentation generator</p></li>
+</ul>
+<div class="section" id="installing-prerequisite">
+<h3>Installing Prerequisite<a class="headerlink" href="#installing-prerequisite" title="Permalink to this headline">¶</a></h3>
+<p><strong>On Linux</strong>, you will need to install Python, cmake and the GCC toolchain to
+build the C++ part of YOGA. On Debian / Ubuntu, this can be achieved with the
+following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">cmake</span> <span class="n">python3</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span> <span class="n">python3</span><span class="o">-</span><span class="n">venv</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span>
+</pre></div>
+</div>
+<p><strong>On Windows</strong> you will need to install Python, cmake and Visual Studio Build
+Tools (MSVC and MSBuild) and have them available in your PATH. You may find some more information in the <code class="docutils literal notranslate"><span class="pre">winbuild/</span></code> folder of the YOGA repository:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/wanadev/yoga/tree/master/winbuild">https://github.com/wanadev/yoga/tree/master/winbuild</a></p></li>
+</ul>
+</div>
+<div class="section" id="creating-a-virtualenv">
+<h3>Creating a Virtualenv<a class="headerlink" href="#creating-a-virtualenv" title="Permalink to this headline">¶</a></h3>
+<p>While not mandatory, using a <em>virtualenv</em> is <strong>highly recommended</strong> to avoid
+installing dependencies everywhere on your system and to ensure using the right
+version of the dependencies.</p>
+<p>To create the <em>virtualenv</em>, you can use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">__env__</span>
+</pre></div>
+</div>
+<p>This should create a <code class="docutils literal notranslate"><span class="pre">__env__/</span></code> folder in the current directory. This is where dependencies will be installed.</p>
+<p>Once the <em>virtualenv</em> created, you have to activate it with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">__env__</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+<p>This should prefix your prompt with <code class="docutils literal notranslate"><span class="pre">(__env__)</span></code>.</p>
+<p>To leave the <em>virtualenv</em>, just type the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deactivate</span>
+</pre></div>
+</div>
+<p>If you want to go back in the <em>virtualenv</em>, you will only need to execute the
+<code class="docutils literal notranslate"><span class="pre">&quot;source</span> <span class="pre">__env__/bin/activate&quot;</span></code> command again.</p>
+</div>
+<div class="section" id="installing-the-python-dependencies">
+<h3>Installing the Python Dependencies<a class="headerlink" href="#installing-the-python-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>To install the development dependencies, just run the following command (with
+your <em>virtualenv</em> activated):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">dev</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="running-the-tests">
-<h2>Running the Tests<a class="headerlink" href="#running-the-tests" title="Permalink to this headline">¶</a></h2>
-<p>You will first have to install <a class="reference external" href="https://nox.thea.codes/">nox</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">nox</span>
+<div class="section" id="building-the-c-part-of-yoga">
+<h3>Building the C++ Part of YOGA<a class="headerlink" href="#building-the-c-part-of-yoga" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="building-assimp">
+<h4>Building Assimp<a class="headerlink" href="#building-assimp" title="Permalink to this headline">¶</a></h4>
+<p>You will first need to build <em>assimp</em>, the library used by YOGA to handle 3D
+models. This can be done with the following command (with your <em>virtualenv</em>
+activated):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span>
 </pre></div>
 </div>
-<p>Then you can check for lint error:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">--</span><span class="n">session</span> <span class="n">lint</span>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will not need to run this command again, until you make some
+modification in the Assmimp sources (<code class="docutils literal notranslate"><span class="pre">assimp/</span></code> folder).</p>
+</div>
+</div>
+<div class="section" id="building-the-yoga-c-module">
+<h4>Building the YOGA C++ module<a class="headerlink" href="#building-the-yoga-c-module" title="Permalink to this headline">¶</a></h4>
+<p>To build the YOGA C++ module, run the following command (with your <em>virtualenv</em>
+activated):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">yoga</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">assimp_build</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<p>or run the tests:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">--</span><span class="n">session</span> <span class="n">test</span>
+<p>This will generate a <code class="docutils literal notranslate"><span class="pre">.so</span></code> file (for Linux; on Windows this will be
+a <code class="docutils literal notranslate"><span class="pre">.pyd</span></code> file instead) in the <code class="docutils literal notranslate"><span class="pre">yoga/model/</span></code> folder.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will not need to run this command again, until you modify the
+<code class="docutils literal notranslate"><span class="pre">yoga/model/assimp.cpp</span></code> and <code class="docutils literal notranslate"><span class="pre">yoga/model/assimp.h</span></code> files.</p>
+</div>
+</div>
+</div>
+<div class="section" id="linting-and-testing">
+<h3>Linting and Testing<a class="headerlink" href="#linting-and-testing" title="Permalink to this headline">¶</a></h3>
+<p>You can check for lint and coding style errors with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">lint</span>
+</pre></div>
+</div>
+<p>If Black reports you coding style errors, you can automatically fix them with
+this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">black_fix</span>
+</pre></div>
+</div>
+<p>To run the tests use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span>
 </pre></div>
 </div>
 <p>To run the tests only for a specific Python version, you can use following
 commands (the corresponding Python interpreter must be installed on your
 machine):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">--</span><span class="n">session</span> <span class="n">test</span><span class="o">-</span><span class="mf">2.7</span>
-<span class="n">nox</span> <span class="o">--</span><span class="n">session</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.5</span>
-<span class="n">nox</span> <span class="o">--</span><span class="n">session</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.6</span>
-<span class="n">nox</span> <span class="o">--</span><span class="n">session</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.7</span>
-<span class="n">nox</span> <span class="o">--</span><span class="n">session</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.8</span>
-<span class="n">nox</span> <span class="o">--</span><span class="n">session</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.9</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span><span class="o">-</span><span class="mf">2.7</span>
+<span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.7</span>
+<span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.8</span>
+<span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.9</span>
 </pre></div>
+</div>
+<p>YOGA tests are very slow to run (especially the ones related to the image
+optimization). If you want to run only specific tests, you can run them using
+<a class="reference external" href="https://docs.pytest.org/">pytest</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">-</span><span class="n">v</span> <span class="n">test</span><span class="o">/</span><span class="n">specific_test_file</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="building-the-documentation">
 <h2>Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline">¶</a></h2>
+<p>This documentation is build using <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a>.</p>
 <p>You will first have to install <a class="reference external" href="https://nox.thea.codes/">nox</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">nox</span>
 </pre></div>
 </div>
 <p>Then you can run the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">--</span><span class="n">session</span> <span class="n">gendoc</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">gendoc</span>
 </pre></div>
 </div>
 </div>
