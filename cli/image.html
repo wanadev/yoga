@@ -95,6 +95,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#output-jpeg-quality">Output JPEG Quality</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-webp-quality">Output WEBP Quality</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#opacity-threshold">Opacity Threshold</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slow-png-optimization">Slow PNG Optimization</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="model.html">YOGA Model Command Line Interface</a></li>
@@ -194,6 +195,9 @@ optional arguments:
   --webp-quality 0-100  WEBP quality if the output format is set to &#39;webp&#39;
   --opacity-threshold 0-255
                         threshold below which a pixel is considered transparent
+  --png-slow-optimization
+                        enable a (very) slow optimization preset for PNGs that
+                        can sometimes gain few bytes on the output file
 </pre></div>
 </div>
 <div class="section" id="basic-usage">
@@ -285,6 +289,14 @@ optional arguments:
 </ul>
 <p>The default value is <code class="docutils literal notranslate"><span class="pre">254</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">image</span>  <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">format</span><span class="o">=</span><span class="n">auto</span>  <span class="o">--</span><span class="n">opacity</span><span class="o">-</span><span class="n">threshold</span><span class="o">=</span><span class="mi">254</span>  <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">output</span><span class="o">.</span><span class="n">xxx</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="slow-png-optimization">
+<h2>Slow PNG Optimization<a class="headerlink" href="#slow-png-optimization" title="Permalink to this headline">¶</a></h2>
+<p>YOGA allows you to select an alternative preset for PNGs optimization. This preset can sometimes gain few bytes over the default one, but it is 10 times slower on average. You will generally not want to enable this.</p>
+<p>To enable this preset, use the <code class="docutils literal notranslate"><span class="pre">--png-slow-optimization</span></code> option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">image</span>  <span class="o">--</span><span class="n">png</span><span class="o">-</span><span class="n">slow</span><span class="o">-</span><span class="n">optimization</span>  <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">output</span><span class="o">.</span><span class="n">png</span>
 </pre></div>
 </div>
 </div>

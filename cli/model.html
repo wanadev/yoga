@@ -203,14 +203,19 @@ model options:
                         disable fix infacing normals
 
 image options:
-  --image-output-format {orig,auto,jpeg,png}
+  --image-output-format {orig,auto,jpeg,png,webp,webpl}
                         format of the output image
   --image-resize {orig,&lt;SIZE&gt;,&lt;WIDTH&gt;x&lt;HEIGHT&gt;}
                         resize the image
   --image-jpeg-quality 0-100
                         JPEG quality if the output format is set to &#39;jpeg&#39;
+  --image-webp-quality 0-100
+                        WEBP quality if the output format is set to &#39;webp&#39;
   --image-opacity-threshold 0-255
                         threshold below which a pixel is considered transparent
+  --image-png-slow-optimization
+                        enable a (very) slow optimization preset for PNGs that
+                        can sometimes gain few bytes on the output file
 </pre></div>
 </div>
 <div class="section" id="basic-usage">
@@ -265,7 +270,9 @@ for more details.</p></li>
 <li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-output-format</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> of  YOGA Image,</p></li>
 <li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-resize</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--resize</span></code> of  YOGA Image,</p></li>
 <li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-jpeg-quality</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--jpeg-quality</span></code> of  YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-webp-quality</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--webp-quality</span></code> of  YOGA Image,</p></li>
 <li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-opacity-threshold</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--opacity-threshold</span></code> of  YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-png-slow-optimization</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--png-slow-optimization</span></code> of  YOGA Image,</p></li>
 </ul>
 <p>See the <a class="reference internal" href="image.html"><span class="doc">YOGA Image Command Line Interface</span></a> documentation for more information.</p>
 </div>

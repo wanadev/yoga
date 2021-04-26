@@ -24,6 +24,10 @@ YOGA Image Command Line Interface
       --webp-quality 0-100  WEBP quality if the output format is set to 'webp'
       --opacity-threshold 0-255
                             threshold below which a pixel is considered transparent
+      --png-slow-optimization
+                            enable a (very) slow optimization preset for PNGs that
+                            can sometimes gain few bytes on the output file
+
 
 
 Basic Usage
@@ -129,3 +133,13 @@ The default value is ``254``.
 ::
 
     yoga  image  --output-format=auto  --opacity-threshold=254  input.png  output.xxx
+
+
+Slow PNG Optimization
+---------------------
+
+YOGA allows you to select an alternative preset for PNGs optimization. This preset can sometimes gain few bytes over the default one, but it is 10 times slower on average. You will generally not want to enable this.
+
+To enable this preset, use the ``--png-slow-optimization`` option::
+
+    yoga  image  --png-slow-optimization  input.png  output.png

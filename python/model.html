@@ -190,18 +190,20 @@
 <p>You can also tune the output by passing options:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
     <span class="c1"># Model options</span>
-    <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;glb&quot;</span><span class="p">,</span>             <span class="c1"># &quot;glb&quot;|&quot;gltf&quot;</span>
-    <span class="s2">&quot;fallback_texture&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>           <span class="c1"># None|&lt;FileLike&gt;|&quot;./image.png&quot;</span>
-    <span class="s2">&quot;no_graph_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>     <span class="c1"># True|False</span>
-    <span class="s2">&quot;no_meshes_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>    <span class="c1"># True|False</span>
-    <span class="s2">&quot;no_textures_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># True|False</span>
-    <span class="s2">&quot;no_fix_infacing_normals&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>   <span class="c1"># True|False</span>
+    <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;glb&quot;</span><span class="p">,</span>                <span class="c1"># &quot;glb&quot;|&quot;gltf&quot;</span>
+    <span class="s2">&quot;fallback_texture&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>              <span class="c1"># None|&lt;FileLike&gt;|&quot;./image.png&quot;</span>
+    <span class="s2">&quot;no_graph_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>        <span class="c1"># True|False</span>
+    <span class="s2">&quot;no_meshes_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>       <span class="c1"># True|False</span>
+    <span class="s2">&quot;no_textures_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>     <span class="c1"># True|False</span>
+    <span class="s2">&quot;no_fix_infacing_normals&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>      <span class="c1"># True|False</span>
 
     <span class="c1"># Images (textures) options</span>
-    <span class="s2">&quot;image_output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>      <span class="c1"># &quot;orig&quot;|&quot;auto&quot;|&quot;jpeg&quot;|&quot;png&quot;</span>
-    <span class="s2">&quot;image_resize&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>             <span class="c1"># &quot;orig&quot;|[width,height]</span>
-    <span class="s2">&quot;image_jpeg_quality&quot;</span><span class="p">:</span> <span class="mf">0.84</span><span class="p">,</span>         <span class="c1"># 0.00-1.0</span>
-    <span class="s2">&quot;image_opacity_threshold&quot;</span><span class="p">:</span> <span class="mi">254</span><span class="p">,</span>     <span class="c1"># 0-255</span>
+    <span class="s2">&quot;image_output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>         <span class="c1"># &quot;orig&quot;|&quot;auto&quot;|&quot;jpeg&quot;|&quot;png&quot;|&quot;webp&quot;|&quot;webpl&quot;</span>
+    <span class="s2">&quot;image_resize&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>                <span class="c1"># &quot;orig&quot;|[width,height]</span>
+    <span class="s2">&quot;image_jpeg_quality&quot;</span><span class="p">:</span> <span class="mf">0.84</span><span class="p">,</span>            <span class="c1"># 0.00-1.0</span>
+    <span class="s2">&quot;image_webp_quality&quot;</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">,</span>            <span class="c1"># 0.00-1.0</span>
+    <span class="s2">&quot;image_opacity_threshold&quot;</span><span class="p">:</span> <span class="mi">254</span><span class="p">,</span>        <span class="c1"># 0-255</span>
+    <span class="s2">&quot;image_png_slow_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># True|False</span>
 <span class="p">})</span>
 </pre></div>
 </div>
@@ -302,8 +304,12 @@ equivalent to the YOGA Image ones available:</p>
 YOGA Image,</p></li>
 <li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">image_jpeg_quality</span></code> option is equivalent to the
 <code class="docutils literal notranslate"><span class="pre">jpeg_quality</span></code> of YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">image_webp_quality</span></code> option is equivalent to the
+<code class="docutils literal notranslate"><span class="pre">webp_quality</span></code> of YOGA Image,</p></li>
 <li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">image_opacity_threshold</span></code> option is equivalent to the
 <code class="docutils literal notranslate"><span class="pre">opacity_threshold</span></code> of YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">image_png_slow_optimization</span></code> option is equivalent to the
+<code class="docutils literal notranslate"><span class="pre">png_slow_optimization</span></code> of YOGA Image,</p></li>
 </ul>
 <p>See <a class="reference internal" href="image.html#yoga-image-api-options"><span class="std std-ref">YOGA Image options</span></a> for more information.</p>
 </div>

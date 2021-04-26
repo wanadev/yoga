@@ -97,6 +97,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#jpeg-quality">jpeg_quality</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#webp-quality">webp_quality</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#opacity-threshold">opacity_threshold</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#png-slow-optimization">png_slow_optimization</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
@@ -187,11 +188,12 @@
 </div>
 <p>You can also tune the output by passing options:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.png&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.png&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
-    <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>   <span class="c1"># &quot;orig&quot;|&quot;auto&quot;|&quot;jpeg&quot;|&quot;png&quot;|&quot;webp&quot;|&quot;webpl</span>
-    <span class="s2">&quot;resize&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>          <span class="c1"># &quot;orig&quot;|[width,height]</span>
-    <span class="s2">&quot;jpeg_quality&quot;</span><span class="p">:</span> <span class="mf">0.84</span><span class="p">,</span>      <span class="c1"># 0.00-1.0</span>
-    <span class="s2">&quot;webp_quality&quot;</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">,</span>      <span class="c1"># 0.00-1.0</span>
-    <span class="s2">&quot;opacity_threshold&quot;</span><span class="p">:</span> <span class="mi">254</span><span class="p">,</span>  <span class="c1"># 0-255</span>
+    <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>         <span class="c1"># &quot;orig&quot;|&quot;auto&quot;|&quot;jpeg&quot;|&quot;png&quot;|&quot;webp&quot;|&quot;webpl&quot;</span>
+    <span class="s2">&quot;resize&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>                <span class="c1"># &quot;orig&quot;|[width,height]</span>
+    <span class="s2">&quot;jpeg_quality&quot;</span><span class="p">:</span> <span class="mf">0.84</span><span class="p">,</span>            <span class="c1"># 0.00-1.0</span>
+    <span class="s2">&quot;webp_quality&quot;</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">,</span>            <span class="c1"># 0.00-1.0</span>
+    <span class="s2">&quot;opacity_threshold&quot;</span><span class="p">:</span> <span class="mi">254</span><span class="p">,</span>        <span class="c1"># 0-255</span>
+    <span class="s2">&quot;png_slow_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># True|False</span>
 <span class="p">})</span>
 </pre></div>
 </div>
@@ -297,6 +299,19 @@ only useful when <code class="docutils literal notranslate"><span class="pre">ou
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.png&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.xxx&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
     <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
     <span class="s2">&quot;opacity_threshold&quot;</span><span class="p">:</span> <span class="mi">254</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="png-slow-optimization">
+<h3>png_slow_optimization<a class="headerlink" href="#png-slow-optimization" title="Permalink to this headline">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, select a slower optimization preset for PNGs. This preset can
+sometimes gain few bytes over the default one, but it is 10 times slower on
+average.</p>
+<p>You will generally not want to enable this.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.png&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.png&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;png&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;png_slow_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">})</span>
 </pre></div>
 </div>
