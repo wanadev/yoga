@@ -14,18 +14,20 @@ You can also tune the output by passing options::
 
     yoga.model.optimize("./input.fbx", "./output.glb", options={
         # Model options
-        "output_format": "glb",             # "glb"|"gltf"
-        "fallback_texture": None,           # None|<FileLike>|"./image.png"
-        "no_graph_optimization": False,     # True|False
-        "no_meshes_optimization": False,    # True|False
-        "no_textures_optimization": False,  # True|False
-        "no_fix_infacing_normals": False,   # True|False
+        "output_format": "glb",                # "glb"|"gltf"
+        "fallback_texture": None,              # None|<FileLike>|"./image.png"
+        "no_graph_optimization": False,        # True|False
+        "no_meshes_optimization": False,       # True|False
+        "no_textures_optimization": False,     # True|False
+        "no_fix_infacing_normals": False,      # True|False
 
         # Images (textures) options
-        "image_output_format": "orig",      # "orig"|"auto"|"jpeg"|"png"
-        "image_resize": "orig",             # "orig"|[width,height]
-        "image_jpeg_quality": 0.84,         # 0.00-1.0
-        "image_opacity_threshold": 254,     # 0-255
+        "image_output_format": "orig",         # "orig"|"auto"|"jpeg"|"png"|"webp"|"webpl"
+        "image_resize": "orig",                # "orig"|[width,height]
+        "image_jpeg_quality": 0.84,            # 0.00-1.0
+        "image_webp_quality": 0.90,            # 0.00-1.0
+        "image_opacity_threshold": 254,        # 0-255
+        "image_png_slow_optimization": False,  # True|False
     })
 
 
@@ -150,8 +152,14 @@ equivalent to the YOGA Image ones available:
 * The YOGA Model ``image_jpeg_quality`` option is equivalent to the
   ``jpeg_quality`` of YOGA Image,
 
+* The YOGA Model ``image_webp_quality`` option is equivalent to the
+  ``webp_quality`` of YOGA Image,
+
 * The YOGA Model ``image_opacity_threshold`` option is equivalent to the
   ``opacity_threshold`` of YOGA Image,
+
+* The YOGA Model ``image_png_slow_optimization`` option is equivalent to the
+  ``png_slow_optimization`` of YOGA Image,
 
 See :ref:`YOGA Image options <yoga_image_api_options>` for more information.
 

@@ -34,14 +34,20 @@ YOGA Model Command Line Interface
                             disable fix infacing normals
 
     image options:
-      --image-output-format {orig,auto,jpeg,png}
+      --image-output-format {orig,auto,jpeg,png,webp,webpl}
                             format of the output image
       --image-resize {orig,<SIZE>,<WIDTH>x<HEIGHT>}
                             resize the image
       --image-jpeg-quality 0-100
                             JPEG quality if the output format is set to 'jpeg'
+      --image-webp-quality 0-100
+                            WEBP quality if the output format is set to 'webp'
       --image-opacity-threshold 0-255
                             threshold below which a pixel is considered transparent
+      --image-png-slow-optimization
+                            enable a (very) slow optimization preset for PNGs that
+                            can sometimes gain few bytes on the output file
+
 
 
 Basic Usage
@@ -106,6 +112,10 @@ YOGA Model optimizes textures using YOGA Images, so there are options equivalent
 
 * The YOGA Model ``--image-jpeg-quality`` option is equivalent to the ``--jpeg-quality`` of  YOGA Image,
 
+* The YOGA Model ``--image-webp-quality`` option is equivalent to the ``--webp-quality`` of  YOGA Image,
+
 * The YOGA Model ``--image-opacity-threshold`` option is equivalent to the ``--opacity-threshold`` of  YOGA Image,
+
+* The YOGA Model ``--image-png-slow-optimization`` option is equivalent to the ``--png-slow-optimization`` of  YOGA Image,
 
 See the :doc:`./image` documentation for more information.

@@ -12,11 +12,12 @@ Converting and optimizing an image::
 You can also tune the output by passing options::
 
     yoga.image.optimize("./input.png", "./output.png", options={
-        "output_format": "orig",   # "orig"|"auto"|"jpeg"|"png"|"webp"|"webpl
-        "resize": "orig",          # "orig"|[width,height]
-        "jpeg_quality": 0.84,      # 0.00-1.0
-        "webp_quality": 0.90,      # 0.00-1.0
-        "opacity_threshold": 254,  # 0-255
+        "output_format": "orig",         # "orig"|"auto"|"jpeg"|"png"|"webp"|"webpl"
+        "resize": "orig",                # "orig"|[width,height]
+        "jpeg_quality": 0.84,            # 0.00-1.0
+        "webp_quality": 0.90,            # 0.00-1.0
+        "opacity_threshold": 254,        # 0-255
+        "png_slow_optimization": False,  # True|False
     })
 
 
@@ -141,6 +142,23 @@ The value is a number between ``0`` and ``255`` (``254`` by default):
     yoga.image.optimize("./input.png", "./output.xxx", options={
         "output_format": "auto",
         "opacity_threshold": 254,
+    })
+
+
+png_slow_optimization
+~~~~~~~~~~~~~~~~~~~~~
+
+If ``True``, select a slower optimization preset for PNGs. This preset can
+sometimes gain few bytes over the default one, but it is 10 times slower on
+average.
+
+You will generally not want to enable this.
+
+::
+
+    yoga.image.optimize("./input.png", "./output.png", options={
+        "output_format": "png",
+        "png_slow_optimization": False,
     })
 
 
