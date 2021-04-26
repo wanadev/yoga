@@ -3,11 +3,12 @@ import re
 
 # fmt: off
 DEFAULT_OPTIONS = {
-    "output_format": "orig",  # orig|auto|jpeg|png|webp|webpl
-    "resize": "orig",         # orig|[w,h]
-    "jpeg_quality": 0.84,     # 0.00-1.00
-    "webp_quality": 0.90,     # 0.00-1.00
-    "opacity_threshold": 254  # 0-255
+    "output_format": "orig",         # orig|auto|jpeg|png|webp|webpl
+    "resize": "orig",                # orig|[w,h]
+    "jpeg_quality": 0.84,            # 0.00-1.00
+    "webp_quality": 0.90,            # 0.00-1.00
+    "opacity_threshold": 254,        # 0-255
+    "png_slow_optimization": False,  # True|False
 }
 # fmt: on
 
@@ -120,5 +121,13 @@ def normalize_options(options=None):
             value = 255
 
         result["opacity_threshold"] = round(value)
+
+    # "" -> False
+    # 0 -> False
+    # 1 -> True
+    if "png_slow_optimization" in options:
+        result["png_slow_optimization"] = bool(
+            options["png_slow_optimization"]
+        )
 
     return result

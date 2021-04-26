@@ -65,6 +65,13 @@ class Test_normalize_options(object):
             ("opacity_threshold", "300", 255),
             ("opacity_threshold", b"255", 255),
             ("opacity_threshold", u"255", 255),
+            # png_slow_optimization
+            ("png_slow_optimization", True, True),
+            ("png_slow_optimization", False, False),
+            ("png_slow_optimization", 1, True),
+            ("png_slow_optimization", 0, False),
+            ("png_slow_optimization", "", False),
+            ("png_slow_optimization", b"", False),
         ],
     )
     def test_options(self, option_name, input_, output):

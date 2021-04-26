@@ -72,3 +72,8 @@ def add_image_cli_options(parser, prefix=""):
         type=partial(_type_range, 0, 255),
         default=DEFAULT_OPTIONS["opacity_threshold"],
     )
+    parser.add_argument(
+        "--%spng-slow-optimization" % prefix,
+        help="enable a (very) slow optimization preset for PNGs that can sometimes gain few bytes on the output file",
+        action="store_true",
+    )

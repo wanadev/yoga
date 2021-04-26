@@ -14,10 +14,12 @@ def is_png(file_bytes):
     return file_bytes.startswith(b"\x89PNG\r\n")
 
 
-def optimize_png(image):
+def optimize_png(image, slow=False):
     """Encode image to PNG using ZopfliPNG.
 
     :param PIL.Image image: The image to encode.
+    :param bool slow: Makes a little bit more efficient optimization (in some
+                      cases) but runs very slow.
 
     :returns: The encoded image's bytes.
     """
@@ -31,8 +33,10 @@ def optimize_png(image):
     zopflipng = zopfli.ZopfliPNG()
     zopflipng.lossy_8bit = True
     zopflipng.lossy_transparent = True
-    zopflipng.filter_strategies = "01234mepb"
-    zopflipng.iterations = 20
-    zopflipng.iterations_large = 7
+
+    if slow:
+        zopflipng.filter_strategies = "01234mepb"
+        zopflipng.iterations = 20
+        zopflipng.iterations_large = 7
 
     return zopflipng.optimize(image_bytes)

@@ -202,7 +202,9 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     if output_format == "jpeg":
         output_image_bytes = optimize_jpeg(image, options["jpeg_quality"])
     elif output_format == "png":
-        output_image_bytes = optimize_png(image)
+        output_image_bytes = optimize_png(
+            image, options["png_slow_optimization"]
+        )
     elif output_format == "webp":
         output_image_bytes = optimize_lossy_webp(
             image, options["webp_quality"]

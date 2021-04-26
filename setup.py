@@ -94,6 +94,7 @@ setup(
         "dev": [
             "nox",
             "flake8",
+            "black",
             "pytest",
             "Sphinx",
             "sphinx-rtd-theme",
