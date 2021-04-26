@@ -1,7 +1,7 @@
 Welcome to YOGA's documentation!
 ================================
 
-|Github| |Discord| |PYPI Version| |Build Status| |License|
+|Github| |Discord| |PYPI Version| |Build Status| |Black| |License|
 
 .. figure:: https://github.com/wanadev/yoga/raw/master/logo.png
    :alt:
@@ -50,5 +50,7 @@ Indices and tables
    :target: https://pypi.python.org/pypi/yoga
 .. |Build Status| image:: https://github.com/wanadev/yoga/workflows/Python%20CI/badge.svg
    :target: https://github.com/wanadev/yoga/actions
+.. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://black.readthedocs.io/en/stable/
 .. |License| image:: https://img.shields.io/pypi/l/yoga.svg
    :target: https://github.com/wanadev/yoga/blob/master/LICENSE
