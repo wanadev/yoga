@@ -135,7 +135,7 @@ activated)::
 .. NOTE::
 
    You will not need to run this command again, until you make some
-   modification in the Assmimp sources (``assimp/`` folder).
+   modification in the Assimp sources (``assimp/`` folder).
 
 Building the YOGA C++ module
 """"""""""""""""""""""""""""
