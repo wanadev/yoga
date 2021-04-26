@@ -5,16 +5,16 @@ from . import image  # noqa
 from . import model  # noqa
 
 
-def main():
+def main(args=sys.argv[1:]):
     parser = cli.generate_main_cli()
-    args = parser.parse_args(sys.argv[1:])
-    handler = getattr(sys.modules[__name__], args.subcommand)
+    parsed_args = parser.parse_args(args if args else ["--help"])
+    handler = getattr(sys.modules[__name__], parsed_args.subcommand)
     handler.optimize(
-        args.input,
-        args.output,
-        options=vars(args),
-        verbose=args.verbose,
-        quiet=args.quiet,
+        parsed_args.input,
+        parsed_args.output,
+        options=vars(parsed_args),
+        verbose=parsed_args.verbose,
+        quiet=parsed_args.quiet,
     )
 
 
