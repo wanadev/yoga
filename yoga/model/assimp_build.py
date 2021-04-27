@@ -11,6 +11,7 @@ _ASSIMP_H = os.path.join(_ROOT, "assimp.h")
 
 _LIB_ASSIMP = None
 _LIB_ZLIB = None
+_EXTRA_LIBS = []
 
 if ccompiler.get_default_compiler() == "unix":
     # Default libs path for Unix systems
@@ -38,10 +39,12 @@ elif ccompiler.get_default_compiler() == "msvc":
         "..",
         "assimp",
         "build",
-        "lib",
+        "contrib",
+        "zlib",
         "Release",
         "zlibstatic.lib",
     )
+    _EXTRA_LIBS.append("Advapi32.lib")
 
 # Allow to override path through env vars
 if "YOGA_BUILD_LIB_ASSIMP" in os.environ:
@@ -63,7 +66,7 @@ ffibuilder = FFI()
 ffibuilder.set_source(
     "yoga.model._assimp",
     open(_ASSIMP_CPP, "r").read(),
-    extra_objects=[_LIB_ASSIMP, _LIB_ZLIB],
+    extra_objects=[_LIB_ASSIMP, _LIB_ZLIB, *_EXTRA_LIBS],
     include_dirs=[
         _ROOT,
         os.path.join(_ROOT, "..", "..", "assimp", "include"),
