@@ -4,14 +4,14 @@ virtualenv __env__
 call __env__\Scripts\activate.bat
 
 pip install .
-pip install nuitka
+pip install -r winbuild\requirements.txt
 
 REM Hack to workaround an issue with the way Nuitka handles the icons...
 mkdir yogawin.build
 copy winbuild\yoga-icon.ico yogawin.build\yoga-icon.ico
 copy winbuild\yoga-icon.ico yoga-icon.ico
 
-python -m nuitka --follow-imports --standalone --windows-dependency-tool=pefile --windows-icon-from-ico=yoga-icon.ico --msvc=14.0 winbuild\yogawin.py
+python -m nuitka --follow-imports --assume-yes-for-downloads --include-package=PIL --standalone --windows-icon-from-ico=yoga-icon.ico winbuild\yogawin.py
 move yogawin.dist\yogawin.exe yogawin.dist\yoga.exe
 copy winbuild\README-windows-dist.md yogawin.dist\README.txt
 copy LICENSE yogawin.dist\LICENSE.txt
@@ -22,3 +22,5 @@ del yoga-icon.ico
 call __env__\Scripts\deactivate.bat
 
 endlocal
+
+

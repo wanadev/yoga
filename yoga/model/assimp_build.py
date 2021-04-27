@@ -10,27 +10,13 @@ _ASSIMP_H = os.path.join(_ROOT, "assimp.h")
 
 
 _LIB_ASSIMP = None
-_LIB_IRRXML = None
 _LIB_ZLIB = None
+_EXTRA_LIBS = []
 
 if ccompiler.get_default_compiler() == "unix":
     # Default libs path for Unix systems
     _LIB_ASSIMP = os.path.join(
         _ROOT, "..", "..", "assimp", "build", "lib", "libassimp.a"
-    )
-    _LIB_IRRXML = os.path.join(
-        _ROOT, "..", "..", "assimp", "build", "lib", "libIrrXML.a"
-    )
-    _LIB_ZLIB = os.path.join(
-        _ROOT, "..", "..", "assimp", "build", "lib", "libzlibstatic.a"
-    )
-elif ccompiler.get_default_compiler() == "msvc":
-    # Default libs path for Windows
-    _LIB_ASSIMP = os.path.join(
-        _ROOT, "..", "..", "assimp", "build", "lib", "Release", "assimp.lib"
-    )
-    _LIB_IRRXML = os.path.join(
-        _ROOT, "..", "..", "assimp", "build", "lib", "Release", "IrrXML.lib"
     )
     _LIB_ZLIB = os.path.join(
         _ROOT,
@@ -38,30 +24,41 @@ elif ccompiler.get_default_compiler() == "msvc":
         "..",
         "assimp",
         "build",
-        "lib",
+        "contrib",
+        "zlib",
+        "libzlibstatic.a",
+    )
+elif ccompiler.get_default_compiler() == "msvc":
+    # Default libs path for Windows
+    _LIB_ASSIMP = os.path.join(
+        _ROOT, "..", "..", "assimp", "build", "lib", "Release", "assimp.lib"
+    )
+    _LIB_ZLIB = os.path.join(
+        _ROOT,
+        "..",
+        "..",
+        "assimp",
+        "build",
+        "contrib",
+        "zlib",
         "Release",
         "zlibstatic.lib",
     )
+    _EXTRA_LIBS.append("Advapi32.lib")
 
 # Allow to override path through env vars
 if "YOGA_BUILD_LIB_ASSIMP" in os.environ:
     _LIB_ASSIMP = os.environ["YOGA_BUILD_LIB_ASSIMP"]
-if "YOGA_BUILD_LIB_IRRXML" in os.environ:
-    _LIB_IRRXML = os.environ["YOGA_BUILD_LIB_IRRXML"]
 if "YOGA_BUILD_LIB_ZLIB" in os.environ:
     _LIB_ZLIB = os.environ["YOGA_BUILD_LIB_ZLIB"]
 
 if not _LIB_ASSIMP:
     raise Exception(
-        "Please provide the path to the assimp library using the YOGA_BUILD_LIB_ASSIMP environment variable"  # noqa: E501
-    )
-if not _LIB_IRRXML:
-    raise Exception(
-        "Please provide the path to the IrrXML library using the YOGA_BUILD_LIB_IRRXML environment variable"  # noqa: E501
+        "Please provide the path to the assimp library using the YOGA_BUILD_LIB_ASSIMP environment variable"
     )
 if not _LIB_ZLIB:
     raise Exception(
-        "Please provide the path to the zlib library using the YOGA_BUILD_LIB_ZLIB environment variable"  # noqa: E501
+        "Please provide the path to the zlib library using the YOGA_BUILD_LIB_ZLIB environment variable"
     )
 
 
@@ -69,7 +66,7 @@ ffibuilder = FFI()
 ffibuilder.set_source(
     "yoga.model._assimp",
     open(_ASSIMP_CPP, "r").read(),
-    extra_objects=[_LIB_ASSIMP, _LIB_IRRXML, _LIB_ZLIB],
+    extra_objects=[_LIB_ASSIMP, _LIB_ZLIB] + _EXTRA_LIBS,
     include_dirs=[
         _ROOT,
         os.path.join(_ROOT, "..", "..", "assimp", "include"),

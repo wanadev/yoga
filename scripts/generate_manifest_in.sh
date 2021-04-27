@@ -11,7 +11,9 @@ echo "include README.rst"
 
 echo
 
-find yoga/model -name "*.[hc]*" -exec echo "include" "{}" ";"
+find yoga/model -name "*.h" -exec echo "include" "{}" ";"
+find yoga/model -name "*.c" -exec echo "include" "{}" ";"
+find yoga/model -name "*.cpp" -exec echo "include" "{}" ";"
 
 echo
 
