@@ -66,7 +66,7 @@ ffibuilder = FFI()
 ffibuilder.set_source(
     "yoga.model._assimp",
     open(_ASSIMP_CPP, "r").read(),
-    extra_objects=[_LIB_ASSIMP, _LIB_ZLIB, *_EXTRA_LIBS],
+    extra_objects=[_LIB_ASSIMP, _LIB_ZLIB] + _EXTRA_LIBS,
     include_dirs=[
         _ROOT,
         os.path.join(_ROOT, "..", "..", "assimp", "include"),
