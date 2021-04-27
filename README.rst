@@ -54,6 +54,18 @@ Documentation
 Changelog
 ---------
 
+* **1.0.0:**
+
+  * WEBP (lossy and lossless) images supported as output format
+  * PNG default optimization preset changed to a 10× faster preset (old preset
+    stil available with ``--png-slow-optimization`` flag)
+  * New model flag ``--no-fix-infacing-normals`` to disable Assimp's "fix
+    infacing normals" postprocess (#32, #33)
+  * Show CLI usage when no parameter given
+  * Developer documentation improved (#31)
+  * ASSIMP library updated
+  * WARNING: This is the last version to actively support Python 2.7!
+
 * **0.11.1:**
 
   * Automated workflow for deploying the PyPI packages
