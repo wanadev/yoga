@@ -30,6 +30,11 @@ Go to the project's directory::
 
     cd yoga
 
+Get the submodules:
+
+    git submodule init
+    git submodule update
+
 Build and install using the following command (as ``root`` on Linux)::
 
     python3 setup.py install
