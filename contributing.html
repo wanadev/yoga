@@ -95,6 +95,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#questions">Questions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bugs">Bugs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pull-requests">Pull Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#packaging-yoga">Packaging YOGA</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#build-dependencies">Build Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#downloading-the-sources">Downloading the sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-yoga">Building YOGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-yoga">Installing YOGA</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#developing-yoga">Developing YOGA</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#installing-prerequisite">Installing Prerequisite</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#creating-a-virtualenv">Creating a Virtualenv</a></li>
@@ -209,6 +216,52 @@ some typo in the documentation or small errors in the code.</p>
 <p>Please note that your code must pass tests and follow the coding style defined
 by the <a class="reference external" href="https://pep8.org/">pep8</a>. The code of this project is automatically
 checked by <a class="reference external" href="https://flake8.pycqa.org/en/latest/">Flake8</a> and the coding style is enforced using <a class="reference external" href="https://black.readthedocs.io/en/stable/">Black</a>.</p>
+</div>
+<div class="section" id="packaging-yoga">
+<h2>Packaging YOGA<a class="headerlink" href="#packaging-yoga" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="build-dependencies">
+<h3>Build Dependencies<a class="headerlink" href="#build-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>You will need the following dependencies to build YOGA:</p>
+<ul class="simple">
+<li><p>GCC with C++ 11 support</p></li>
+<li><p>GNU Make</p></li>
+<li><p>cmake</p></li>
+<li><p>Python &gt;= 3.7 (with headers)</p></li>
+<li><p>Python setuptools</p></li>
+<li><p>Python CFFI</p></li>
+</ul>
+<p>On Debian and Ubuntu this can be installed with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">cmake</span> <span class="n">python3</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">-</span><span class="n">setuptools</span> <span class="n">python3</span><span class="o">-</span><span class="n">cffi</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="downloading-the-sources">
+<h3>Downloading the sources<a class="headerlink" href="#downloading-the-sources" title="Permalink to this headline">¶</a></h3>
+<p>Please download the source from PyPI, not from Github (Assimp sources are missing from Github tarballs):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">files</span><span class="o">.</span><span class="n">pythonhosted</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">y</span><span class="o">/</span><span class="n">yoga</span><span class="o">/</span><span class="n">yoga</span><span class="o">-&lt;</span><span class="n">VERSION</span><span class="o">&gt;.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">files</span><span class="o">.</span><span class="n">pythonhosted</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">y</span><span class="o">/</span><span class="n">yoga</span><span class="o">/</span><span class="n">yoga</span><span class="o">-</span><span class="mf">1.0.0</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">tar</span> <span class="o">-</span><span class="n">xvzf</span> <span class="n">yoga</span><span class="o">-</span><span class="mf">1.0.0</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cd</span> <span class="n">yoga</span><span class="o">-</span><span class="mf">1.0.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-yoga">
+<h3>Building YOGA<a class="headerlink" href="#building-yoga" title="Permalink to this headline">¶</a></h3>
+<p>Use the following command to build YOGA:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-yoga">
+<h3>Installing YOGA<a class="headerlink" href="#installing-yoga" title="Permalink to this headline">¶</a></h3>
+<p>If your build folder is <code class="docutils literal notranslate"><span class="pre">&quot;/tmp/my-package&quot;</span></code>, you can install YOGA into it using the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span> <span class="o">--</span><span class="n">prefix</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">package</span><span class="o">/</span><span class="n">usr</span> <span class="o">--</span><span class="n">optimize</span><span class="o">=</span><span class="mi">1</span> <span class="o">--</span><span class="n">skip</span><span class="o">-</span><span class="n">build</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="developing-yoga">
 <h2>Developing YOGA<a class="headerlink" href="#developing-yoga" title="Permalink to this headline">¶</a></h2>

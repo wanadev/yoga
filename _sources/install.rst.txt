@@ -20,7 +20,7 @@ To install YOGA from sources, you will have to install some build dependencies f
 
 On Debian / Ubuntu, you can install everything you need using the following command::
 
-   sudo apt install build-essential cmake python3 python3-dev python3-pip python-setuptools
+   sudo apt install build-essential cmake python3 python3-dev python3-pip python3-setuptools
 
 Then clone the repository::
 
