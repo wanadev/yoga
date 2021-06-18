@@ -40,6 +40,53 @@ by the `pep8 <https://pep8.org/>`_. The code of this project is automatically
 checked by Flake8_ and the coding style is enforced using Black_.
 
 
+Packaging YOGA
+--------------
+
+Build Dependencies
+~~~~~~~~~~~~~~~~~~
+
+You will need the following dependencies to build YOGA:
+
+* GCC with C++ 11 support
+* GNU Make
+* cmake
+* Python >= 3.7 (with headers)
+* Python setuptools
+* Python CFFI
+
+On Debian and Ubuntu this can be installed with the following command::
+
+    sudo apt install build-essential cmake python3 python3-dev python3-setuptools python3-cffi
+
+Downloading the sources
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Please download the source from PyPI, not from Github (Assimp sources are missing from Github tarballs)::
+
+    https://files.pythonhosted.org/packages/source/y/yoga/yoga-<VERSION>.tar.gz
+
+Example::
+
+    wget https://files.pythonhosted.org/packages/source/y/yoga/yoga-1.0.0.tar.gz
+    tar -xvzf yoga-1.0.0.tar.gz
+    cd yoga-1.0.0
+
+Building YOGA
+~~~~~~~~~~~~~
+
+Use the following command to build YOGA::
+
+    python3 setup.py build
+
+Installing YOGA
+~~~~~~~~~~~~~~~
+
+If your build folder is ``"/tmp/my-package"``, you can install YOGA into it using the following command::
+
+    python3 setup.py install --prefix=/tmp/my-package/usr --optimize=1 --skip-build
+
+
 Developing YOGA
 ---------------
 
