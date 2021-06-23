@@ -8,56 +8,56 @@ from yoga.model import helpers
 class Test_model_helpers(object):
     def test_normalize_path(self):
         assert (
-            helpers.normalize_path(u"images/texture.png")
+            helpers.normalize_path("images/texture.png")
             == "images/texture.png"
         )
         assert (
-            helpers.normalize_path(u"./images/texture.png")
+            helpers.normalize_path("./images/texture.png")
             == "images/texture.png"
         )
         assert (
-            helpers.normalize_path(u".\\images\\texture.png")
+            helpers.normalize_path(".\\images\\texture.png")
             == "images/texture.png"
         )
         assert (
-            helpers.normalize_path(u"./images\\texture.png")
+            helpers.normalize_path("./images\\texture.png")
             == "images/texture.png"
         )
         assert (
-            helpers.normalize_path(u".\\images/texture.png")
+            helpers.normalize_path(".\\images/texture.png")
             == "images/texture.png"
         )
         assert (
-            helpers.normalize_path(u"../images/texture.png")
+            helpers.normalize_path("../images/texture.png")
             == "images/texture.png"
         )
         assert (
-            helpers.normalize_path(u"..\\images\\texture.png")
+            helpers.normalize_path("..\\images\\texture.png")
             == "images/texture.png"
         )
         assert (
-            helpers.normalize_path(u"./images/subfolder/../texture.png")
+            helpers.normalize_path("./images/subfolder/../texture.png")
             == "images/texture.png"
         )
         assert (
-            helpers.normalize_path(u"./images/sub1\\sub2/../../texture.png")
+            helpers.normalize_path("./images/sub1\\sub2/../../texture.png")
             == "images/texture.png"
         )
         assert (
-            helpers.normalize_path(u"./images/texture.png")
+            helpers.normalize_path("./images/texture.png")
             == "images/texture.png"
         )
         assert (
-            helpers.normalize_path(u"/images/texture.png")
+            helpers.normalize_path("/images/texture.png")
             == "images/texture.png"
         )
         assert (
-            helpers.normalize_path(u"C:\\images\\texture.png")
+            helpers.normalize_path("C:\\images\\texture.png")
             == "images/texture.png"
         )
 
         assert (
-            helpers.normalize_path(u"somE_valid-caractères of files.png")
+            helpers.normalize_path("somE_valid-caractères of files.png")
             == "some_valid-caracteres of files.png"
         )
 

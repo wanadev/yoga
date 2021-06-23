@@ -52,7 +52,7 @@ def normalize_options(options=None):
         if type(value) == bytes:
             value = value.decode()
 
-        if type(value) in (str, type(u"")):
+        if type(value) in (str, bytes):
             value = value.lower()
 
             if value.isdigit():
@@ -77,7 +77,7 @@ def normalize_options(options=None):
     if "jpeg_quality" in options:
         value = options["jpeg_quality"]
 
-        if type(value) in (str, type(u""), bytes):
+        if type(value) in (str, bytes):
             value = float(value)
 
         if value > 1:
@@ -94,7 +94,7 @@ def normalize_options(options=None):
     if "webp_quality" in options:
         value = options["webp_quality"]
 
-        if type(value) in (str, type(u""), bytes):
+        if type(value) in (str, bytes):
             value = float(value)
 
         if value > 1:
@@ -111,7 +111,7 @@ def normalize_options(options=None):
     if "opacity_threshold" in options:
         value = options["opacity_threshold"]
 
-        if type(value) in (str, type(u""), bytes):
+        if type(value) in (str, bytes):
             value = float(value)
 
         if value < 1:

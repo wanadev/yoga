@@ -54,6 +54,10 @@ Documentation
 Changelog
 ---------
 
+* **[NEXT]** (changes on ``master`` that have not been released yet):
+
+  * Python 2.7 support dropped
+
 * **1.0.0:**
 
   * WEBP (lossy and lossless) images supported as output format

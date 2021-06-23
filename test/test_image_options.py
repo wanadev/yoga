@@ -38,9 +38,6 @@ class Test_normalize_options(object):
             ("jpeg_quality", b"0.42", 0.42),
             ("jpeg_quality", b".42", 0.42),
             ("jpeg_quality", b"42", 0.42),
-            ("jpeg_quality", u"0.42", 0.42),
-            ("jpeg_quality", u".42", 0.42),
-            ("jpeg_quality", u"42", 0.42),
             # webp_quality
             ("webp_quality", 0.42, 0.42),
             ("webp_quality", 42, 0.42),
@@ -50,9 +47,6 @@ class Test_normalize_options(object):
             ("webp_quality", b"0.42", 0.42),
             ("webp_quality", b".42", 0.42),
             ("webp_quality", b"42", 0.42),
-            ("webp_quality", u"0.42", 0.42),
-            ("webp_quality", u".42", 0.42),
-            ("webp_quality", u"42", 0.42),
             # opacity_threshold
             ("opacity_threshold", 128, 128),
             ("opacity_threshold", 0.5, 128),
@@ -64,7 +58,6 @@ class Test_normalize_options(object):
             ("opacity_threshold", 300, 255),
             ("opacity_threshold", "300", 255),
             ("opacity_threshold", b"255", 255),
-            ("opacity_threshold", u"255", 255),
             # png_slow_optimization
             ("png_slow_optimization", True, True),
             ("png_slow_optimization", False, False),
@@ -89,7 +82,6 @@ class Test_normalize_options(object):
             ("100:200", [100, 200]),
             ("100,200", [100, 200]),
             ("100;200", [100, 200]),
-            (u"100x200", [100, 200]),
             (b"100x200", [100, 200]),
             ([100, 200], [100, 200]),
         ],
