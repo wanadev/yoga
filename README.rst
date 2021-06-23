@@ -57,6 +57,7 @@ Changelog
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
   * Python 2.7 support dropped
+  * Allow to cancel an optimization using Ctrl+C (NOTE: this may not work on Windows)
 
 * **1.0.0:**
 
