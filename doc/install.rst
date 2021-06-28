@@ -39,6 +39,17 @@ Build and install using the following command (as ``root`` on Linux)::
 
     python3 setup.py install
 
+.. NOTE::
+
+    On "exotic" platforms (a.k.a. old systems, non-intel machines, distribution
+    that do not use libc6 (like Alpine that uses Musl),...) you may have to
+    also compile YOGA's dependencies. Here are some links to their respective
+    documentations:
+
+    * `Building Pillow from sources <https://pillow.readthedocs.io/en/stable/installation.html#building-from-source>`_
+    * `Installing PyGuetzli from sources <https://wanadev.github.io/pyguetzli/install.html#installing-from-source>`_
+    * `ZopfliPy documentation <https://github.com/hattya/zopflipy>`_ (only basic build dependencies seems to be required)
+
 
 Windows Standalone Releases
 ---------------------------
