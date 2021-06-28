@@ -202,6 +202,18 @@ git submodule update</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On “exotic” platforms (a.k.a. old systems, non-intel machines, distribution
+that do not uses libc6 (like Alpine that uses Musl),…) you will may have
+to also compile YOGA’s dependencies. Here are some link to their respective
+documentations:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pillow.readthedocs.io/en/stable/installation.html#building-from-source">Building Pillow from source</a></p></li>
+<li><p><a class="reference external" href="https://wanadev.github.io/pyguetzli/install.html#installing-from-source">Installing PyGuetzli from source</a></p></li>
+<li><p><a class="reference external" href="https://github.com/hattya/zopflipy">ZopfliPy documentation</a> (only basic build dependencies seems to be required)</p></li>
+</ul>
+</div>
 </div>
 <div class="section" id="windows-standalone-releases">
 <h2>Windows Standalone Releases<a class="headerlink" href="#windows-standalone-releases" title="Permalink to this headline">¶</a></h2>
