@@ -8,6 +8,7 @@
 ##
 
 echo "include README.rst"
+echo "include LICENSE"
 
 echo
 
