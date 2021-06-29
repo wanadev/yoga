@@ -3,7 +3,7 @@ Command Line Interface
 
 .. code-block:: text
 
-    usage: yoga [-h] {image,model} ...
+    usage: yoga [-h] {image,model} [options...] input output
 
     positional arguments:
       {image,model}

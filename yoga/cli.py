@@ -67,17 +67,22 @@ def generate_model_cli(parser=None):
 
 
 def generate_main_cli():
-    parser = argparse.ArgumentParser(prog="yoga")
+    parser = argparse.ArgumentParser(
+        prog="yoga",
+        usage="%(prog)s [-h] {image,model} [options...] input output",
+    )
     subparsers = parser.add_subparsers(dest="subcommand")
 
     image_parser = subparsers.add_parser(
         "image",
+        prog="yoga image",
         help="Converts and optimizes images",
     )
     generate_image_cli(image_parser)
 
     model_parser = subparsers.add_parser(
         "model",
+        prog="yoga model",
         help="Converts and optimizes 3D models",
     )
     generate_model_cli(model_parser)
