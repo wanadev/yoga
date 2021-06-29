@@ -169,6 +169,7 @@ API
 from PIL import Image
 
 from .encoders.jpeg import optimize_jpeg
+from .encoders.jpeg import open_jpeg
 from .encoders.png import optimize_png
 from .encoders.webp import optimize_lossy_webp
 from .encoders.webp_lossless import optimize_lossless_webp
@@ -195,8 +196,19 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     else:
         raise ValueError("Unsupported parameter type for 'input_file'")
 
+    # Determine the input image format
+    try:
+        input_format = helpers.guess_image_format(image_file.read())
+    except ValueError:
+        input_format = None
+    finally:
+        image_file.seek(0)  # to allow PIL.Image to read the file
+
     # Open the image with Pillow
-    image = Image.open(image_file)
+    if input_format == "jpeg":
+        image = open_jpeg(image_file)
+    else:
+        image = Image.open(image_file)
 
     # Resize image if requested
     if options["resize"] != "orig":
@@ -204,8 +216,9 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
 
     # Output format
     if options["output_format"] == "orig":
-        image_file.seek(0)  # PIL.Image already read the file
-        output_format = helpers.guess_image_format(image_file.read())
+        if input_format is None:
+            raise ValueError("Unsupported image format")
+        output_format = input_format
     elif options["output_format"] == "auto":
         if helpers.image_have_alpha(image, options["opacity_threshold"]):
             output_format = "png"

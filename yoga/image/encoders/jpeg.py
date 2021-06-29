@@ -1,4 +1,5 @@
 import pyguetzli
+from PIL import Image
 
 
 def is_jpeg(file_bytes):
@@ -32,3 +33,14 @@ def optimize_jpeg(image, quality):
     if not 0.00 <= quality <= 1.00:
         raise ValueError("JPEG quality value must be between 0.00 and 1.00")
     return pyguetzli.process_pil_image(image, int(quality * 100))
+
+
+def open_jpeg(image_file):
+    """Open JPEG file.
+
+    TODO: Handle JPEG Orientation EXIF.
+
+    :param file-like image_file: the image file.
+    :rtype: PIL.Image
+    """
+    return Image.open(image_file)
