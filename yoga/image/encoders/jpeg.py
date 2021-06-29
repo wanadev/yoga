@@ -38,9 +38,29 @@ def optimize_jpeg(image, quality):
 def open_jpeg(image_file):
     """Open JPEG file.
 
-    TODO: Handle JPEG Orientation EXIF.
+    This function also handles JPEG Orientation EXIF.
 
     :param file-like image_file: the image file.
     :rtype: PIL.Image
     """
-    return Image.open(image_file)
+    EXIF_TAG_ORIENTATION = 274
+    ORIENTATION_OPERATIONS = {
+        1: [],
+        2: [Image.FLIP_LEFT_RIGHT],
+        3: [Image.ROTATE_180],
+        4: [Image.FLIP_TOP_BOTTOM],
+        5: [Image.FLIP_LEFT_RIGHT, Image.ROTATE_90],
+        6: [Image.ROTATE_270],
+        7: [Image.FLIP_LEFT_RIGHT, Image.ROTATE_270],
+        8: [Image.ROTATE_90],
+    }
+
+    image = Image.open(image_file)
+    exif = image.getexif()
+
+    if EXIF_TAG_ORIENTATION in exif:
+        orientation = exif[EXIF_TAG_ORIENTATION]
+        for operation in ORIENTATION_OPERATIONS[orientation]:
+            image = image.transpose(operation)
+
+    return image
