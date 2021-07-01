@@ -2,6 +2,7 @@
 
 import sys
 import struct
+import zlib
 
 
 def big_endian_uint32_bytes_to_python_int(bytes_):
@@ -32,8 +33,16 @@ def get_png_structure(data):
             "size": big_endian_uint32_bytes_to_python_int(
                 data[offset : offset + 4]
             ),
-            # TODO CRC
+            "crc": None,
         }
+        chunk["crc"] = big_endian_uint32_bytes_to_python_int(
+            data[
+                chunk["data_offset"]
+                + chunk["size"] : chunk["data_offset"]
+                + chunk["size"]
+                + 4
+            ]
+        )
         result["chunks"].append(chunk)
         offset += 12 + chunk["size"]
 
@@ -135,6 +144,16 @@ def get_bKGD_info(data, colour_type):
         }
 
 
+def calculate_crc32(image_data, chunk_info):
+    return zlib.crc32(
+        image_data[
+            chunk_info["data_offset"]
+            - 4 : chunk_info["data_offset"]
+            + chunk_info["size"]
+        ]
+    )
+
+
 def print_png_info(input_path):
     image = open(input_path, "rb").read()
     png = get_png_structure(image)
@@ -144,8 +163,16 @@ def print_png_info(input_path):
 
     for chunk in png["chunks"]:
         print(
-            "        +-- %s [offset: %i, size: %i]"
-            % (chunk["type"], chunk["data_offset"], chunk["size"])
+            "        +-- %s [offset: %i, size: %i, crc: %08X (%s)]"
+            % (
+                chunk["type"],
+                chunk["data_offset"],
+                chunk["size"],
+                chunk["crc"],
+                "ok"
+                if calculate_crc32(image, chunk) == chunk["crc"]
+                else "error",
+            )
         )
         if chunk["type"] == "IHDR":
             ihdr_info = get_IHDR_info(
