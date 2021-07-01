@@ -13,7 +13,7 @@ def main(args=sys.argv[1:]):
     parsed_args = parser.parse_args(args if args else ["--help"])
     handler = getattr(sys.modules[__name__], parsed_args.subcommand)
     with ThreadPoolExecutor(max_workers=1) as executor:
-        executor.submit(
+        future = executor.submit(
             handler.optimize,
             parsed_args.input,
             parsed_args.output,
@@ -21,6 +21,9 @@ def main(args=sys.argv[1:]):
             verbose=parsed_args.verbose,
             quiet=parsed_args.quiet,
         )
+    if future.exception():
+        print(future.result())
+        sys.exit(1)
 
 
 def _on_sigint_received(signalnum, stackframe):
