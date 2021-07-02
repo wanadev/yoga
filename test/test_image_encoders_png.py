@@ -151,3 +151,17 @@ class Test_assemble_png_from_chunks(object):
         expected_png += b"\xAE\x42\x60\x82"  # CRC
 
         assert png.assemble_png_from_chunks(chunks) == expected_png
+
+
+class Test_is_png(object):
+    def test_png_file(self):
+        with open("test/images/alpha.png", "rb") as image_file:
+            image_data = image_file.read()
+
+        assert png.is_png(image_data) is True
+
+    def test_jpeg_file(self):
+        with open("test/images/image1.jpg", "rb") as image_file:
+            image_data = image_file.read()
+
+        assert png.is_png(image_data) is False
