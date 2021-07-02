@@ -34,7 +34,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("USAGE:")
         print(
-            "  ./scripts/lsriff.py <image.webp> [image2.webp [image3.webp [...]]]"
+            "  ./scripts/lsriff.py <image.webp> [image2.webp ...]"
         )
         sys.exit(1)
 
