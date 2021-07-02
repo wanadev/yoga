@@ -1,3 +1,4 @@
+from PIL import Image
 import pytest
 
 from yoga.image.encoders import png
@@ -165,3 +166,23 @@ class Test_is_png(object):
             image_data = image_file.read()
 
         assert png.is_png(image_data) is False
+
+
+class Test_optimize_png(object):
+    @pytest.mark.parametrize(
+        "filename",
+        [
+            "test/images/edgecases/calibre-gui.png",
+            "test/images/edgecases/keepassxc.png",
+            "test/images/edgecases/vlc.png",
+        ],
+    )
+    def test_output_png_never_larger_than_input_png(self, filename):
+        with open(filename, "rb") as image_file:
+            image_data = image_file.read()
+            image_file.seek(0)
+            image = Image.open(image_file)
+
+            output = png.optimize_png(image, image_data)
+
+        assert len(output) <= len(image_data)

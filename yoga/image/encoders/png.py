@@ -132,6 +132,68 @@ def assemble_png_from_chunks(chunks):
     return result_png
 
 
+def clean_png(data):
+    """Cleans the given PNG.
+
+    * Removes non-essential chunks,
+    * Concat all the ``IDAT`` chunks,
+    * Recompress the ``IDAT`` chunk with Zopfli or keep the original
+      compression if more efficient.
+
+    :param bytes data: the raw PNG data.
+    :rtype: bytes
+    """
+    png_structure = get_png_structure(data)
+    chunks = []
+    idat_concat = b""
+
+    # Keep essential chunks and concat IDAT chunks
+    for chunk in png_structure["chunks"]:
+        if chunk["type"] in ["IHDR", "PLTE", "tRNS"]:
+            chunks.append(
+                {
+                    "type": chunk["type"],
+                    "data": data[
+                        chunk["data_offset"] : chunk["data_offset"]
+                        + chunk["size"]
+                    ],
+                }
+            )
+        elif chunk["type"] == "IDAT":
+            idat_concat += data[
+                chunk["data_offset"] : chunk["data_offset"] + chunk["size"]
+            ]
+
+    # Recompress IDAT chunk with Zopfli
+    compressor = zopfli.ZopfliCompressor(
+        format=zopfli.ZOPFLI_FORMAT_ZLIB,
+        iterations=150,
+    )
+    idat_zopfli = (
+        compressor.compress(zlib.decompress(idat_concat)) + compressor.flush()
+    )
+
+    # Add the IDAT chunk
+    chunks.append(
+        {
+            "type": "IDAT",
+            "data": idat_zopfli
+            if len(idat_zopfli) <= len(idat_concat)
+            else idat_concat,
+        }
+    )
+
+    # ... and the IEND one to finish the file :)
+    chunks.append(
+        {
+            "type": "IEND",
+            "data": b"",
+        }
+    )
+
+    return assemble_png_from_chunks(chunks)
+
+
 def is_png(file_bytes):
     """Whether or not the given bytes represent a PNG file.
 
@@ -143,16 +205,16 @@ def is_png(file_bytes):
     return file_bytes.startswith(_PNG_MAGIC)
 
 
-def optimize_png(image, slow=False):
+def optimize_png(image, raw_data, slow=False):
     """Encode image to PNG using ZopfliPNG.
 
     :param PIL.Image image: The image to encode.
+    :param bytes raw_data: Raw input data.
     :param bool slow: Makes a little bit more efficient optimization (in some
                       cases) but runs very slow.
 
     :returns: The encoded image's bytes.
     """
-    # Export the image as a PNG file-like bytes
     image_io = io.BytesIO()
     image.save(image_io, format="PNG", optimize=False)
     image_io.seek(0)
@@ -168,4 +230,24 @@ def optimize_png(image, slow=False):
         zopflipng.iterations = 20
         zopflipng.iterations_large = 7
 
-    return zopflipng.optimize(image_bytes)
+    zopfli_bytes = zopflipng.optimize(image_bytes)
+
+    # Try to fix the output if it is larger than the input
+    if is_png(raw_data) and len(zopfli_bytes) > len(raw_data):
+        png_structure = get_png_structure(raw_data)
+        ihdr_chunk = png_structure["chunks"][0]
+        png_header = get_IHDR_info(
+            raw_data[
+                ihdr_chunk["data_offset"] : ihdr_chunk["data_offset"]
+                + ihdr_chunk["size"]
+            ]
+        )
+
+        # Only use data from input image if it has not been resized
+        if (
+            image.width == png_header["width"]
+            and image.height == png_header["height"]
+        ):
+            return clean_png(raw_data)
+
+    return zopfli_bytes

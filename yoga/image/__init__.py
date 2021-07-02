@@ -196,13 +196,15 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     else:
         raise ValueError("Unsupported parameter type for 'input_file'")
 
+    # Get raw image data
+    raw_data = image_file.read()
+    image_file.seek(0)  # to allow PIL.Image to read the file
+
     # Determine the input image format
     try:
-        input_format = helpers.guess_image_format(image_file.read())
+        input_format = helpers.guess_image_format(raw_data)
     except ValueError:
         input_format = None
-    finally:
-        image_file.seek(0)  # to allow PIL.Image to read the file
 
     # Open the image with Pillow
     if input_format == "jpeg":
@@ -234,7 +236,7 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
         output_image_bytes = optimize_jpeg(image, options["jpeg_quality"])
     elif output_format == "png":
         output_image_bytes = optimize_png(
-            image, options["png_slow_optimization"]
+            image, raw_data, options["png_slow_optimization"]
         )
     elif output_format == "webp":
         output_image_bytes = optimize_lossy_webp(
