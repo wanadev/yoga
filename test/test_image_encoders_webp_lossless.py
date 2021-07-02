@@ -6,15 +6,15 @@ from yoga.image.encoders import webp_lossless
 
 
 class Test_is_lossless_webp(object):
-    def test_with_lossy_webp(object):
+    def test_with_lossy_webp(self):
         image_bytes = open("test/images/alpha.lossy.webp", "rb").read()
         assert webp_lossless.is_lossless_webp(image_bytes) is False
 
-    def test_with_lossless_webp(object):
+    def test_with_lossless_webp(self):
         image_bytes = open("test/images/alpha.lossless.webp", "rb").read()
         assert webp_lossless.is_lossless_webp(image_bytes) is True
 
-    def test_with_png(object):
+    def test_with_png(self):
         image_bytes = open("test/images/alpha.png", "rb").read()
         assert webp_lossless.is_lossless_webp(image_bytes) is False
 
