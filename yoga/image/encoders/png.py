@@ -1,10 +1,28 @@
 import io
+import zlib
 import struct
 
 import zopfli
 
 
 _PNG_MAGIC = b"\x89PNG\r\n\x1A\n"
+_PNG_COLOR_TYPES = {
+    0: "grayscale",
+    2: "truecolour",
+    3: "indexed-colour",
+    4: "grayscale-alpha",
+    6: "truecolour-alpha",
+}
+_PNG_COMPRESSION_METHODS = {
+    0: "deflate",
+}
+_PNG_FILTER_METHODS = {
+    0: "adaptative",
+}
+_PNG_INTERLACE_METHODS = {
+    0: "no-interlace",
+    1: "Adam7",
+}
 
 
 def big_endian_uint32_bytes_to_python_int(bytes_):
@@ -50,40 +68,68 @@ def get_png_structure(data):
 
 
 def get_IHDR_info(data):
-    PNG_COLOR_TYPES = {
-        0: "grayscale",
-        2: "truecolour",
-        3: "indexed-colour",
-        4: "grayscale-alpha",
-        6: "truecolour-alpha",
-    }
-
-    PNG_COMPRESSION_METHODS = {
-        0: "deflate",
-    }
-
-    PNG_FILTER_METHODS = {
-        0: "adaptative",
-    }
-
-    PNG_INTERLACE_METHODS = {
-        0: "no-interlace",
-        1: "Adam7",
-    }
-
     return {
         "width": big_endian_uint32_bytes_to_python_int(data[0:4]),
         "height": big_endian_uint32_bytes_to_python_int(data[4:8]),
         "bit_depth": data[8],
         "colour_type": data[9],
-        "colour_type_str": PNG_COLOR_TYPES[data[9]],
+        "colour_type_str": _PNG_COLOR_TYPES[data[9]],
         "compression_method": data[10],
-        "compression_method_str": PNG_COMPRESSION_METHODS[data[10]],
+        "compression_method_str": _PNG_COMPRESSION_METHODS[data[10]],
         "filter_method": data[11],
-        "filter_method_str": PNG_FILTER_METHODS[data[11]],
+        "filter_method_str": _PNG_FILTER_METHODS[data[11]],
         "interlace_method": data[12],
-        "interlace_method_str": PNG_INTERLACE_METHODS[data[12]],
+        "interlace_method_str": _PNG_INTERLACE_METHODS[data[12]],
     }
+
+
+def assemble_png_from_chunks(chunks):
+    """Assemble a PNG file from a list of chunks
+
+    :param list chunks: The list of chunks (see bellow).
+
+    Example list of chunk::
+
+        [
+            {
+                "type": "IHDR",
+                "data": b"...",
+            },
+            {
+                "type": "PLTE",
+                "data": b"...",
+            },
+            {
+                "type": "IDAT",
+                "data": b"...",
+            },
+            {
+                "type": "IEND",
+                "data": b"",
+            },
+        ]
+
+    .. WARNING::
+
+        All chunks should be provided in the right order. The first chunk
+        should be ``IHDR`` and the last one ``IEND``.
+
+    :rtype: bytes
+    """
+    result_png = _PNG_MAGIC
+
+    for chunk in chunks:
+        result_png += python_int_to_big_endian_uint32_bytes(len(chunk["data"]))
+        result_png += bytes(chunk["type"], encoding="ascii")
+        result_png += chunk["data"]
+        result_png += python_int_to_big_endian_uint32_bytes(
+            zlib.crc32(
+                chunk["data"],
+                zlib.crc32(bytes(chunk["type"], encoding="ascii")),
+            )
+        )
+
+    return result_png
 
 
 def is_png(file_bytes):

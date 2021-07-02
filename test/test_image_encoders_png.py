@@ -106,3 +106,48 @@ class Test_get_IHDR_info(object):
         ihdr_info = png.get_IHDR_info(ihdr)
         assert ihdr_info["interlace_method"] == id_
         assert ihdr_info["interlace_method_str"] == name
+
+
+class Test_assemble_png_from_chunks(object):
+    def test_assemble_png_from_chunks(self):
+        chunks = [
+            {
+                "type": "IHDR",
+                "data": b"\x00\x00\x00\x78\x00\x00\x00\x78\x08\x06\x00\x00\x00",
+            },
+            {
+                "type": "tEXt",
+                "data": b"Foo\0Bar",
+            },
+            {
+                "type": "IDAT",
+                "data": b"\xAA\xBB",
+            },
+            {
+                "type": "IEND",
+                "data": b"",
+            },
+        ]
+
+        expected_png = b"\x89PNG\r\n\x1A\n"
+        # IHDR
+        expected_png += b"\x00\x00\x00\x0D"  # length
+        expected_png += b"IHDR"  # type
+        expected_png += b"\x00\x00\x00\x78\x00\x00\x00\x78\x08\x06\x00\x00\x00"
+        expected_png += b"\x39\x64\x36\xD2"  # CRC
+        # tEXt
+        expected_png += b"\x00\x00\x00\x07"  # length
+        expected_png += b"tEXt"  # type
+        expected_png += b"Foo\0Bar"  # data
+        expected_png += b"\xC8\x97\x2E\x75"  # CRC
+        # IDAT
+        expected_png += b"\x00\x00\x00\x02"  # length
+        expected_png += b"IDAT"  # type
+        expected_png += b"\xAA\xBB"  # data
+        expected_png += b"\x74\xA0\x83\xDD"  # CRC
+        # IEND
+        expected_png += b"\x00\x00\x00\x00"  # length
+        expected_png += b"IEND"  # type
+        expected_png += b"\xAE\x42\x60\x82"  # CRC
+
+        assert png.assemble_png_from_chunks(chunks) == expected_png
