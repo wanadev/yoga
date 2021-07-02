@@ -4,70 +4,11 @@ import sys
 import struct
 import zlib
 
-
-def big_endian_uint32_bytes_to_python_int(bytes_):
-    return struct.unpack(">L", bytes_)[0]
+from yoga.image.encoders import png
 
 
 def big_endian_uint16_bytes_to_python_int(bytes_):
     return struct.unpack(">H", bytes_)[0]
-
-
-def get_png_structure(data):
-    PNG_MAGIC = b"\x89PNG\r\n\x1A\n"
-
-    if not data.startswith(PNG_MAGIC):
-        raise ValueError("Unvalid PNG: Not a PNG file")
-
-    result = {
-        "size": len(data),
-        "chunks": [],
-    }
-
-    offset = len(PNG_MAGIC)
-
-    while offset < result["size"]:
-        chunk = {
-            "type": data[offset + 4 : offset + 8].decode(),
-            "data_offset": offset + 8,
-            "size": big_endian_uint32_bytes_to_python_int(
-                data[offset : offset + 4]
-            ),
-            "crc": None,
-        }
-        chunk["crc"] = big_endian_uint32_bytes_to_python_int(
-            data[
-                chunk["data_offset"]
-                + chunk["size"] : chunk["data_offset"]
-                + chunk["size"]
-                + 4
-            ]
-        )
-        result["chunks"].append(chunk)
-        offset += 12 + chunk["size"]
-
-    return result
-
-
-def get_IHDR_info(data):
-    PNG_COLOR_TYPE = {
-        0: "Grayscale",
-        2: "Truecolour",
-        3: "Indexed-colour",
-        4: "Grayscale with alpha",
-        6: "Truecolour with alpha",
-    }
-
-    return {
-        "width": big_endian_uint32_bytes_to_python_int(data[0:4]),
-        "height": big_endian_uint32_bytes_to_python_int(data[4:8]),
-        "bit_depth": data[8],
-        "colour_type": data[9],
-        "colour_type_str": PNG_COLOR_TYPE[data[9]],
-        "compression_method": data[10],
-        "filter_method": data[11],
-        "interlace_method": data[12],
-    }
 
 
 def get_sBIT_info(data, colour_type):
@@ -101,8 +42,12 @@ def get_pHYs_info(data):
         1: "metre",
     }
     return {
-        "pixels_per_unit_x": big_endian_uint32_bytes_to_python_int(data[0:4]),
-        "pixels_per_unit_y": big_endian_uint32_bytes_to_python_int(data[4:8]),
+        "pixels_per_unit_x": png.big_endian_uint32_bytes_to_python_int(
+            data[0:4]
+        ),
+        "pixels_per_unit_y": png.big_endian_uint32_bytes_to_python_int(
+            data[4:8]
+        ),
         "unit_specifier": data[8],
         "unit_specifier_str": PNG_UNITS[data[8]],
     }
@@ -129,9 +74,7 @@ def get_tIME_info(data):
 
 def get_bKGD_info(data, colour_type):
     if colour_type in [0, 4]:  # Grayscale, Grayscale with alpha
-        return {
-            "grayscale": big_endian_uint32_bytes_to_python_int(b"\0\0" + data)
-        }
+        return {"grayscale": big_endian_uint16_bytes_to_python_int(data)}
     elif colour_type in [2, 6]:  # Truecolour, Truecolour with alpha
         return {
             "red": big_endian_uint16_bytes_to_python_int(data[0:2]),
@@ -156,12 +99,12 @@ def calculate_crc32(image_data, chunk_info):
 
 def print_png_info(input_path):
     image = open(input_path, "rb").read()
-    png = get_png_structure(image)
+    png_structure = png.get_png_structure(image)
 
     print("+-- %s" % input_path)
-    print("    +-- PNG [size: %i]" % png["size"])
+    print("    +-- PNG [size: %i]" % png_structure["size"])
 
-    for chunk in png["chunks"]:
+    for chunk in png_structure["chunks"]:
         print(
             "        +-- %s [offset: %i, size: %i, crc: %08X (%s)]"
             % (
@@ -175,7 +118,7 @@ def print_png_info(input_path):
             )
         )
         if chunk["type"] == "IHDR":
-            ihdr_info = get_IHDR_info(
+            ihdr_info = png.get_IHDR_info(
                 image[
                     chunk["data_offset"] : chunk["data_offset"] + chunk["size"]
                 ]
