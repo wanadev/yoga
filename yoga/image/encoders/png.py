@@ -1,6 +1,89 @@
 import io
+import struct
 
 import zopfli
+
+
+_PNG_MAGIC = b"\x89PNG\r\n\x1A\n"
+
+
+def big_endian_uint32_bytes_to_python_int(bytes_):
+    return struct.unpack(">L", bytes_)[0]
+
+
+def python_int_to_big_endian_uint32_bytes(number):
+    return struct.pack(">L", number)
+
+
+def get_png_structure(data):
+    if not is_png(data):
+        raise ValueError("Unvalid PNG: Not a PNG file")
+
+    result = {
+        "size": len(data),
+        "chunks": [],
+    }
+
+    offset = len(_PNG_MAGIC)
+
+    while offset < result["size"]:
+        chunk = {
+            "type": data[offset + 4 : offset + 8].decode(),
+            "data_offset": offset + 8,
+            "size": big_endian_uint32_bytes_to_python_int(
+                data[offset : offset + 4]
+            ),
+            "crc": None,
+        }
+        chunk["crc"] = big_endian_uint32_bytes_to_python_int(
+            data[
+                chunk["data_offset"]
+                + chunk["size"] : chunk["data_offset"]
+                + chunk["size"]
+                + 4
+            ]
+        )
+        result["chunks"].append(chunk)
+        offset += 12 + chunk["size"]
+
+    return result
+
+
+def get_IHDR_info(data):
+    PNG_COLOR_TYPES = {
+        0: "grayscale",
+        2: "truecolour",
+        3: "indexed-colour",
+        4: "grayscale-alpha",
+        6: "truecolour-alpha",
+    }
+
+    PNG_COMPRESSION_METHODS = {
+        0: "deflate",
+    }
+
+    PNG_FILTER_METHODS = {
+        0: "adaptative",
+    }
+
+    PNG_INTERLACE_METHODS = {
+        0: "no-interlace",
+        1: "Adam7",
+    }
+
+    return {
+        "width": big_endian_uint32_bytes_to_python_int(data[0:4]),
+        "height": big_endian_uint32_bytes_to_python_int(data[4:8]),
+        "bit_depth": data[8],
+        "colour_type": data[9],
+        "colour_type_str": PNG_COLOR_TYPES[data[9]],
+        "compression_method": data[10],
+        "compression_method_str": PNG_COMPRESSION_METHODS[data[10]],
+        "filter_method": data[11],
+        "filter_method_str": PNG_FILTER_METHODS[data[11]],
+        "interlace_method": data[12],
+        "interlace_method_str": PNG_INTERLACE_METHODS[data[12]],
+    }
 
 
 def is_png(file_bytes):
@@ -11,7 +94,7 @@ def is_png(file_bytes):
     :rtype: bool
     :return: ``True`` if the bytes represent a PNG file, ``False`` else.
     """
-    return file_bytes.startswith(b"\x89PNG\r\n")
+    return file_bytes.startswith(_PNG_MAGIC)
 
 
 def optimize_png(image, slow=False):
