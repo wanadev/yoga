@@ -60,6 +60,7 @@ Changelog
   * Allow to cancel an optimization using Ctrl+C (NOTE: this may not work on Windows)
   * Honor JPEG orientation EXIF tag
   * Improve ``yoga -h`` usage
+  * PNG -> PNG optimization: YOGA cannot output PNGs larger than the input ones
 
 * **1.0.0:**
 
