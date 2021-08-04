@@ -30,7 +30,7 @@ Go to the project's directory::
 
     cd yoga
 
-Get the submodules:
+Get the submodules::
 
     git submodule init
     git submodule update
