@@ -61,6 +61,13 @@ Changelog
   * Honor JPEG orientation EXIF tag
   * Improve ``yoga -h`` usage
   * PNG -> PNG optimization: YOGA cannot output PNGs larger than the input ones
+  * JPEG optimization has been improved by using some optimizations from
+    MozJPEG after the Guetzli encoding (from 2.4 % to 7.3 % of additional size
+    reduction)
+  * **For packagers:**
+
+    * new dependency to `mozjpeg-lossless-optimization
+      <https://github.com/wanadev/mozjpeg-lossless-optimization>`_
 
 * **1.0.0:**
 
