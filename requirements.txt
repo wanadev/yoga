@@ -1,4 +1,5 @@
 cffi==1.14.5
+mozjpeg-lossless-optimization==1.0.0
 Pillow==8.2.0
 pycparser==2.20
 pyguetzli==1.0.9

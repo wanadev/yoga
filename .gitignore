@@ -16,4 +16,4 @@ _*.c*
 .vscode
 .pytest_cache/
 *.tags
-/benchmark/
+/__misc__/

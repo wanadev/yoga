@@ -1,4 +1,5 @@
 import pyguetzli
+import mozjpeg_lossless_optimization
 from PIL import Image
 
 
@@ -32,7 +33,8 @@ def optimize_jpeg(image, quality):
     """
     if not 0.00 <= quality <= 1.00:
         raise ValueError("JPEG quality value must be between 0.00 and 1.00")
-    return pyguetzli.process_pil_image(image, int(quality * 100))
+    guetzli_jpeg_bytes = pyguetzli.process_pil_image(image, int(quality * 100))
+    return mozjpeg_lossless_optimization.optimize(guetzli_jpeg_bytes)
 
 
 def open_jpeg(image_file):

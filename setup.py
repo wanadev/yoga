@@ -85,6 +85,7 @@ setup(
     setup_requires=["cffi>=1.0.0"],
     install_requires=[
         "cffi>=1.0.0",
+        "mozjpeg-lossless-optimization>=1.0.0",
         "pillow>=6.2.2",
         "pyguetzli>=1.0.0",
         "unidecode>=1.0.0",
