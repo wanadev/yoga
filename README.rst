@@ -64,6 +64,7 @@ Changelog
   * JPEG optimization has been improved by using some optimizations from
     MozJPEG after the Guetzli encoding (from 2.4 % to 7.3 % of additional size
     reduction)
+  * CLI: add a ``--version`` option to get YOGA's version
   * **For packagers:**
 
     * new dependency to `mozjpeg-lossless-optimization

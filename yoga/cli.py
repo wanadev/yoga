@@ -4,6 +4,7 @@ from functools import partial
 
 from .image.cli import add_image_cli_options
 from .model.cli import add_model_cli_options
+from .version import VERSION
 
 
 def _type_path(mode, string):
@@ -71,6 +72,12 @@ def generate_main_cli():
         prog="yoga",
         usage="%(prog)s [-h] {image,model} [options...] input output",
     )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version="%%(prog)s %s" % VERSION,
+    )
+
     subparsers = parser.add_subparsers(dest="subcommand")
 
     image_parser = subparsers.add_parser(
