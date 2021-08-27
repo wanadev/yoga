@@ -56,16 +56,35 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
-  * Python 2.7 support dropped
-  * Allow to cancel an optimization using Ctrl+C (NOTE: this may not work on Windows)
-  * Honor JPEG orientation EXIF tag
-  * Improve ``yoga -h`` usage
-  * PNG -> PNG optimization: YOGA cannot output PNGs larger than the input ones
-  * JPEG optimization has been improved by using some optimizations from
-    MozJPEG after the Guetzli encoding (from 2.4 % to 7.3 % of additional size
-    reduction)
-  * CLI: add a ``--version`` option to get YOGA's version
-  * **For packagers:**
+  * *nothing yet*
+
+* **1.1.0:**
+
+  * **JPEG Optimization:**
+
+    * Honor the JPEG orientation EXIF tag
+    * JPEG optimization has been improved by using some optimizations from
+      MozJPEG after the Guetzli encoding (from 2.4 % to 7.3 % of additional size
+      reduction)
+
+  * **PNG Optimization:**
+
+    * PNG -> PNG optimization: YOGA cannot output PNGs larger than the input ones
+    * YOGA can no more output a PNG larger than the input one when performing
+      a PNG to PNG optimization
+
+  * **CLI:**
+
+    * Allow to cancel an optimization using Ctrl+C (NOTE: may not work on
+      Windows)
+    * Add a ``--version`` option to get YOGA's version
+    * Improve ``yoga --help`` usage
+
+  * **Python versions:**
+
+    * Python 2.7 support dropped
+
+  * **NOTE for packagers:**
 
     * new dependency to `mozjpeg-lossless-optimization
       <https://github.com/wanadev/mozjpeg-lossless-optimization>`_
