@@ -69,7 +69,6 @@ Changelog
 
   * **PNG Optimization:**
 
-    * PNG -> PNG optimization: YOGA cannot output PNGs larger than the input ones
     * YOGA can no more output a PNG larger than the input one when performing
       a PNG to PNG optimization
 
