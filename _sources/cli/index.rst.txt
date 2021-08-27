@@ -12,6 +12,7 @@ Command Line Interface
 
     optional arguments:
       -h, --help     show this help message and exit
+      --version      show program's version number and exit
 
 
 The YOGA command line interface is divided in two sub-commands:
