@@ -3,17 +3,15 @@
 
 import os
 import subprocess
-from distutils import ccompiler
 
 from setuptools import setup, find_packages
-from setuptools.command.build_py import build_py
+from setuptools.command.build_ext import build_ext
 
 
 def _find_msbuild(plat_spec="x64"):
-    # https://github.com/python/cpython/blob/master/Lib/distutils/_msvccompiler.py
-    import distutils._msvccompiler as msvc
+    from setuptools import msvc
 
-    vc_env = msvc._get_vc_env(plat_spec)
+    vc_env = msvc.msvc14_get_vc_env(plat_spec)
     if "vsinstalldir" not in vc_env:
         raise Exception("Unable to find any Visual Studio installation")
     return os.path.join(
@@ -21,14 +19,14 @@ def _find_msbuild(plat_spec="x64"):
     )
 
 
-class CustomBuildPy(build_py):
-    def run(self):
+class CustomBuildExt(build_ext):
+    def build_extensions(self):
         if not os.path.isdir("./assimp/build"):
             os.mkdir("./assimp/build")
 
         os.chdir("./assimp/build")
 
-        if ccompiler.get_default_compiler() == "unix":
+        if self.compiler.compiler_type == "unix":
             os.environ["CPPFLAGS"] = "--std=c++11"
             subprocess.call(
                 [
@@ -41,7 +39,7 @@ class CustomBuildPy(build_py):
                 ]
             )
             subprocess.call(["make"])
-        elif ccompiler.get_default_compiler() == "msvc":
+        elif self.compiler.compiler_type == "msvc":
             msbuild = _find_msbuild()
             subprocess.call(
                 [
@@ -58,11 +56,11 @@ class CustomBuildPy(build_py):
                 [msbuild, "-p:Configuration=Release", "Assimp.sln"]
             )
         else:
-            raise Exception("Unhandled platform")
+            raise Exception("Unsupported platform")
 
         os.chdir("../..")
 
-        build_py.run(self)
+        build_ext.build_extensions(self)
 
 
 long_description = ""
@@ -108,6 +106,6 @@ setup(
     },
     cffi_modules=["yoga/model/assimp_build.py:ffibuilder"],
     cmdclass={
-        "build_py": CustomBuildPy,
+        "build_ext": CustomBuildExt,
     },
 )
