@@ -56,7 +56,7 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
-  * *nothing yet*
+  * JPEG: ignore invalid values for the the orientation tag (#38)
 
 * **1.1.0:**
 

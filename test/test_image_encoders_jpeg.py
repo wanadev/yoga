@@ -35,5 +35,25 @@ class Test_open_jpeg(object):
             assert r2 < 5 and g2 > 250 and b2 < 5  # ~lime
 
             # Check if the blue square is at bottom-right corner
-            r3, g3, b3 = image.getpixel((255 - 8, 340 - 8))
+            r3, g3, b3 = image.getpixel((255 - 8, 341 - 8))
+            assert r3 < 5 and g3 < 5 and b3 > 250  # ~blue
+
+    def test_jpeg_orientation_invalid(self):
+        with open("test/images/orientation/invalid.jpg", "rb") as image_file:
+            image = jpeg.open_jpeg(image_file)
+
+            # Test image size
+            assert image.width == 341
+            assert image.height == 256
+
+            # Check if the red square is at top-right corner
+            r1, g1, b1 = image.getpixel((341 - 8, 8))
+            assert r1 > 250 and g1 < 5 and b1 < 5  # ~red
+
+            # Check if the green square is at bottom-right corner
+            r2, g2, b2 = image.getpixel((341 - 8, 255 - 8))
+            assert r2 < 5 and g2 > 250 and b2 < 5  # ~lime
+
+            # Check if the blue square is at bottom-left corner
+            r3, g3, b3 = image.getpixel((8, 255 - 8))
             assert r3 < 5 and g3 < 5 and b3 > 250  # ~blue
