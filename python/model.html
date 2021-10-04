@@ -1,73 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>YOGA Model Python API &mdash; YOGA  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Contributing" href="../contributing.html" />
     <link rel="prev" title="YOGA Image Python API" href="image.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> YOGA
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,18 +36,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing YOGA</a></li>
@@ -113,78 +63,36 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">YOGA</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index.html">Python API</a> &raquo;</li>
-        
       <li>YOGA Model Python API</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/python/model.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="module-yoga.model">
-<span id="yoga-model-python-api"></span><h1>YOGA Model Python API<a class="headerlink" href="#module-yoga.model" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="module-yoga.model">
+<span id="yoga-model-python-api"></span><h1>YOGA Model Python API<a class="headerlink" href="#module-yoga.model" title="Permalink to this headline"></a></h1>
 <p>This module allows to convert and optimize 3D models.</p>
-<div class="section" id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
 <p>converting and optimizing a model:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yoga.model</span>
 <span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">)</span>
@@ -210,11 +118,11 @@
 <span class="p">})</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="available-model-options">
-<h2>Available Model Options<a class="headerlink" href="#available-model-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="output-format">
-<h3>output_format<a class="headerlink" href="#output-format" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="available-model-options">
+<h2>Available Model Options<a class="headerlink" href="#available-model-options" title="Permalink to this headline"></a></h2>
+<section id="output-format">
+<h3>output_format<a class="headerlink" href="#output-format" title="Permalink to this headline"></a></h3>
 <p>The format of the output model.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
     <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;glb&quot;</span><span class="p">,</span>
@@ -226,9 +134,9 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">glb</span></code> (default)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">gltf</span></code></p></li>
 </ul>
-</div>
-<div class="section" id="fallback-texture">
-<h3>fallback_texture<a class="headerlink" href="#fallback-texture" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="fallback-texture">
+<h3>fallback_texture<a class="headerlink" href="#fallback-texture" title="Permalink to this headline"></a></h3>
 <p>This option allows you to provide a fallback texture that will be used when
 YOGA is unable to find one of the model textures.</p>
 <p>The following values are allowed:</p>
@@ -254,27 +162,27 @@ file (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;./
 <span class="p">})</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="no-graph-optimization">
-<h3>no_graph_optimization<a class="headerlink" href="#no-graph-optimization" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="no-graph-optimization">
+<h3>no_graph_optimization<a class="headerlink" href="#no-graph-optimization" title="Permalink to this headline"></a></h3>
 <p>Disables empty graph nodes merging.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
     <span class="s2">&quot;no_graph_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">})</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="no-meshes-optimization">
-<h3>no_meshes_optimization<a class="headerlink" href="#no-meshes-optimization" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="no-meshes-optimization">
+<h3>no_meshes_optimization<a class="headerlink" href="#no-meshes-optimization" title="Permalink to this headline"></a></h3>
 <p>Disable mesh optimization.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
     <span class="s2">&quot;no_meshes_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">})</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="no-textures-optimization">
-<h3>no_textures_optimization<a class="headerlink" href="#no-textures-optimization" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="no-textures-optimization">
+<h3>no_textures_optimization<a class="headerlink" href="#no-textures-optimization" title="Permalink to this headline"></a></h3>
 <p>Disable texture optimizations (textures will not be optimized using YOGA
 Image).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
@@ -282,9 +190,9 @@ Image).</p>
 <span class="p">})</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="no-fix-infacing-normals">
-<h3>no_fix_infacing_normals<a class="headerlink" href="#no-fix-infacing-normals" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="no-fix-infacing-normals">
+<h3>no_fix_infacing_normals<a class="headerlink" href="#no-fix-infacing-normals" title="Permalink to this headline"></a></h3>
 <p>Disables the assimp’s infacing normals fix. This postprocess tries to determine
 which meshes have normal vectors that are facing inwards and inverts them. See
 the <a class="reference external" href="http://assimp.sourceforge.net/lib_html/postprocess_8h.html">assimp documentation</a> for more
@@ -294,10 +202,10 @@ details.</p>
 <span class="p">})</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="available-image-options">
-<h2>Available Image Options<a class="headerlink" href="#available-image-options" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="available-image-options">
+<h2>Available Image Options<a class="headerlink" href="#available-image-options" title="Permalink to this headline"></a></h2>
 <p>YOGA Model optimizes textures using YOGA Images, so there are options
 equivalent to the YOGA Image ones available:</p>
 <ul class="simple">
@@ -315,12 +223,12 @@ YOGA Image,</p></li>
 <code class="docutils literal notranslate"><span class="pre">png_slow_optimization</span></code> of YOGA Image,</p></li>
 </ul>
 <p>See <a class="reference internal" href="image.html#yoga-image-api-options"><span class="std std-ref">YOGA Image options</span></a> for more information.</p>
-</div>
-<div class="section" id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="yoga.model.optimize">
-<span class="sig-prename descclassname"><span class="pre">yoga.model.</span></span><span class="sig-name descname"><span class="pre">optimize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">textures</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yoga.model.optimize" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">yoga.model.</span></span><span class="sig-name descname"><span class="pre">optimize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">textures</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yoga.model.optimize" title="Permalink to this definition"></a></dt>
 <dd><p>Optimize given model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -348,55 +256,38 @@ or stderr.</p></li>
 </div>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="image.html" class="btn btn-neutral float-left" title="YOGA Image Python API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Wanadev.
-
-    </p>
+    <p>&#169; Copyright 2021, Wanadev.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
