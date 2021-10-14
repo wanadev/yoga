@@ -19,9 +19,9 @@ jobs:
           submodules: true
 
       - name: "Set up Python"
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: "3.10"
 
       - name: "Build source distribution"
         run: |
@@ -38,7 +38,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [cp37-cp37m, cp38-cp38, cp39-cp39]
+        python-version: [cp37-cp37m, cp38-cp38, cp39-cp39, cp310-cp310]
 
     name: "Wheel for ${{ matrix.python-version }} manylinux2010 i686"
     runs-on: ubuntu-latest
@@ -51,7 +51,7 @@ jobs:
           submodules: true
 
       - name: "Build Python Wheel for Linux (manylinux2010_i686)"
-        uses: RalfG/python-wheels-manylinux-build@v0.3.3-manylinux2010_i686
+        uses: RalfG/python-wheels-manylinux-build@v0.3.4-manylinux2010_i686
         with:
           python-versions: ${{ matrix.python-version }}
           build-requirements: cffi>=1.0.0
@@ -67,7 +67,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [cp37-cp37m, cp38-cp38, cp39-cp39]
+        python-version: [cp37-cp37m, cp38-cp38, cp39-cp39, cp310-cp310]
 
     name: "Wheel for ${{ matrix.python-version }} manylinux2010 x86_64"
     runs-on: ubuntu-latest
@@ -80,7 +80,7 @@ jobs:
           submodules: true
 
       - name: "Build Python Wheel for Linux (manylinux2010_x86_64)"
-        uses: RalfG/python-wheels-manylinux-build@v0.3.3-manylinux2010_x86_64
+        uses: RalfG/python-wheels-manylinux-build@v0.3.4-manylinux2010_x86_64
         with:
           python-versions: ${{ matrix.python-version }}
           build-requirements: cffi>=1.0.0
@@ -96,7 +96,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
 
     name: "Wheel for py${{ matrix.python-version }} win amd64"
     runs-on: windows-latest
@@ -109,7 +109,7 @@ jobs:
           submodules: true
 
       - name: "Set up Python ${{ matrix.python-version }}"
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -132,7 +132,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
         macos-version: ["10.15"]
 
     name: "Wheel for py${{ matrix.python-version }} macos-${{ matrix.macos-version }} intel"
@@ -146,7 +146,7 @@ jobs:
           submodules: true
 
       - name: "Set up Python ${{ matrix.python-version }}"
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
 

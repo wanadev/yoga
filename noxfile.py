@@ -29,7 +29,7 @@ def black_fix(session):
     session.run("black", *PYTHON_FILES)
 
 
-@nox.session(python=["3.7", "3.8", "3.9"], reuse_venv=True)
+@nox.session(python=["3.7", "3.8", "3.9", "3.10"], reuse_venv=True)
 def test(session):
     session.install("pytest")
     session.install(".")
