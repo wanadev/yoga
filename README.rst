@@ -56,7 +56,12 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
-  * JPEG: ignore invalid values for the the orientation tag (#38)
+  * Nothing yet...
+
+* **1.1.1:**
+
+  * JPEG: ignore invalid values for the orientation tag (#38)
+  * Python 3.10 support and wheels
 
 * **1.1.0:**
 
