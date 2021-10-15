@@ -12,6 +12,7 @@ _ASSIMP_H = os.path.join(_ROOT, "assimp.h")
 _LIB_ASSIMP = None
 _LIB_ZLIB = None
 _EXTRA_LIBS = []
+_EXTRA_ARGS = []
 
 if ccompiler.get_default_compiler() == "unix":
     # Default libs path for Unix systems
@@ -28,6 +29,7 @@ if ccompiler.get_default_compiler() == "unix":
         "zlib",
         "libzlibstatic.a",
     )
+    _EXTRA_ARGS = ["--std=c++11"]
 elif ccompiler.get_default_compiler() == "msvc":
     # Default libs path for Windows
     _LIB_ASSIMP = os.path.join(
@@ -73,6 +75,7 @@ ffibuilder.set_source(
         os.path.join(_ROOT, "..", "..", "assimp", "build", "include"),
     ],
     source_extension=".cpp",
+    extra_compile_args=_EXTRA_ARGS,
 )
 ffibuilder.cdef(open(_ASSIMP_H, "r").read())
 

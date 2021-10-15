@@ -27,7 +27,9 @@ class CustomBuildExt(build_ext):
         os.chdir("./assimp/build")
 
         if self.compiler.compiler_type == "unix":
-            os.environ["CPPFLAGS"] = "--std=c++11"
+            os.environ["CXXFLAGS"] = "--std=c++11 %s" % os.environ.get(
+                "CXXFLAGS", ""
+            )
             subprocess.call(
                 [
                     "cmake",
