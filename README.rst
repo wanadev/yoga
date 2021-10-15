@@ -58,7 +58,11 @@ Changelog
 
   * Nothing yet...
 
-* **1.1.1:**
+* **1.1.2:**
+
+  * Add flag to CFFI builder to fix MacOS build
+
+* **1.1.1 (not published):**
 
   * JPEG: ignore invalid values for the orientation tag (#38)
   * Python 3.10 support and wheels
