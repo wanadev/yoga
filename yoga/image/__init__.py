@@ -248,8 +248,10 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     # Write to output_file
     if not hasattr(output_file, "write"):
         output_file = open(output_file, "wb")
-
-    output_file.write(output_image_bytes)
+        output_file.write(output_image_bytes)
+        output_file.close()
+    else:
+        output_file.write(output_image_bytes)
 
     # Close input file if we opened it
     if type(input_file) is str:
