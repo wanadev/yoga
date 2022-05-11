@@ -77,3 +77,24 @@ def add_image_cli_options(parser, prefix=""):
         help="enable a (very) slow optimization preset for PNGs that can sometimes gain few bytes on the output file",
         action="store_true",
     )
+    parser.add_argument(
+        "--%senable-quantization" % prefix,
+        help="reduce the number of colors used in the image",
+        action="store_true",
+    )
+    parser.add_argument(
+        "--%squantization-dithering-level" % prefix,
+        help="the dithering level to use when --%senable-quantization is set"
+        % prefix,
+        metavar="0.0-1.0",
+        type=partial(_type_range, 0.0, 1.0),
+        default=DEFAULT_OPTIONS["quantization_dithering_level"],
+    )
+    parser.add_argument(
+        "--%squantization-max-colors" % prefix,
+        help="the maximum number of colors to use when --%senable-quantization is set"
+        % prefix,
+        metavar="1-256",
+        type=partial(_type_range, 1, 256),
+        default=DEFAULT_OPTIONS["quantization_max_colors"],
+    )
