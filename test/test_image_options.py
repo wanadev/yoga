@@ -65,6 +65,33 @@ class Test_normalize_options(object):
             ("png_slow_optimization", 0, False),
             ("png_slow_optimization", "", False),
             ("png_slow_optimization", b"", False),
+            # enable_quantization
+            ("enable_quantization", True, True),
+            ("enable_quantization", False, False),
+            ("enable_quantization", 1, True),
+            ("enable_quantization", 0, False),
+            ("enable_quantization", "", False),
+            ("enable_quantization", b"", False),
+            # quantization_dithering_level
+            ("quantization_dithering_level", 0.42, 0.42),
+            ("quantization_dithering_level", 42, 1.0),
+            ("quantization_dithering_level", "0.42", 0.42),
+            ("quantization_dithering_level", ".42", 0.42),
+            ("quantization_dithering_level", "42", 1.0),
+            ("quantization_dithering_level", b"0.42", 0.42),
+            ("quantization_dithering_level", b".42", 0.42),
+            ("quantization_dithering_level", b"42", 1.0),
+            ("quantization_dithering_level", -1, 0.0),
+            # quantization_max_colors
+            ("quantization_max_colors", 128, 128),
+            ("quantization_max_colors", 128.5, 128),
+            ("quantization_max_colors", "128", 128),
+            ("quantization_max_colors", "128.5", 128),
+            ("quantization_max_colors", "255", 255),
+            ("quantization_max_colors", 300, 256),
+            ("quantization_max_colors", "300", 256),
+            ("quantization_max_colors", b"255", 255),
+            ("quantization_max_colors", 0, 1),
         ],
     )
     def test_options(self, option_name, input_, output):

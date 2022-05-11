@@ -3,12 +3,15 @@ import re
 
 # fmt: off
 DEFAULT_OPTIONS = {
-    "output_format": "orig",         # orig|auto|jpeg|png|webp|webpl
-    "resize": "orig",                # orig|[w,h]
-    "jpeg_quality": 0.84,            # 0.00-1.00
-    "webp_quality": 0.90,            # 0.00-1.00
-    "opacity_threshold": 254,        # 0-255
-    "png_slow_optimization": False,  # True|False
+    "output_format": "orig",              # orig|auto|jpeg|png|webp|webpl
+    "resize": "orig",                     # orig|[w,h]
+    "jpeg_quality": 0.84,                 # 0.00-1.00
+    "webp_quality": 0.90,                 # 0.00-1.00
+    "opacity_threshold": 254,             # 0-255
+    "png_slow_optimization": False,       # True|False
+    "enable_quantization": False,         # True|False
+    "quantization_dithering_level": 1.0,  # 0.00-1.00
+    "quantization_max_colors": 256,       # 1-256
 }
 # fmt: on
 
@@ -129,5 +132,40 @@ def normalize_options(options=None):
         result["png_slow_optimization"] = bool(
             options["png_slow_optimization"]
         )
+
+    # "" -> False
+    # 0 -> False
+    # 1 -> True
+    if "enable_quantization" in options:
+        result["enable_quantization"] = bool(options["enable_quantization"])
+
+    # > 1.0 -> 1.0
+    # < 0.0 -> 0.0
+    # "0.5" -> 0.5
+    if "quantization_dithering_level" in options:
+        value = options["quantization_dithering_level"]
+
+        if type(value) in (str, bytes):
+            value = float(value)
+
+        value = max(value, 0.0)
+        value = min(value, 1.0)
+
+        result["quantization_dithering_level"] = value
+
+    # > 256 -> 256
+    # < 1 -> 1
+    # "128" -> 128
+    # 128.5 -> 128
+    if "quantization_max_colors" in options:
+        value = options["quantization_max_colors"]
+
+        if type(value) in (str, bytes):
+            value = float(value)
+
+        value = max(value, 1)
+        value = min(value, 256)
+
+        result["quantization_max_colors"] = int(value)
 
     return result
