@@ -167,6 +167,7 @@ API
 """
 
 from PIL import Image
+from imagequant import quantize_pil_image
 
 from .encoders.jpeg import optimize_jpeg
 from .encoders.jpeg import open_jpeg
@@ -215,6 +216,14 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     # Resize image if requested
     if options["resize"] != "orig":
         image.thumbnail(options["resize"], Image.LANCZOS)
+
+    # Quantize if requested
+    if options["enable_quantization"]:
+        image = quantize_pil_image(
+            image,
+            dithering_level=options["quantization_dithering_level"],
+            max_colors=options["quantization_max_colors"],
+        )
 
     # Output format
     if options["output_format"] == "orig":
