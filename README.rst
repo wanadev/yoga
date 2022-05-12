@@ -56,7 +56,7 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
-  * Nothing yet...
+  * Add color quantization options (based on libimagequant)
 
 * **1.1.2:**
 
