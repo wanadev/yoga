@@ -27,6 +27,14 @@ YOGA Image Command Line Interface
       --png-slow-optimization
                             enable a (very) slow optimization preset for PNGs that
                             can sometimes gain few bytes on the output file
+      --enable-quantization
+                            reduce the number of colors used in the image
+      --quantization-dithering-level 0.0-1.0
+                            the dithering level to use when
+                            --enable-quantization is set
+      --quantization-max-colors 1-256
+                            the maximum number of colors to use when
+                            --enable-quantization is set
 
 
 
@@ -143,3 +151,60 @@ YOGA allows you to select an alternative preset for PNGs optimization. This pres
 To enable this preset, use the ``--png-slow-optimization`` option::
 
     yoga  image  --png-slow-optimization  input.png  output.png
+
+
+Color Quantization
+------------------
+
+Color quantization is an operation that reduces the number of distinct colors used in an image.
+
+To enable the color quantization, use the ``--enable-quantization`` option::
+
+    yoga  image  --enable-quantization  input.png  output.png
+
+When color quantization is enabled, YOGA will produce images containing at most 256 colors (8-bit). You can control the maximum number of colors with the ``--quantization-max-colors`` option. This options takes an integer between ``1`` and ``256`` as parameter (``256`` is the default value)::
+
+    yoga  image  --enable-quantization  --quantization-max-colors=128  input.png  output.png
+
+By default, YOGA will use dithering to reduce the visual impact of the color loss, but this have an incidence on the efficiency of the compression. You can control the level of the dithering or disable it using the ``--quantization-dithering-level`` option, that takes a number between ``0.0`` and ``1.0`` as value:
+
+* ``0.0``: no dithering at all
+* ``1.0``: maximal dithering
+
+The default value is ``1.0``.
+
+::
+
+    yoga  image  --enable-quantization  --quantization-dithering-level=0.5  input.png  output.png
+
+
+Here are examples of the effect of the dithering levels:
+
++---------+------------+----------------------------+-----------+
+| Preview | max-colors | dithering-level            | File size |
++=========+============+============================+===========+
+| |orig|  | Original image (quantization disabled)  | 7,2 kB    |
++---------+------------+----------------------------+-----------+
+| |d1.0|  | 5          | 1.0                        | 1.4 kB    |
++---------+------------+----------------------------+-----------+
+| |d0.75| | 5          | 0.75                       | 1.4 kB    |
++---------+------------+----------------------------+-----------+
+| |d0.5|  | 5          | 0.5                        | 1.2 kB    |
++---------+------------+----------------------------+-----------+
+| |d0.25| | 5          | 0.25                       | 626 B     |
++---------+------------+----------------------------+-----------+
+| |d0.0|  | 5          | 0.0                        | 180 B     |
++---------+------------+----------------------------+-----------+
+
+.. |orig| image:: ./images/dithering-original-image.png
+   :width: 150px
+.. |d1.0| image:: ./images/dithering-1.0-colors-5.png
+   :width: 150px
+.. |d0.75| image:: ./images/dithering-0.75-colors-5.png
+   :width: 150px
+.. |d0.5| image:: ./images/dithering-0.5-colors-5.png
+   :width: 150px
+.. |d0.25| image:: ./images/dithering-0.25-colors-5.png
+   :width: 150px
+.. |d0.0| image:: ./images/dithering-0.0-colors-5.png
+   :width: 150px

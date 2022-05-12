@@ -47,6 +47,15 @@ YOGA Model Command Line Interface
       --image-png-slow-optimization
                             enable a (very) slow optimization preset for PNGs that
                             can sometimes gain few bytes on the output file
+      --image-enable-quantization
+                            reduce the number of colors used in the image
+      --image-quantization-dithering-level 0.0-1.0
+                            the dithering level to use when
+                            --image-enable-quantization is set
+      --image-quantization-max-colors 1-256
+                            the maximum number of colors to use when
+                            --image-enable-quantization is set
+
 
 
 
@@ -117,5 +126,11 @@ YOGA Model optimizes textures using YOGA Images, so there are options equivalent
 * The YOGA Model ``--image-opacity-threshold`` option is equivalent to the ``--opacity-threshold`` of  YOGA Image,
 
 * The YOGA Model ``--image-png-slow-optimization`` option is equivalent to the ``--png-slow-optimization`` of  YOGA Image,
+
+* The YOGA Model ``--image-enable-quantization`` option is equivalent to the ``--enable-quantization`` of  YOGA Image,
+
+* The YOGA Model ``--image-quantization-dithering-level`` option is equivalent to the ``--quantization-dithering-level`` of  YOGA Image,
+
+* The YOGA Model ``--image-quantization-max-colors`` option is equivalent to the ``--quantization-max-colors`` of  YOGA Image,
 
 See the :doc:`./image` documentation for more information.
