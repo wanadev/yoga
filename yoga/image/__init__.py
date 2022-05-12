@@ -162,6 +162,64 @@ You will generally not want to enable this.
     })
 
 
+enable_quantization
+~~~~~~~~~~~~~~~~~~~
+
+If ``True``, YOGA will reduce the number of distinct colors used in the image
+to 256 colors maximum. By default dithering will be used to reduce the visual
+impact of the color loss.
+
+The color quantization is disabled by default.
+
+::
+
+    yoga.image.optimize("./input.png", "./output.png", options={
+        "enable_quantization": True,
+    })
+
+
+See :ref:`yoga_image_cli_quantization` CLI options for more details.
+
+
+quantization_max_colors
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The maximum number of colors to use in the output image. This options has
+effect only when ``enable_quantization`` is set to ``True``.
+
+The value is a number between ``1`` and ``256`` (``256`` by default).
+
+::
+
+    yoga.image.optimize("./input.png", "./output.png", options={
+        "enable_quantization": True,
+        "quantization_max_colors": 256,
+    })
+
+See :ref:`yoga_image_cli_quantization` CLI options for more details.
+
+
+quantization_dithering_level
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The maximum dithering level used when reducing image colors. This options has
+effect only when ``enable_quantization`` is set to ``True``.
+
+The value is a number between ``0.0`` and ``1.0`` (``1.0`` by default):
+
+* ``0.0``: no dithering
+* ``1.0``: maximal dithering
+
+::
+
+    yoga.image.optimize("./input.png", "./output.png", options={
+        "enable_quantization": True,
+        "quantization_dithering_level": 1.0,
+    })
+
+See :ref:`yoga_image_cli_quantization` CLI options for more details.
+
+
 API
 ---
 """

@@ -153,6 +153,8 @@ To enable this preset, use the ``--png-slow-optimization`` option::
     yoga  image  --png-slow-optimization  input.png  output.png
 
 
+.. _yoga_image_cli_quantization:
+
 Color Quantization
 ------------------
 
@@ -168,7 +170,7 @@ When color quantization is enabled, YOGA will produce images containing at most 
 
 By default, YOGA will use dithering to reduce the visual impact of the color loss, but this have an incidence on the efficiency of the compression. You can control the level of the dithering or disable it using the ``--quantization-dithering-level`` option, that takes a number between ``0.0`` and ``1.0`` as value:
 
-* ``0.0``: no dithering at all
+* ``0.0``: no dithering
 * ``1.0``: maximal dithering
 
 The default value is ``1.0``.
@@ -208,3 +210,8 @@ Here are examples of the effect of the dithering levels:
    :width: 150px
 .. |d0.0| image:: ./images/dithering-0.0-colors-5.png
    :width: 150px
+
+.. NOTE::
+
+    In some cases, like PNG to PNG optimisation, the quantization can be
+    ignored by YOGA if it produces an output image larger that the input one.
