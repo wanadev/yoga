@@ -161,6 +161,15 @@ equivalent to the YOGA Image ones available:
 * The YOGA Model ``image_png_slow_optimization`` option is equivalent to the
   ``png_slow_optimization`` of YOGA Image,
 
+* The YOGA Model ``image_enable_quantization`` option is equivalent to the
+  ``enable_quantization`` of YOGA Image,
+
+* The YOGA Model ``image_quantization_dithering_level`` option is equivalent to the
+  ``quantization_dithering_level`` of YOGA Image,
+
+* The YOGA Model ``image_quantization_max_colors`` option is equivalent to the
+  ``quantization_max_colors`` of YOGA Image,
+
 See :ref:`YOGA Image options <yoga_image_api_options>` for more information.
 
 

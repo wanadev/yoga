@@ -182,4 +182,73 @@ class Test_optimize(object):
         output.seek(0)
         assert format_checker(output.read())
 
+    @pytest.mark.parametrize(
+        "quantization_max_colors,expected_colors_count",
+        [
+            (256, 22),
+            (128, 22),
+            (22, 22),
+            (20, 20),
+            (8, 8),
+            (1, 1),
+        ],
+    )
+    def test_quantization_colors(
+        self, quantization_max_colors, expected_colors_count
+    ):
+        output = io.BytesIO()
+        yoga.image.optimize(
+            "test/images/quantization-colors22.png",
+            output,
+            {
+                "enable_quantization": True,
+                "quantization_max_colors": quantization_max_colors,
+            },
+        )
+        output.seek(0)
+        image = Image.open(output)
+        assert len(image.getcolors()) == expected_colors_count
+
+    def test_quantization_dithering_disabled(self):
+        output = io.BytesIO()
+        yoga.image.optimize(
+            "test/images/quantization-dithering.png",
+            output,
+            {
+                "enable_quantization": True,
+                "quantization_max_colors": 3,
+                "quantization_dithering_level": 0.0,
+            },
+        )
+        output.seek(0)
+        image = Image.open(output)
+        colors = []
+        for z in range(5):
+            colors.append({})
+            for y in range(8):
+                for x in range(8):
+                    colors[z][image.getpixel((z * 8 + x, y))] = True
+        assert max([len(c) for c in colors]) == 1
+
+    def test_quantization_dithering_enabled(self):
+        output = io.BytesIO()
+        yoga.image.optimize(
+            "test/images/quantization-dithering.png",
+            output,
+            {
+                "enable_quantization": True,
+                "quantization_max_colors": 3,
+                "quantization_dithering_level": 1.0,
+            },
+        )
+        output.seek(0)
+        image = Image.open(output)
+        colors = []
+        for z in range(5):
+            colors.append({})
+            for y in range(8):
+                for x in range(8):
+                    colors[z][image.getpixel((z * 8 + x, y))] = True
+        assert max([len(c) for c in colors]) > 1
+
     # TODO test wrong image / fuzzy inputs

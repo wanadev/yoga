@@ -1,4 +1,5 @@
 cffi==1.14.5
+imagequant==1.0.2
 mozjpeg-lossless-optimization==1.0.0
 Pillow==8.2.0
 pycparser==2.20
