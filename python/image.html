@@ -51,6 +51,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#webp-quality">webp_quality</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#opacity-threshold">opacity_threshold</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#png-slow-optimization">png_slow_optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enable-quantization">enable_quantization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quantization-max-colors">quantization_max_colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quantization-dithering-level">quantization_dithering_level</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
@@ -226,6 +229,49 @@ average.</p>
 <span class="p">})</span>
 </pre></div>
 </div>
+</section>
+<section id="enable-quantization">
+<h3>enable_quantization<a class="headerlink" href="#enable-quantization" title="Permalink to this headline"></a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, YOGA will reduce the number of distinct colors used in the image
+to 256 colors maximum. By default dithering will be used to reduce the visual
+impact of the color loss.</p>
+<p>The color quantization is disabled by default.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.png&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.png&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;enable_quantization&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../cli/image.html#yoga-image-cli-quantization"><span class="std std-ref">Color Quantization</span></a> CLI options for more details.</p>
+</section>
+<section id="quantization-max-colors">
+<h3>quantization_max_colors<a class="headerlink" href="#quantization-max-colors" title="Permalink to this headline"></a></h3>
+<p>The maximum number of colors to use in the output image. This options has
+effect only when <code class="docutils literal notranslate"><span class="pre">enable_quantization</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>The value is a number between <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">256</span></code> (<code class="docutils literal notranslate"><span class="pre">256</span></code> by default).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.png&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.png&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;enable_quantization&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;quantization_max_colors&quot;</span><span class="p">:</span> <span class="mi">256</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../cli/image.html#yoga-image-cli-quantization"><span class="std std-ref">Color Quantization</span></a> CLI options for more details.</p>
+</section>
+<section id="quantization-dithering-level">
+<h3>quantization_dithering_level<a class="headerlink" href="#quantization-dithering-level" title="Permalink to this headline"></a></h3>
+<p>The maximum dithering level used when reducing image colors. This options has
+effect only when <code class="docutils literal notranslate"><span class="pre">enable_quantization</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>The value is a number between <code class="docutils literal notranslate"><span class="pre">0.0</span></code> and <code class="docutils literal notranslate"><span class="pre">1.0</span></code> (<code class="docutils literal notranslate"><span class="pre">1.0</span></code> by default):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code>: no dithering</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code>: maximal dithering</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.png&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.png&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;enable_quantization&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;quantization_dithering_level&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../cli/image.html#yoga-image-cli-quantization"><span class="std std-ref">Color Quantization</span></a> CLI options for more details.</p>
 </section>
 </section>
 <section id="api">

@@ -127,6 +127,14 @@ image options:
   --image-png-slow-optimization
                         enable a (very) slow optimization preset for PNGs that
                         can sometimes gain few bytes on the output file
+  --image-enable-quantization
+                        reduce the number of colors used in the image
+  --image-quantization-dithering-level 0.0-1.0
+                        the dithering level to use when
+                        --image-enable-quantization is set
+  --image-quantization-max-colors 1-256
+                        the maximum number of colors to use when
+                        --image-enable-quantization is set
 </pre></div>
 </div>
 <section id="basic-usage">
@@ -184,6 +192,9 @@ for more details.</p></li>
 <li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-webp-quality</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--webp-quality</span></code> of  YOGA Image,</p></li>
 <li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-opacity-threshold</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--opacity-threshold</span></code> of  YOGA Image,</p></li>
 <li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-png-slow-optimization</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--png-slow-optimization</span></code> of  YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-enable-quantization</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--enable-quantization</span></code> of  YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-quantization-dithering-level</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--quantization-dithering-level</span></code> of  YOGA Image,</p></li>
+<li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-quantization-max-colors</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--quantization-max-colors</span></code> of  YOGA Image,</p></li>
 </ul>
 <p>See the <a class="reference internal" href="image.html"><span class="doc">YOGA Image Command Line Interface</span></a> documentation for more information.</p>
 </section>

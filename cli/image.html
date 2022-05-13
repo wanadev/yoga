@@ -49,6 +49,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#output-webp-quality">Output WEBP Quality</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#opacity-threshold">Opacity Threshold</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#slow-png-optimization">Slow PNG Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#color-quantization">Color Quantization</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="model.html">YOGA Model Command Line Interface</a></li>
@@ -109,6 +110,14 @@ optional arguments:
   --png-slow-optimization
                         enable a (very) slow optimization preset for PNGs that
                         can sometimes gain few bytes on the output file
+  --enable-quantization
+                        reduce the number of colors used in the image
+  --quantization-dithering-level 0.0-1.0
+                        the dithering level to use when
+                        --enable-quantization is set
+  --quantization-max-colors 1-256
+                        the maximum number of colors to use when
+                        --enable-quantization is set
 </pre></div>
 </div>
 <section id="basic-usage">
@@ -209,6 +218,79 @@ optional arguments:
 <p>To enable this preset, use the <code class="docutils literal notranslate"><span class="pre">--png-slow-optimization</span></code> option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">image</span>  <span class="o">--</span><span class="n">png</span><span class="o">-</span><span class="n">slow</span><span class="o">-</span><span class="n">optimization</span>  <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">output</span><span class="o">.</span><span class="n">png</span>
 </pre></div>
+</div>
+</section>
+<section id="color-quantization">
+<span id="yoga-image-cli-quantization"></span><h2>Color Quantization<a class="headerlink" href="#color-quantization" title="Permalink to this headline"></a></h2>
+<p>Color quantization is an operation that reduces the number of distinct colors used in an image.</p>
+<p>To enable the color quantization, use the <code class="docutils literal notranslate"><span class="pre">--enable-quantization</span></code> option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">image</span>  <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">quantization</span>  <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">output</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+<p>When color quantization is enabled, YOGA will produce images containing at most 256 colors (8-bit). You can control the maximum number of colors with the <code class="docutils literal notranslate"><span class="pre">--quantization-max-colors</span></code> option. This options takes an integer between <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">256</span></code> as parameter (<code class="docutils literal notranslate"><span class="pre">256</span></code> is the default value):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">image</span>  <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">quantization</span>  <span class="o">--</span><span class="n">quantization</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">colors</span><span class="o">=</span><span class="mi">128</span>  <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">output</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+<p>By default, YOGA will use dithering to reduce the visual impact of the color loss, but this have an incidence on the efficiency of the compression. You can control the level of the dithering or disable it using the <code class="docutils literal notranslate"><span class="pre">--quantization-dithering-level</span></code> option, that takes a number between <code class="docutils literal notranslate"><span class="pre">0.0</span></code> and <code class="docutils literal notranslate"><span class="pre">1.0</span></code> as value:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code>: no dithering</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code>: maximal dithering</p></li>
+</ul>
+<p>The default value is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">image</span>  <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">quantization</span>  <span class="o">--</span><span class="n">quantization</span><span class="o">-</span><span class="n">dithering</span><span class="o">-</span><span class="n">level</span><span class="o">=</span><span class="mf">0.5</span>  <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">output</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+<p>Here are examples of the effect of the dithering levels:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 20%" />
+<col style="width: 47%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Preview</p></th>
+<th class="head"><p>max-colors</p></th>
+<th class="head"><p>dithering-level</p></th>
+<th class="head"><p>File size</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/dithering-original-image.png"><img alt="orig" src="../_images/dithering-original-image.png" style="width: 150px;" /></a></p></td>
+<td colspan="2"><p>Original image (quantization disabled)</p></td>
+<td><p>7,2 kB</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/dithering-1.0-colors-5.png"><img alt="d1.0" src="../_images/dithering-1.0-colors-5.png" style="width: 150px;" /></a></p></td>
+<td><p>5</p></td>
+<td><p>1.0</p></td>
+<td><p>1.4 kB</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/dithering-0.75-colors-5.png"><img alt="d0.75" src="../_images/dithering-0.75-colors-5.png" style="width: 150px;" /></a></p></td>
+<td><p>5</p></td>
+<td><p>0.75</p></td>
+<td><p>1.4 kB</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/dithering-0.5-colors-5.png"><img alt="d0.5" src="../_images/dithering-0.5-colors-5.png" style="width: 150px;" /></a></p></td>
+<td><p>5</p></td>
+<td><p>0.5</p></td>
+<td><p>1.2 kB</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/dithering-0.25-colors-5.png"><img alt="d0.25" src="../_images/dithering-0.25-colors-5.png" style="width: 150px;" /></a></p></td>
+<td><p>5</p></td>
+<td><p>0.25</p></td>
+<td><p>626 B</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/dithering-0.0-colors-5.png"><img alt="d0.0" src="../_images/dithering-0.0-colors-5.png" style="width: 150px;" /></a></p></td>
+<td><p>5</p></td>
+<td><p>0.0</p></td>
+<td><p>180 B</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In some cases, like PNG to PNG optimisation, the quantization can be
+ignored by YOGA if it produces an output image larger that the input one.</p>
 </div>
 </section>
 </section>
