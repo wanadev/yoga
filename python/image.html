@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -91,10 +92,10 @@
            <div itemprop="articleBody">
              
   <section id="module-yoga.image">
-<span id="yoga-image-python-api"></span><h1>YOGA Image Python API<a class="headerlink" href="#module-yoga.image" title="Permalink to this headline"></a></h1>
+<span id="yoga-image-python-api"></span><h1>YOGA Image Python API<a class="headerlink" href="#module-yoga.image" title="Permalink to this heading"></a></h1>
 <p>This module allows to convert and optimize images.</p>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>Converting and optimizing an image:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yoga.image</span>
 <span class="n">yoga</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.png&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.png&quot;</span><span class="p">)</span>
@@ -113,9 +114,9 @@
 </div>
 </section>
 <section id="available-options">
-<span id="yoga-image-api-options"></span><h2>Available Options<a class="headerlink" href="#available-options" title="Permalink to this headline"></a></h2>
+<span id="yoga-image-api-options"></span><h2>Available Options<a class="headerlink" href="#available-options" title="Permalink to this heading"></a></h2>
 <section id="output-format">
-<h3>output_format<a class="headerlink" href="#output-format" title="Permalink to this headline"></a></h3>
+<h3>output_format<a class="headerlink" href="#output-format" title="Permalink to this heading"></a></h3>
 <p>The format of the output image.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.png&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.png&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
     <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;orig&quot;</span><span class="p">,</span>
@@ -140,7 +141,7 @@ WEBP images as input.</p>
 </div>
 </section>
 <section id="resize">
-<h3>resize<a class="headerlink" href="#resize" title="Permalink to this headline"></a></h3>
+<h3>resize<a class="headerlink" href="#resize" title="Permalink to this heading"></a></h3>
 <p>Resize the output image.</p>
 <p>Allowed values are:</p>
 <ul class="simple">
@@ -164,7 +165,7 @@ provide as a box the image will fit in.</p>
 </div>
 </section>
 <section id="jpeg-quality">
-<h3>jpeg_quality<a class="headerlink" href="#jpeg-quality" title="Permalink to this headline"></a></h3>
+<h3>jpeg_quality<a class="headerlink" href="#jpeg-quality" title="Permalink to this heading"></a></h3>
 <p>The quality of the output JPEGs.</p>
 <p>The value is a number between <code class="docutils literal notranslate"><span class="pre">0.00</span></code> and <code class="docutils literal notranslate"><span class="pre">1.00</span></code> (<code class="docutils literal notranslate"><span class="pre">0.84</span></code> by default):</p>
 <ul class="simple">
@@ -183,7 +184,7 @@ provide as a box the image will fit in.</p>
 </div>
 </section>
 <section id="webp-quality">
-<h3>webp_quality<a class="headerlink" href="#webp-quality" title="Permalink to this headline"></a></h3>
+<h3>webp_quality<a class="headerlink" href="#webp-quality" title="Permalink to this heading"></a></h3>
 <p>The quality of the output WEBPs.</p>
 <p>The value is a number between <code class="docutils literal notranslate"><span class="pre">0.00</span></code> and <code class="docutils literal notranslate"><span class="pre">1.00</span></code> (<code class="docutils literal notranslate"><span class="pre">0.90</span></code> by default):</p>
 <ul class="simple">
@@ -202,7 +203,7 @@ provide as a box the image will fit in.</p>
 </div>
 </section>
 <section id="opacity-threshold">
-<h3>opacity_threshold<a class="headerlink" href="#opacity-threshold" title="Permalink to this headline"></a></h3>
+<h3>opacity_threshold<a class="headerlink" href="#opacity-threshold" title="Permalink to this heading"></a></h3>
 <p>The threshold below which a pixel is considered transparent. This option is
 only useful when <code class="docutils literal notranslate"><span class="pre">output_format</span></code> is defined to <code class="docutils literal notranslate"><span class="pre">auto</span></code>.</p>
 <p>The value is a number between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">255</span></code> (<code class="docutils literal notranslate"><span class="pre">254</span></code> by default):</p>
@@ -218,7 +219,7 @@ only useful when <code class="docutils literal notranslate"><span class="pre">ou
 </div>
 </section>
 <section id="png-slow-optimization">
-<h3>png_slow_optimization<a class="headerlink" href="#png-slow-optimization" title="Permalink to this headline"></a></h3>
+<h3>png_slow_optimization<a class="headerlink" href="#png-slow-optimization" title="Permalink to this heading"></a></h3>
 <p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, select a slower optimization preset for PNGs. This preset can
 sometimes gain few bytes over the default one, but it is 10 times slower on
 average.</p>
@@ -231,7 +232,7 @@ average.</p>
 </div>
 </section>
 <section id="enable-quantization">
-<h3>enable_quantization<a class="headerlink" href="#enable-quantization" title="Permalink to this headline"></a></h3>
+<h3>enable_quantization<a class="headerlink" href="#enable-quantization" title="Permalink to this heading"></a></h3>
 <p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, YOGA will reduce the number of distinct colors used in the image
 to 256 colors maximum. By default dithering will be used to reduce the visual
 impact of the color loss.</p>
@@ -244,7 +245,7 @@ impact of the color loss.</p>
 <p>See <a class="reference internal" href="../cli/image.html#yoga-image-cli-quantization"><span class="std std-ref">Color Quantization</span></a> CLI options for more details.</p>
 </section>
 <section id="quantization-max-colors">
-<h3>quantization_max_colors<a class="headerlink" href="#quantization-max-colors" title="Permalink to this headline"></a></h3>
+<h3>quantization_max_colors<a class="headerlink" href="#quantization-max-colors" title="Permalink to this heading"></a></h3>
 <p>The maximum number of colors to use in the output image. This options has
 effect only when <code class="docutils literal notranslate"><span class="pre">enable_quantization</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <p>The value is a number between <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">256</span></code> (<code class="docutils literal notranslate"><span class="pre">256</span></code> by default).</p>
@@ -257,7 +258,7 @@ effect only when <code class="docutils literal notranslate"><span class="pre">en
 <p>See <a class="reference internal" href="../cli/image.html#yoga-image-cli-quantization"><span class="std std-ref">Color Quantization</span></a> CLI options for more details.</p>
 </section>
 <section id="quantization-dithering-level">
-<h3>quantization_dithering_level<a class="headerlink" href="#quantization-dithering-level" title="Permalink to this headline"></a></h3>
+<h3>quantization_dithering_level<a class="headerlink" href="#quantization-dithering-level" title="Permalink to this heading"></a></h3>
 <p>The maximum dithering level used when reducing image colors. This options has
 effect only when <code class="docutils literal notranslate"><span class="pre">enable_quantization</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <p>The value is a number between <code class="docutils literal notranslate"><span class="pre">0.0</span></code> and <code class="docutils literal notranslate"><span class="pre">1.0</span></code> (<code class="docutils literal notranslate"><span class="pre">1.0</span></code> by default):</p>
@@ -275,7 +276,7 @@ effect only when <code class="docutils literal notranslate"><span class="pre">en
 </section>
 </section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="yoga.image.optimize">
 <span class="sig-prename descclassname"><span class="pre">yoga.image.</span></span><span class="sig-name descname"><span class="pre">optimize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yoga.image.optimize" title="Permalink to this definition"></a></dt>

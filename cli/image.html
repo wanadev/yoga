@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -85,7 +86,7 @@
            <div itemprop="articleBody">
              
   <section id="yoga-image-command-line-interface">
-<h1>YOGA Image Command Line Interface<a class="headerlink" href="#yoga-image-command-line-interface" title="Permalink to this headline"></a></h1>
+<h1>YOGA Image Command Line Interface<a class="headerlink" href="#yoga-image-command-line-interface" title="Permalink to this heading"></a></h1>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: yoga image [-h] [-v] [-q] [--output-format {orig,auto,jpeg,png}]
                   [--resize {orig,&lt;SIZE&gt;,&lt;WIDTH&gt;x&lt;HEIGHT&gt;}] [--jpeg-quality 0-100]
                   [--opacity-threshold 0-255]
@@ -121,7 +122,7 @@ optional arguments:
 </pre></div>
 </div>
 <section id="basic-usage">
-<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline"></a></h2>
+<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading"></a></h2>
 <p>The simplest way to optimize an image is by using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">image</span>  <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">output</span><span class="o">.</span><span class="n">png</span>
 </pre></div>
@@ -133,7 +134,7 @@ optional arguments:
 </div>
 </section>
 <section id="output-format">
-<h2>Output Format<a class="headerlink" href="#output-format" title="Permalink to this headline"></a></h2>
+<h2>Output Format<a class="headerlink" href="#output-format" title="Permalink to this heading"></a></h2>
 <p>The output format can be specified using the <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">image</span>  <span class="o">--</span><span class="n">ouput</span><span class="o">-</span><span class="nb">format</span><span class="o">=</span><span class="n">jpeg</span>   <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">output</span><span class="o">.</span><span class="n">jpg</span>
 </pre></div>
@@ -153,7 +154,7 @@ optional arguments:
 </div>
 </section>
 <section id="resize-output-image">
-<h2>Resize Output Image<a class="headerlink" href="#resize-output-image" title="Permalink to this headline"></a></h2>
+<h2>Resize Output Image<a class="headerlink" href="#resize-output-image" title="Permalink to this heading"></a></h2>
 <p>YOGA allows you to resize images with the <code class="docutils literal notranslate"><span class="pre">--resize</span></code> option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">image</span>  <span class="o">--</span><span class="n">resize</span><span class="o">=</span><span class="mi">512</span>  <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">ouput</span><span class="o">.</span><span class="n">png</span>
 <span class="n">yoga</span>  <span class="n">image</span>  <span class="o">--</span><span class="n">resize</span><span class="o">=</span><span class="mi">512</span><span class="n">x512</span>  <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">ouput</span><span class="o">.</span><span class="n">png</span>
@@ -169,7 +170,7 @@ optional arguments:
 </div>
 </section>
 <section id="output-jpeg-quality">
-<h2>Output JPEG Quality<a class="headerlink" href="#output-jpeg-quality" title="Permalink to this headline"></a></h2>
+<h2>Output JPEG Quality<a class="headerlink" href="#output-jpeg-quality" title="Permalink to this heading"></a></h2>
 <p>YOGA allows you to tune the desired quality of the JPEG it outputs with the <code class="docutils literal notranslate"><span class="pre">--jpeg-quality</span></code> option. This option takes an integer between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">100</span></code> as parameter:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: ugly images but smaller files,</p></li>
@@ -185,7 +186,7 @@ optional arguments:
 </div>
 </section>
 <section id="output-webp-quality">
-<h2>Output WEBP Quality<a class="headerlink" href="#output-webp-quality" title="Permalink to this headline"></a></h2>
+<h2>Output WEBP Quality<a class="headerlink" href="#output-webp-quality" title="Permalink to this heading"></a></h2>
 <p>YOGA allows you to tune the desired quality of the WEBP it outputs with the <code class="docutils literal notranslate"><span class="pre">--webp-quality</span></code> option. This option takes an integer between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">100</span></code> as parameter:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: ugly images but smaller files,</p></li>
@@ -201,7 +202,7 @@ optional arguments:
 </div>
 </section>
 <section id="opacity-threshold">
-<h2>Opacity Threshold<a class="headerlink" href="#opacity-threshold" title="Permalink to this headline"></a></h2>
+<h2>Opacity Threshold<a class="headerlink" href="#opacity-threshold" title="Permalink to this heading"></a></h2>
 <p>YOGA allows you to tune the threshold below which a pixel is considered transparent using the <code class="docutils literal notranslate"><span class="pre">--opacity-threshold</span></code> option. This option is only useful in addition to <code class="docutils literal notranslate"><span class="pre">--output-format=auto</span></code> and takes an integer between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">255</span></code> as parameter:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: all pixels are considered transparent,</p></li>
@@ -213,7 +214,7 @@ optional arguments:
 </div>
 </section>
 <section id="slow-png-optimization">
-<h2>Slow PNG Optimization<a class="headerlink" href="#slow-png-optimization" title="Permalink to this headline"></a></h2>
+<h2>Slow PNG Optimization<a class="headerlink" href="#slow-png-optimization" title="Permalink to this heading"></a></h2>
 <p>YOGA allows you to select an alternative preset for PNGs optimization. This preset can sometimes gain few bytes over the default one, but it is 10 times slower on average. You will generally not want to enable this.</p>
 <p>To enable this preset, use the <code class="docutils literal notranslate"><span class="pre">--png-slow-optimization</span></code> option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">image</span>  <span class="o">--</span><span class="n">png</span><span class="o">-</span><span class="n">slow</span><span class="o">-</span><span class="n">optimization</span>  <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">output</span><span class="o">.</span><span class="n">png</span>
@@ -221,7 +222,7 @@ optional arguments:
 </div>
 </section>
 <section id="color-quantization">
-<span id="yoga-image-cli-quantization"></span><h2>Color Quantization<a class="headerlink" href="#color-quantization" title="Permalink to this headline"></a></h2>
+<span id="yoga-image-cli-quantization"></span><h2>Color Quantization<a class="headerlink" href="#color-quantization" title="Permalink to this heading"></a></h2>
 <p>Color quantization is an operation that reduces the number of distinct colors used in an image.</p>
 <p>To enable the color quantization, use the <code class="docutils literal notranslate"><span class="pre">--enable-quantization</span></code> option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">image</span>  <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">quantization</span>  <span class="nb">input</span><span class="o">.</span><span class="n">png</span>  <span class="n">output</span><span class="o">.</span><span class="n">png</span>

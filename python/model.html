@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -89,10 +90,10 @@
            <div itemprop="articleBody">
              
   <section id="module-yoga.model">
-<span id="yoga-model-python-api"></span><h1>YOGA Model Python API<a class="headerlink" href="#module-yoga.model" title="Permalink to this headline"></a></h1>
+<span id="yoga-model-python-api"></span><h1>YOGA Model Python API<a class="headerlink" href="#module-yoga.model" title="Permalink to this heading"></a></h1>
 <p>This module allows to convert and optimize 3D models.</p>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>converting and optimizing a model:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yoga.model</span>
 <span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">)</span>
@@ -120,9 +121,9 @@
 </div>
 </section>
 <section id="available-model-options">
-<h2>Available Model Options<a class="headerlink" href="#available-model-options" title="Permalink to this headline"></a></h2>
+<h2>Available Model Options<a class="headerlink" href="#available-model-options" title="Permalink to this heading"></a></h2>
 <section id="output-format">
-<h3>output_format<a class="headerlink" href="#output-format" title="Permalink to this headline"></a></h3>
+<h3>output_format<a class="headerlink" href="#output-format" title="Permalink to this heading"></a></h3>
 <p>The format of the output model.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
     <span class="s2">&quot;output_format&quot;</span><span class="p">:</span> <span class="s2">&quot;glb&quot;</span><span class="p">,</span>
@@ -136,7 +137,7 @@
 </ul>
 </section>
 <section id="fallback-texture">
-<h3>fallback_texture<a class="headerlink" href="#fallback-texture" title="Permalink to this headline"></a></h3>
+<h3>fallback_texture<a class="headerlink" href="#fallback-texture" title="Permalink to this heading"></a></h3>
 <p>This option allows you to provide a fallback texture that will be used when
 YOGA is unable to find one of the model textures.</p>
 <p>The following values are allowed:</p>
@@ -164,7 +165,7 @@ file (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;./
 </div>
 </section>
 <section id="no-graph-optimization">
-<h3>no_graph_optimization<a class="headerlink" href="#no-graph-optimization" title="Permalink to this headline"></a></h3>
+<h3>no_graph_optimization<a class="headerlink" href="#no-graph-optimization" title="Permalink to this heading"></a></h3>
 <p>Disables empty graph nodes merging.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
     <span class="s2">&quot;no_graph_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
@@ -173,7 +174,7 @@ file (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;./
 </div>
 </section>
 <section id="no-meshes-optimization">
-<h3>no_meshes_optimization<a class="headerlink" href="#no-meshes-optimization" title="Permalink to this headline"></a></h3>
+<h3>no_meshes_optimization<a class="headerlink" href="#no-meshes-optimization" title="Permalink to this heading"></a></h3>
 <p>Disable mesh optimization.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
     <span class="s2">&quot;no_meshes_optimization&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
@@ -182,7 +183,7 @@ file (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;./
 </div>
 </section>
 <section id="no-textures-optimization">
-<h3>no_textures_optimization<a class="headerlink" href="#no-textures-optimization" title="Permalink to this headline"></a></h3>
+<h3>no_textures_optimization<a class="headerlink" href="#no-textures-optimization" title="Permalink to this heading"></a></h3>
 <p>Disable texture optimizations (textures will not be optimized using YOGA
 Image).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="s2">&quot;./input.fbx&quot;</span><span class="p">,</span> <span class="s2">&quot;./output.glb&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
@@ -192,7 +193,7 @@ Image).</p>
 </div>
 </section>
 <section id="no-fix-infacing-normals">
-<h3>no_fix_infacing_normals<a class="headerlink" href="#no-fix-infacing-normals" title="Permalink to this headline"></a></h3>
+<h3>no_fix_infacing_normals<a class="headerlink" href="#no-fix-infacing-normals" title="Permalink to this heading"></a></h3>
 <p>Disables the assimp’s infacing normals fix. This postprocess tries to determine
 which meshes have normal vectors that are facing inwards and inverts them. See
 the <a class="reference external" href="http://assimp.sourceforge.net/lib_html/postprocess_8h.html">assimp documentation</a> for more
@@ -205,7 +206,7 @@ details.</p>
 </section>
 </section>
 <section id="available-image-options">
-<h2>Available Image Options<a class="headerlink" href="#available-image-options" title="Permalink to this headline"></a></h2>
+<h2>Available Image Options<a class="headerlink" href="#available-image-options" title="Permalink to this heading"></a></h2>
 <p>YOGA Model optimizes textures using YOGA Images, so there are options
 equivalent to the YOGA Image ones available:</p>
 <ul class="simple">
@@ -231,7 +232,7 @@ YOGA Image,</p></li>
 <p>See <a class="reference internal" href="image.html#yoga-image-api-options"><span class="std std-ref">YOGA Image options</span></a> for more information.</p>
 </section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="yoga.model.optimize">
 <span class="sig-prename descclassname"><span class="pre">yoga.model.</span></span><span class="sig-name descname"><span class="pre">optimize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">textures</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yoga.model.optimize" title="Permalink to this definition"></a></dt>
