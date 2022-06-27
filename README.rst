@@ -56,6 +56,10 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
+  * Nothing yet
+
+* **1.2.0:**
+
   * Add color quantization options (based on libimagequant)
   * ``arm64`` and ``universal2`` wheels for macOS
   * ``x86`` and ``x68_64`` wheels for musl-based Linux distro (Alpine,...)
