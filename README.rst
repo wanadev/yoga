@@ -58,6 +58,10 @@ Changelog
 
   * Nothing yet
 
+* **1.2.1:**
+
+  * No change: fix an upload error on PYPI
+
 * **1.2.0:**
 
   * Add color quantization options (based on libimagequant)
