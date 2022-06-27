@@ -57,6 +57,9 @@ Changelog
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
   * Add color quantization options (based on libimagequant)
+  * ``arm64`` and ``universal2`` wheels for macOS
+  * ``x86`` and ``x68_64`` wheels for musl-based Linux distro (Alpine,...)
+  * **MAINTAINERS:** New dependency: `imagequant <https://github.com/wanadev/imagequant-python>`_
 
 * **1.1.2:**
 
