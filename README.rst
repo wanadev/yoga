@@ -56,7 +56,7 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
-  * Nothing yet
+  * Update the code to not use deprecated constants on newer Pillow versions
 
 * **1.2.1:**
 

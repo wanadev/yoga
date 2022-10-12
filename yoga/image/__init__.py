@@ -236,6 +236,15 @@ from .options import normalize_options
 from . import helpers
 
 
+# Since Pillow v9.1.0, constants on the Image object are deprecated and will be
+# removed in Pillow v10.0.0. This code ansure the compatibility with all
+# versions.
+# See: https://pillow.readthedocs.io/en/stable/deprecations.html#constants
+Resampling = Image
+if hasattr(Image, "Resampling"):
+    Resampling = Image.Resampling
+
+
 def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     """Optimize given image.
 
@@ -273,7 +282,7 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
 
     # Resize image if requested
     if options["resize"] != "orig":
-        image.thumbnail(options["resize"], Image.LANCZOS)
+        image.thumbnail(options["resize"], Resampling.LANCZOS)
 
     # Quantize if requested
     if options["enable_quantization"]:
