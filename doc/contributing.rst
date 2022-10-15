@@ -108,9 +108,10 @@ Libraries:
 
 Development tools:
 
-* Black_: Code formater
+* Black_: Code formatter
 * Flake8_: Linter
 * Pytest_: Unit test
+* Codespell_: Code spell
 
 Documentation:
 
@@ -258,5 +259,6 @@ Then you can run the following command::
 .. _Flake8: https://flake8.pycqa.org/en/latest/
 .. _Black: https://black.readthedocs.io/en/stable/
 .. _pytest: https://docs.pytest.org/
+.. _Codespell: https://github.com/codespell-project/codespell
 
 .. _Sphinx: https://www.sphinx-doc.org/en/master/

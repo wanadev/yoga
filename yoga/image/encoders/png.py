@@ -35,7 +35,7 @@ def python_int_to_big_endian_uint32_bytes(number):
 
 def get_png_structure(data):
     if not is_png(data):
-        raise ValueError("Unvalid PNG: Not a PNG file")
+        raise ValueError("Invalid PNG: Not a PNG file")
 
     result = {
         "size": len(data),
@@ -86,7 +86,7 @@ def get_IHDR_info(data):
 def assemble_png_from_chunks(chunks):
     """Assemble a PNG file from a list of chunks
 
-    :param list chunks: The list of chunks (see bellow).
+    :param list chunks: The list of chunks (see below).
 
     Example list of chunk::
 

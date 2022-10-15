@@ -198,7 +198,7 @@ def optimize(
     :param str,file-like input_file: The input model file.
     :param str,file-like output_file: The output model file.
     :param dict options: Optimization options (see above).
-    :param dict textures: A dictionnary that maps textures path to bytes. When
+    :param dict textures: A dictionary that maps textures path to bytes. When
                           not ``None``, there will be no file system reads in
                           order to find referenced textures. YOGA will look
                           into that dictionary instead.
@@ -246,7 +246,7 @@ def optimize(
     )
 
     # Embed images
-    # @note We save the bytes to a dictionnary so that the garbage collector
+    # @note We save the bytes to a dictionary so that the garbage collector
     # does not occur before exporting the scene a bit later
     images_bytes = {}
     model_embed_images(

@@ -98,8 +98,9 @@ setup(
             "flake8",
             "black",
             "pytest",
-            "Sphinx",
+            "sphinx",
             "sphinx-rtd-theme",
+            "codespell",
         ]
     },
     entry_points={

@@ -112,7 +112,7 @@ Changelog
 
   * WEBP (lossy and lossless) images supported as output format
   * PNG default optimization preset changed to a 10× faster preset (old preset
-    stil available with ``--png-slow-optimization`` flag)
+    still available with ``--png-slow-optimization`` flag)
   * New model flag ``--no-fix-infacing-normals`` to disable Assimp's "fix
     infacing normals" postprocess (#32, #33)
   * Show CLI usage when no parameter given
@@ -136,7 +136,7 @@ Changelog
 
 * **0.10.1:**
 
-  * Fixes an issue that occures when output file does not already exist
+  * Fixes an issue that occurs when output file does not already exist
 
 * **0.10.0:**
 
