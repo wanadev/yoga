@@ -11,7 +11,7 @@ PYTHON_FILES = [
 
 @nox.session(reuse_venv=True)
 def lint(session):
-    session.install("flake8", "black")
+    session.install("flake8", "black", "codespell")
     session.run("flake8", *PYTHON_FILES)
     session.run(
         "black",
@@ -20,6 +20,19 @@ def lint(session):
         "--diff",
         "--color",
         *PYTHON_FILES,
+    )
+    session.run(
+        "codespell",
+        "-L",
+        "ans,alph",
+        "doc/",
+        "scripts/",
+        "test/",
+        "winbuild/",
+        "yoga/",
+        "noxfile.py",
+        "README.rst",
+        "setup.py",
     )
 
 

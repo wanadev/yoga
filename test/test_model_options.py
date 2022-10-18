@@ -46,7 +46,7 @@ class Test_normalize_options(object):
 
         with pytest.raises(IOError):
             opt = options.normalize_options(
-                {"fallback_texture": "non-existant.jpg"}
+                {"fallback_texture": "non-existent.jpg"}
             )
 
     def test_no_graph_optimization(self):

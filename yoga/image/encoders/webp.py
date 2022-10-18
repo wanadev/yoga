@@ -8,7 +8,7 @@ def little_endian_unint32_bytes_to_python_int(bytes_):
 
 def get_riff_structure(data):
     if data[0:4] != b"RIFF":
-        raise ValueError("Unvalid RIFF: Not a RIFF file")
+        raise ValueError("Invalid RIFF: Not a RIFF file")
 
     result = {
         "formtype": data[8:12].decode(),
@@ -17,7 +17,7 @@ def get_riff_structure(data):
     }
 
     if result["size"] + 8 != len(data):
-        raise ValueError("Unvalid RIFF: Truncated data")
+        raise ValueError("Invalid RIFF: Truncated data")
 
     offset = 12  # RIFF header length
 
@@ -46,7 +46,7 @@ def get_vp8x_info(data):
     # fmt: on
 
     if len(data) != 10:
-        ValueError("Invaild VP8X data")
+        ValueError("Invalid VP8X data")
 
     return {
         "has_icc": bool(data[0] & VP8X_FLAG_ICC),

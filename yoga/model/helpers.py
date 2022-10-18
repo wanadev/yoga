@@ -176,6 +176,6 @@ def model_embed_images(
         optimized_textures[valid_image_path] = image
         image = image.next
 
-        # @note Save the bytes to a dictionnary so that the garbage collector
+        # @note Save the bytes to a dictionary so that the garbage collector
         # does not occur before exporting the scene a bit later
         images_bytes[valid_image_path] = image_bytes_c
