@@ -78,8 +78,8 @@ Resize Output Image
 
 YOGA allows you to resize images with the ``--resize`` option::
 
-    yoga  image  --resize=512  input.png  ouput.png
-    yoga  image  --resize=512x512  input.png  ouput.png
+    yoga  image  --resize=512  input.png  output.png
+    yoga  image  --resize=512x512  input.png  output.png
 
 .. NOTE::
 
