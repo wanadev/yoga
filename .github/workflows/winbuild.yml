@@ -14,12 +14,12 @@ jobs:
     steps:
 
       - name: "Checkout the repository"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: true
 
       - name: "Set up Python"
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
@@ -33,7 +33,7 @@ jobs:
           winbuild\builddist.bat
 
       - name: Archive Windows Build
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: yoga-vX.X.X_win_standalone_x86-64
           path: yogawin.dist

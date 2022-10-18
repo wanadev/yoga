@@ -15,12 +15,12 @@ jobs:
     steps:
 
       - name: "Checkout the repository"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: true
 
       - name: "Set up Python"
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
@@ -29,7 +29,7 @@ jobs:
           python setup.py sdist
 
       - name: "Upload artifacts"
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: sdist
           path: dist/
@@ -51,7 +51,7 @@ jobs:
     steps:
 
       - name: "Checkout the repository"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: true
 
@@ -62,7 +62,7 @@ jobs:
           CIBW_SKIP: cp*-win32
 
       - name: "Upload artifacts"
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheels
           path: ./wheelhouse/*.whl
@@ -79,7 +79,7 @@ jobs:
     steps:
 
       - name: "Download artifacts"
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
 
       - name: "Move packages to the dist/ folder"
         run: |
