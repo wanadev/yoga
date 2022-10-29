@@ -16,6 +16,7 @@ This file is a memo for the maintainer.
 ----------
 
 * Update version number in ``setup.py``
+* Update version number in ``yoga/version.py``
 * Edit / update changelog in ``README.rst``
 * Commit / tag (``git commit -m vX.Y.Z && git tag vX.Y.Z && git push && git push --tags``)
 
