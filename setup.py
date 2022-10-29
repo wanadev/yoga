@@ -75,6 +75,13 @@ setup(
     version="1.2.1",
     description="Yummy Optimizer for Gorgeous Assets",
     url="https://github.com/wanadev/yoga",
+    project_urls={
+        "Source Code": "https://github.com/wanadev/yoga",
+        "Documentation": "https://wanadev.github.io/yoga/",
+        "Changelog": "https://github.com/wanadev/yoga#changelog",
+        "Issues": "https://github.com/wanadev/yoga/issues",
+        "Chat": "https://discord.gg/BmUkEdMuFp",
+    },
     license="BSD-3-Clause",
     long_description=long_description,
     keywords="image webp jpeg png optimizer guetzli zopfli zopflipng libwebp 3d model mesh assimp gltf glb converter",
