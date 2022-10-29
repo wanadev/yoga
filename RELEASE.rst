@@ -29,8 +29,8 @@ Publish source dist and wheels on PyPI.
 → Automated :)
 
 
-4. Publish Github Release
-~~~~~~~~~~~~~~~~~~~~~~~~~
+3. Publish Github Release
+-------------------------
 
 * Make a release on Github
 * Add changelog
