@@ -29,8 +29,9 @@ Publish source dist and wheels on PyPI.
 → Automated :)
 
 
-3. Publish Github Release
+4. Publish Github Release
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Make a release on Github
 * Add changelog
+* Add Windows standalone build from the CI (``winbuild`` workflow)

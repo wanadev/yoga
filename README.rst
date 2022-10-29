@@ -56,31 +56,35 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
+  * Nothing yet :)
+
+* **v1.2.2:**
+
   * Updated the code to not use deprecated constants on newer Pillow versions
   * Various typo fixed (@kianmeng, #45)
   * Added Python 3.11 support
 
-* **1.2.1:**
+* **v1.2.1:**
 
   * No change: fix an upload error on PYPI
 
-* **1.2.0:**
+* **v1.2.0:**
 
   * Add color quantization options (based on libimagequant)
   * ``arm64`` and ``universal2`` wheels for macOS
   * ``x86`` and ``x68_64`` wheels for musl-based Linux distro (Alpine,...)
   * **MAINTAINERS:** New dependency: `imagequant <https://github.com/wanadev/imagequant-python>`_
 
-* **1.1.2:**
+* **v1.1.2:**
 
   * Add flag to CFFI builder to fix MacOS build
 
-* **1.1.1 (not published):**
+* **v1.1.1 (not published):**
 
   * JPEG: ignore invalid values for the orientation tag (#38)
   * Python 3.10 support and wheels
 
-* **1.1.0:**
+* **v1.1.0:**
 
   * **JPEG Optimization:**
 
@@ -110,7 +114,7 @@ Changelog
     * new dependency to `mozjpeg-lossless-optimization
       <https://github.com/wanadev/mozjpeg-lossless-optimization>`_
 
-* **1.0.0:**
+* **v1.0.0:**
 
   * WEBP (lossy and lossless) images supported as output format
   * PNG default optimization preset changed to a 10× faster preset (old preset
@@ -122,42 +126,42 @@ Changelog
   * ASSIMP library updated
   * WARNING: This is the last version to actively support Python 2.7!
 
-* **0.11.1:**
+* **v0.11.1:**
 
   * Automated workflow for deploying the PyPI packages
   * Wheel are now distributed on PyPI
 
-* **0.11.0:**
+* **v0.11.0:**
 
   * Allows to build YOGA on Windows
   * Scripts and workflow to build Windows standalone versions
 
-* **0.10.2:**
+* **v0.10.2:**
 
   * Updates assimp and python libraries
 
-* **0.10.1:**
+* **v0.10.1:**
 
   * Fixes an issue that occurs when output file does not already exist
 
-* **0.10.0:**
+* **v0.10.0:**
 
   * Prevent overwriting of the output file when an error occurs (#17)
   * Unicode path support (#16)
 
-* **0.10.0b1:**
+* **v0.10.0b1:**
 
   * Verbose and quiet modes,
   * Allows to pass textures from memory instead of looking on the filesystem,
   * Allows to pass a fallback texture instead of raising an error.
 
-* **0.9.1b1:**
+* **v0.9.1b1:**
 
   * Automatic selection of the output format (png or jpeg),
   * Prevent duplication of textures that are shared between materials,
   * Fixes Windows paths of textures.
 
-* **0.9.0b1:** First release (only GLB output for models, no image auto
+* **v0.9.0b1:** First release (only GLB output for models, no image auto
   output format)
 
 
