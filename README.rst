@@ -56,8 +56,9 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
-  * Update the code to not use deprecated constants on newer Pillow versions
+  * Updated the code to not use deprecated constants on newer Pillow versions
   * Various typo fixed (@kianmeng, #45)
+  * Added Python 3.11 support
 
 * **1.2.1:**
 
