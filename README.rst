@@ -56,7 +56,8 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
-  * Nothing yet :)
+  * Code quality: more robust type comparison (@flozz)
+  * Code quality: cleanup some Python 2.7 specific code
 
 * **v1.2.2:**
 
