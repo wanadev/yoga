@@ -24,7 +24,7 @@ def lint(session):
     session.run(
         "codespell",
         "-L",
-        "ans,alph",
+        "ans,alph,ccompiler",
         "doc/",
         "scripts/",
         "test/",

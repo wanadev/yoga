@@ -4,7 +4,7 @@ from PIL import Image
 
 
 # Since Pillow v9.1.0, constants on the Image object are deprecated and will be
-# removed in Pillow v10.0.0. This code ansure the compatibility with all
+# removed in Pillow v10.0.0. This code ensures the compatibility with all
 # versions.
 # See: https://pillow.readthedocs.io/en/stable/deprecations.html#constants
 Transpose = Image
