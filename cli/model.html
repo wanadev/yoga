@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>YOGA Model Command Line Interface &mdash; YOGA  documentation</title>
@@ -11,12 +11,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -29,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> YOGA
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            YOGA
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -71,9 +74,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Command Line Interface</a> &raquo;</li>
-      <li>YOGA Model Command Line Interface</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Command Line Interface</a></li>
+      <li class="breadcrumb-item active">YOGA Model Command Line Interface</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/cli/model.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -84,7 +87,7 @@
            <div itemprop="articleBody">
              
   <section id="yoga-model-command-line-interface">
-<h1>YOGA Model Command Line Interface<a class="headerlink" href="#yoga-model-command-line-interface" title="Permalink to this heading"></a></h1>
+<h1>YOGA Model Command Line Interface<a class="headerlink" href="#yoga-model-command-line-interface" title="Link to this heading"></a></h1>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: yoga model [-h] [-v] [-q] [--output-format {glb,gltf}] [--fallback-texture &lt;PATH&gt;]
                   [--no-graph-optimization] [--no-meshes-optimization]
                   [--no-textures-optimization] [--image-output-format {orig,auto,jpeg,png}]
@@ -140,14 +143,14 @@ image options:
 </pre></div>
 </div>
 <section id="basic-usage">
-<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading"></a></h2>
+<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h2>
 <p>To convert and optimize a 3D model using YOGA, you can use the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">model</span>  <span class="nb">input</span><span class="o">.</span><span class="n">fbx</span>  <span class="n">output</span><span class="o">.</span><span class="n">glb</span>
 </pre></div>
 </div>
 </section>
 <section id="output-format">
-<h2>Output Format<a class="headerlink" href="#output-format" title="Permalink to this heading"></a></h2>
+<h2>Output Format<a class="headerlink" href="#output-format" title="Link to this heading"></a></h2>
 <p>You can choose the output format between one of the two that are supported using the <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yoga</span>  <span class="n">model</span>  <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">format</span><span class="o">=</span><span class="n">glb</span>  <span class="nb">input</span><span class="o">.</span><span class="n">fbx</span>  <span class="n">output</span><span class="o">.</span><span class="n">glb</span>
 </pre></div>
@@ -159,7 +162,7 @@ image options:
 </ul>
 </section>
 <section id="disabling-optimizations">
-<h2>Disabling Optimizations<a class="headerlink" href="#disabling-optimizations" title="Permalink to this heading"></a></h2>
+<h2>Disabling Optimizations<a class="headerlink" href="#disabling-optimizations" title="Link to this heading"></a></h2>
 <p>By default, YOGA optimize the 3D models and its textures. The optimizations can be disabled using the following options:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--no-graph-optimization</span></code>: disables empty graph nodes merging,</p></li>
@@ -171,7 +174,7 @@ image options:
 </div>
 </section>
 <section id="disabling-postprocesses">
-<h2>Disabling Postprocesses<a class="headerlink" href="#disabling-postprocesses" title="Permalink to this heading"></a></h2>
+<h2>Disabling Postprocesses<a class="headerlink" href="#disabling-postprocesses" title="Link to this heading"></a></h2>
 <p>By default, YOGA use several postprocesses, some can be disabled using the following options:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--no-fix-infacing-normals</span></code>: disable the “fix infacing normals”
@@ -185,7 +188,7 @@ for more details.</p></li>
 </div>
 </section>
 <section id="images-options">
-<h2>Images Options<a class="headerlink" href="#images-options" title="Permalink to this heading"></a></h2>
+<h2>Images Options<a class="headerlink" href="#images-options" title="Link to this heading"></a></h2>
 <p>YOGA Model optimizes textures using YOGA Images, so there are options equivalent to the YOGA Image ones available:</p>
 <ul class="simple">
 <li><p>The YOGA Model <code class="docutils literal notranslate"><span class="pre">--image-output-format</span></code> option is equivalent to the <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> of  YOGA Image,</p></li>
