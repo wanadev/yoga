@@ -52,10 +52,10 @@ def normalize_options(options=None):
     if "resize" in options:
         value = options["resize"]
 
-        if type(value) == bytes:
+        if isinstance(value, bytes):
             value = value.decode()
 
-        if type(value) in (str, bytes):
+        if isinstance(value, (str, bytes)):
             value = value.lower()
 
             if value.isdigit():
@@ -69,7 +69,7 @@ def normalize_options(options=None):
             elif value != "orig":
                 raise ValueError("Invalid value for 'resize': %s" % value)
 
-        if type(value) in (int, float):
+        if isinstance(value, (int, float)):
             value = [value, value]
 
         result["resize"] = value
@@ -80,7 +80,7 @@ def normalize_options(options=None):
     if "jpeg_quality" in options:
         value = options["jpeg_quality"]
 
-        if type(value) in (str, bytes):
+        if isinstance(value, (str, bytes)):
             value = float(value)
 
         if value > 1:
@@ -97,7 +97,7 @@ def normalize_options(options=None):
     if "webp_quality" in options:
         value = options["webp_quality"]
 
-        if type(value) in (str, bytes):
+        if isinstance(value, (str, bytes)):
             value = float(value)
 
         if value > 1:
@@ -114,7 +114,7 @@ def normalize_options(options=None):
     if "opacity_threshold" in options:
         value = options["opacity_threshold"]
 
-        if type(value) in (str, bytes):
+        if isinstance(value, (str, bytes)):
             value = float(value)
 
         if value < 1:
@@ -145,7 +145,7 @@ def normalize_options(options=None):
     if "quantization_dithering_level" in options:
         value = options["quantization_dithering_level"]
 
-        if type(value) in (str, bytes):
+        if isinstance(value, (str, bytes)):
             value = float(value)
 
         value = max(value, 0.0)
@@ -160,7 +160,7 @@ def normalize_options(options=None):
     if "quantization_max_colors" in options:
         value = options["quantization_max_colors"]
 
-        if type(value) in (str, bytes):
+        if isinstance(value, (str, bytes)):
             value = float(value)
 
         value = max(value, 1)

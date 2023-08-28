@@ -177,7 +177,6 @@ API
 ---
 """
 
-import sys
 import os.path
 
 from .assimp import assimp_import_from_bytes, assimp_export_to_bytes
@@ -229,7 +228,7 @@ def optimize(
     if hasattr(input_file, "name"):
         root_path = os.path.dirname(os.path.abspath(input_file.name))
 
-    if sys.version_info.major == 2 and type(root_path) is str:
+    if isinstance(root_path, bytes):
         root_path = root_path.decode("utf-8")
 
     # input_file -> string (path), bytes, file-like

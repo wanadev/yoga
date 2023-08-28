@@ -257,7 +257,7 @@ def optimize(input_file, output_file, options={}, verbose=False, quiet=False):
     options = normalize_options(options)
 
     # Image as file-like object
-    if type(input_file) is str:
+    if isinstance(input_file, str):
         image_file = open(input_file, "rb")
     elif hasattr(input_file, "read") and hasattr(input_file, "seek"):
         image_file = input_file

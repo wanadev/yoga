@@ -1,7 +1,6 @@
 from ._assimp import ffi
 
 import io
-import sys
 import os.path
 
 import unidecode
@@ -81,7 +80,7 @@ def extract_files_dictionary(root_path):
     if root_path is None:
         return None
 
-    if sys.version_info.major == 2 and type(root_path) is str:
+    if isinstance(root_path, bytes):
         root_path = root_path.decode("utf-8")
 
     # Recursive walk of root_path files
