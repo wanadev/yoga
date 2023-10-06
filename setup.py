@@ -72,7 +72,7 @@ if os.path.isfile("README.rst"):
 
 setup(
     name="yoga",
-    version="1.2.2",
+    version="1.2.3",
     description="Yummy Optimizer for Gorgeous Assets",
     url="https://github.com/wanadev/yoga",
     project_urls={
