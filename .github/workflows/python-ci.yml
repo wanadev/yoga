@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
 
     name: "Build and test YOGA"
     runs-on: ubuntu-latest
@@ -25,10 +25,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: "Install Nox"
+      - name: "Install Python dependencies"
         run: |
-          pip3 install setuptools
-          pip3 install nox
+          pip install setuptools nox
 
       - name: "Lint with flake8, Black and codespell"
         run: |

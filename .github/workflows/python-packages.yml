@@ -22,7 +22,11 @@ jobs:
       - name: "Set up Python"
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.12"
+
+      - name: "Install python dependencies"
+        run: |
+          pip install setuptools
 
       - name: "Build source distribution"
         run: |
