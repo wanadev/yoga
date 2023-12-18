@@ -29,7 +29,7 @@ jobs:
           winbuild\builddist.bat
 
       - name: Archive Windows Build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: yoga-vX.X.X_win_standalone_x86-64
           path: yogawin.dist
