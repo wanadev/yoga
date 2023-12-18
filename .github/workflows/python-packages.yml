@@ -33,7 +33,7 @@ jobs:
           python setup.py sdist
 
       - name: "Upload artifacts"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: sdist
           path: dist/
@@ -66,7 +66,7 @@ jobs:
           CIBW_SKIP: cp*-win32
 
       - name: "Upload artifacts"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: ./wheelhouse/*.whl
