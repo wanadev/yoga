@@ -251,6 +251,32 @@ Then you can run the following command::
     nox -s gendoc
 
 
+Updating ASSIMP
+---------------
+
+ASSIMP is the C++ library used by YOGA to manipulate 3D models. To update it,
+first check the latest version tag on the project's repo :
+
+* https://github.com/assimp/assimp/tags
+
+Then go to the assimp subfolder and checkout the latest release tag::
+
+    cd assimp/
+    git fetch
+    git checkout vX.Y.Z
+    cd ..
+
+Then, run tests to ensure YOGA still work::
+
+    nox -s test
+
+Finally, check we are still able to build a wheel from the sdist package::
+
+    nox -s test_build_wheel
+
+If the build fails because of a missing file, add it in ``MANIFEST.in``.
+
+
 .. _Python: https://www.python.org/
 
 .. _CFFI: https://cffi.readthedocs.io/en/latest/
