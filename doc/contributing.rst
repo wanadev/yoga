@@ -96,15 +96,17 @@ Linux as operating system and a POSIX shell (like Bash or ZSH).
 
 Programming languages used in this project:
 
-* Python_ (2.7, 3.7, 3.8 and 3.9)
+* Python_ (3.8 to 3.12)
 * C++
 
 Libraries:
 
 * CFFI_: C/Python binding
+* imagequant_: Color quantization (to reduce number of colors in an image)
+* mozjpeg-lossless-optimization_: Lossless JPEG optimization
 * Pillow_: Image processing library
 * PyGuetzli_: JPEG optimization
-* ZopfliPy_: PNG Optimization
+* ZopfliPy_: PNG optimization
 
 Development tools:
 
@@ -252,6 +254,8 @@ Then you can run the following command::
 .. _Python: https://www.python.org/
 
 .. _CFFI: https://cffi.readthedocs.io/en/latest/
+.. _imagequant: https://github.com/wanadev/imagequant-python
+.. _mozjpeg-lossless-optimization: https://github.com/wanadev/mozjpeg-lossless-optimization
 .. _Pillow: https://pillow.readthedocs.io/en/stable/
 .. _PyGuetzli: https://github.com/wanadev/pyguetzli
 .. _ZopfliPy: https://github.com/hattya/zopflipy
