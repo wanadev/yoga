@@ -72,6 +72,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#building-the-documentation">Building the Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-assimp">Updating ASSIMP</a></li>
 </ul>
 </li>
 </ul>
@@ -186,15 +187,17 @@ useful information to start. Please note that this guide assume you are using
 Linux as operating system and a POSIX shell (like Bash or ZSH).</p>
 <p>Programming languages used in this project:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.python.org/">Python</a> (2.7, 3.7, 3.8 and 3.9)</p></li>
+<li><p><a class="reference external" href="https://www.python.org/">Python</a> (3.8 to 3.12)</p></li>
 <li><p>C++</p></li>
 </ul>
 <p>Libraries:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://cffi.readthedocs.io/en/latest/">CFFI</a>: C/Python binding</p></li>
+<li><p><a class="reference external" href="https://github.com/wanadev/imagequant-python">imagequant</a>: Color quantization (to reduce number of colors in an image)</p></li>
+<li><p><a class="reference external" href="https://github.com/wanadev/mozjpeg-lossless-optimization">mozjpeg-lossless-optimization</a>: Lossless JPEG optimization</p></li>
 <li><p><a class="reference external" href="https://pillow.readthedocs.io/en/stable/">Pillow</a>: Image processing library</p></li>
 <li><p><a class="reference external" href="https://github.com/wanadev/pyguetzli">PyGuetzli</a>: JPEG optimization</p></li>
-<li><p><a class="reference external" href="https://github.com/hattya/zopflipy">ZopfliPy</a>: PNG Optimization</p></li>
+<li><p><a class="reference external" href="https://github.com/hattya/zopflipy">ZopfliPy</a>: PNG optimization</p></li>
 </ul>
 <p>Development tools:</p>
 <ul class="simple">
@@ -326,6 +329,30 @@ optimization). If you want to run only specific tests, you can run them using
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">gendoc</span>
 </pre></div>
 </div>
+</section>
+<section id="updating-assimp">
+<h2>Updating ASSIMP<a class="headerlink" href="#updating-assimp" title="Link to this heading"></a></h2>
+<p>ASSIMP is the C++ library used by YOGA to manipulate 3D models. To update it,
+first check the latest version tag on the project’s repo :</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/assimp/assimp/tags">https://github.com/assimp/assimp/tags</a></p></li>
+</ul>
+<p>Then go to the assimp subfolder and checkout the latest release tag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">assimp</span><span class="o">/</span>
+<span class="n">git</span> <span class="n">fetch</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">vX</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">Z</span>
+<span class="n">cd</span> <span class="o">..</span>
+</pre></div>
+</div>
+<p>Then, run tests to ensure YOGA still work:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span>
+</pre></div>
+</div>
+<p>Finally, check we are still able to build a wheel from the sdist package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test_build_wheel</span>
+</pre></div>
+</div>
+<p>If the build fails because of a missing file, add it in <code class="docutils literal notranslate"><span class="pre">MANIFEST.in</span></code>.</p>
 </section>
 </section>
 
