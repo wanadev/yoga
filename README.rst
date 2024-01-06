@@ -56,7 +56,11 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
-  * feat(assimp): Updated assimp to v5.3.1
+  * Nothing yet ;)
+
+* **v1.3.0:**
+
+  * feat(assimp): Updated assimp to v5.3.1 (fixed build on GCC >= 13)
   * chore: Removed a script that is no more needed
   * docs: Updated contributing documentation (libraries, supported Python
     version, assimp update)

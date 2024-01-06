@@ -7,9 +7,8 @@ This file is a memo for the maintainer.
 0. Checks
 ---------
 
-* If assimp has been updated, ensure ``./scripts/generate_manifest_in.sh`` has
-  been run, generate an sdist package and check we are able to build a wheel
-  from it.
+* Check years in ``LICENSE``
+* Check years in ``docs/conf.py``
 
 
 1. Release

@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'YOGA'
-copyright = '2021, Wanadev'
+copyright = '2017-2024, Wanadev'
 author = 'Wanadev'
 
 
