@@ -1,8 +1,44 @@
+# YOGA Package
 include README.rst
 include LICENSE
 
-include assimp/CREDITS
-include assimp/LICENSE
-include assimp/Readme.md
+include yoga/model/assimp.h
+include yoga/model/_assimp.cpp
+include yoga/model/assimp.cpp
 
+# Assimp sources
+recursive-include assimp AUTHORS CREDITS
+recursive-include assimp README.* Readme.* readme.* README *info.txt README*.txt
+recursive-include assimp LICENSE License.txt license.txt UNLICENSE
+recursive-include assimp CMakeLists.txt *.in *.cmake *.cmakein *.ac *.am
+recursive-include assimp *.bor *.msc
+recursive-include assimp ChangeLog *Changes.txt
+recursive-include assimp *.rc
+recursive-include assimp *.c *.h *.cpp *.hpp *.cc *.inl *.included *.def *.S *.asm
+recursive-exclude assimp/build *
+recursive-exclude assimp/doc *
+recursive-exclude assimp/fuzz *
+recursive-exclude assimp/packaging *
+recursive-exclude assimp/port *
+recursive-exclude assimp/samples *
+recursive-exclude assimp/scripts *
+recursive-exclude assimp/test *
+recursive-exclude assimp/tools *
+recursive-exclude assimp/contrib/android-cmake *
+recursive-exclude assimp/contrib/draco/tools *
+recursive-exclude assimp/contrib/googletest *
+recursive-exclude assimp/contrib/googletest *
+recursive-exclude assimp/contrib/zip/test *
+
+# Repository "noise"
+global-exclude .git*
+global-exclude *.png
+recursive-exclude .github *
+recursive-exclude doc *
+recursive-exclude scripts *
 recursive-exclude test *
+recursive-exclude winbuild *
+exclude .flake8
+exclude noxfile.py
+exclude requirements*.txt
+exclude RELEASE.rst
