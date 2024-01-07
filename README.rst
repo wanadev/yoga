@@ -60,14 +60,14 @@ Changelog
 
 * **v1.3.1:**
 
-  * chore(sdist): Fixed included files in sdist package
+  * chore(sdist): Fixed included files in sdist package (@flozz)
 
 * **v1.3.0:**
 
-  * feat(assimp): Updated assimp to v5.3.1 (fixed build on GCC >= 13)
-  * chore: Removed a script that is no more needed
+  * feat(assimp): Updated assimp to v5.3.1 (fixed build on GCC >= 13) (@flozz)
+  * chore: Removed a script that is no more needed (@flozz)
   * docs: Updated contributing documentation (libraries, supported Python
-    version, assimp update)
+    version, assimp update) (@flozz)
 
 * **v1.2.3:**
 
