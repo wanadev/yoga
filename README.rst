@@ -56,6 +56,10 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
+  * Nothing yet ;)
+
+* **v1.3.1:**
+
   * chore(sdist): Fixed included files in sdist package
 
 * **v1.3.0:**
