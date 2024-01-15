@@ -143,7 +143,7 @@ checked by <a class="reference external" href="https://flake8.pycqa.org/en/lates
 <li><p>GCC with C++ 11 support</p></li>
 <li><p>GNU Make</p></li>
 <li><p>cmake</p></li>
-<li><p>Python &gt;= 3.7 (with headers)</p></li>
+<li><p>Python &gt;= 3.8 (with headers)</p></li>
 <li><p>Python setuptools</p></li>
 <li><p>Python CFFI</p></li>
 </ul>
@@ -304,10 +304,11 @@ this command:</p>
 <p>To run the tests only for a specific Python version, you can use following
 commands (the corresponding Python interpreter must be installed on your
 machine):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span><span class="o">-</span><span class="mf">2.7</span>
-<span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.7</span>
-<span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.8</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.8</span>
 <span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.9</span>
+<span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.10</span>
+<span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.11</span>
+<span class="n">nox</span> <span class="o">-</span><span class="n">s</span> <span class="n">test</span><span class="o">-</span><span class="mf">3.12</span>
 </pre></div>
 </div>
 <p>YOGA tests are very slow to run (especially the ones related to the image
