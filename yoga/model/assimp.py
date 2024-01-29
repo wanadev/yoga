@@ -2,7 +2,6 @@
 This module contains functions binded from the Assimp C++ API.
 """
 
-
 from ._assimp import lib, ffi
 
 

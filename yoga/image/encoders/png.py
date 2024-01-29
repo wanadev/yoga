@@ -177,9 +177,11 @@ def clean_png(data):
     chunks.append(
         {
             "type": "IDAT",
-            "data": idat_zopfli
-            if len(idat_zopfli) <= len(idat_concat)
-            else idat_concat,
+            "data": (
+                idat_zopfli
+                if len(idat_zopfli) <= len(idat_concat)
+                else idat_concat
+            ),
         }
     )
 
