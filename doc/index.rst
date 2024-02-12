@@ -11,8 +11,8 @@ Welcome to YOGA's documentation!
 * convert and optimize images from various format to JPEG, PNG and WEBP,
 * convert and optimize 3D models from various formats to `glTF and GLB`_.
 
-**Images** are opened using Pillow_ and optimized using Guetzli_ (for JPEGs),
-Zopflipng_ (for PNGs) and libwebp_ (for WEBPs).
+**Images** are opened using Pillow_ and optimized using Guetzli_ and MozJPEG_
+for JPEGs, Zopflipng_ for PNGs and libwebp_ for WEBPs.
 
 **3D Models** are converted and optimized using assimp_. If models contain or
 reference images, they are processed by YOGA's image optimizer.
@@ -20,6 +20,7 @@ reference images, they are processed by YOGA's image optimizer.
 .. _glTF and GLB: https://www.khronos.org/gltf/
 .. _Pillow: https://github.com/python-pillow/Pillow
 .. _Guetzli: https://github.com/google/guetzli
+.. _MozJPEG: https://github.com/mozilla/mozjpeg
 .. _Zopflipng: https://github.com/google/zopfli
 .. _libwebp: https://chromium.googlesource.com/webm/libwebp/
 .. _assimp: https://github.com/assimp/assimp
