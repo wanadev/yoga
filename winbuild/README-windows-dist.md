@@ -4,13 +4,13 @@
 
 YOGA is a command-line tool that:
 
-* converts and optimizes images from various format to JPEG and PNG,
-* converts and optimizes 3D models from various formats to GLB.
+* converts and optimizes images from various format to JPEG, PNG and WebP,
+* converts and optimizes 3D models from various formats to glTF and GLB.
 
 
 ## Install
 
-YOGA does not need any installation. Just unzip the content of this directory
+YOGA does not need any installation. Just unzip the content of this archive
 and you are ready to go! :)
 
 

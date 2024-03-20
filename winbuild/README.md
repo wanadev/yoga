@@ -9,11 +9,6 @@
 * Visual Studio Build Tools (MSVC and MSBuild)
 
 
-## Build and install from PYPI
-
-    pip install yoga
-
-
 ## Build standalone version from source
 
 Clone this repository (using Git Bash):
