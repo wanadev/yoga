@@ -17,4 +17,5 @@ _*.c*
 .pytest_cache/
 *.tags
 /__misc__/
-yoga-bin.*
+yoga-bin.dist
+yoga-bin.build
