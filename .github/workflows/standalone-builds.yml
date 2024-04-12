@@ -1,4 +1,4 @@
-name: "Windows Standalone Build"
+name: "Standalone Builds"
 
 on:
   push:
@@ -9,14 +9,11 @@ on:
       - master
 
 jobs:
-
-  build:
-
+  windows:
     name: "Build Windows standalone version"
     runs-on: windows-latest
 
     steps:
-
       - name: "Checkout the repository"
         uses: actions/checkout@v4
         with:
@@ -36,3 +33,27 @@ jobs:
         with:
           name: yoga-vX.X.X_win_standalone_x86-64
           path: yogawin.dist
+
+  linux:
+    name: "Build Linux standalone version"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: "Checkout the repository"
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "Build YOGA Linux Standelone Version"
+        run: |
+          linux-bin/build.sh
+
+      - name: Archive Windows Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: yoga-vX.X.X_linux_standalone_x86-64
+          path: yoga-bin.dist
