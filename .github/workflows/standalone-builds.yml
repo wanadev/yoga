@@ -53,8 +53,13 @@ jobs:
         run: |
           linux-bin/build.sh
 
-      - name: Archive Windows Build
+      - name: "Make the release tarball"
+        run: |
+          mv yoga-bin.dist yoga-v$(python setup.py --version)_linux_standalone_x86-64
+          tar -cvzf yoga-v$(python setup.py --version)_linux_standalone_x86-64.tar.gz yoga-v$(python setup.py --version)_linux_standalone_x86-64
+
+      - name: "Upload Linux tarball"
         uses: actions/upload-artifact@v4
         with:
           name: yoga-vX.X.X_linux_standalone_x86-64
-          path: yoga-bin.dist
+          path: "yoga-*.tar.gz"
