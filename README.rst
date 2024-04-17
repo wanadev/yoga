@@ -59,6 +59,16 @@ Changelog
 
   * Nothing yet ;)
 
+* **v1.3.1-1:**
+
+  * This version has no code change from the v1.3.1. It is only an update of
+    the distribution :
+
+    * A brand new standalone version was build for Linux
+    * The Windows standalone distribution was updated (changes in documentation)
+
+  * dist: Added scripts to build a standalone binary version of YOGA on Linux
+
 * **v1.3.1:**
 
   * chore(sdist): Fixed included files in sdist package (@flozz)
