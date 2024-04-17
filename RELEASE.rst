@@ -33,4 +33,5 @@ Publish source dist and wheels on PyPI.
 
 * Make a release on Github
 * Add changelog
-* Add Windows standalone build from the CI (``winbuild`` workflow)
+* Add Windows standalone zip from the CI (``standalone-builds`` workflow)
+* Add Linux standalone tarball from the CI (``standalone-builds`` workflow)
