@@ -200,7 +200,7 @@ Changelog
    :target: https://discord.gg/BmUkEdMuFp
 .. |PYPI Version| image:: https://img.shields.io/pypi/v/yoga.svg
    :target: https://pypi.python.org/pypi/yoga
-.. |Build Status| image:: https://github.com/wanadev/yoga/workflows/Python%20CI/badge.svg
+.. |Build Status| image:: https://github.com/wanadev/yoga/actions/workflows/python-ci.yml/badge.svg
    :target: https://github.com/wanadev/yoga/actions
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://black.readthedocs.io/en/stable/
