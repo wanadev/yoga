@@ -11,12 +11,33 @@ from setuptools.command.build_ext import build_ext
 def _find_msbuild(plat_spec="x64"):
     from setuptools import msvc
 
-    vc_env = msvc.msvc14_get_vc_env(plat_spec)
-    if "vsinstalldir" not in vc_env:
-        raise Exception("Unable to find any Visual Studio installation")
-    return os.path.join(
-        vc_env["vsinstalldir"], "MSBuild", "Current", "Bin", "MSBuild.exe"
-    )
+    if hasattr(msvc, "msvc14_get_vc_env"):
+        vc_env = msvc.msvc14_get_vc_env(plat_spec)
+        if "vsinstalldir" in vc_env:
+            msbuild_path = os.path.join(
+                vc_env["vsinstalldir"],
+                "MSBuild",
+                "Current",
+                "Bin",
+                "MSBuild.exe",
+            )
+            if os.path.isfile(msbuild_path):
+                return msbuild_path
+
+    for path in msvc.EnvironmentInfo(plat_spec).VCTools:
+        if "\\VC\\" not in path:
+            continue
+        msbuild_path = os.path.join(
+            path[: path.index("\\VC\\")],
+            "MSBuild",
+            "Current",
+            "Bin",
+            "MSBuild.exe",
+        )
+        if os.path.isfile(msbuild_path):
+            return msbuild_path
+
+    raise Exception("Unable to find any Visual Studio installation")
 
 
 class CustomBuildExt(build_ext):
