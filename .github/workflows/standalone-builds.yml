@@ -12,7 +12,7 @@ on:
 jobs:
   windows:
     name: "Build Windows standalone version"
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
       - name: "Checkout the repository"
@@ -37,7 +37,7 @@ jobs:
 
   linux:
     name: "Build Linux standalone version"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: "Checkout the repository"
         uses: actions/checkout@v4
@@ -48,6 +48,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+
+      - name: "Install setuptools"
+        run: |
+          pip install setuptools
 
       - name: "Build YOGA Linux Standelone Version"
         run: |

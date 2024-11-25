@@ -19,8 +19,6 @@ copy LICENSE yogawin.dist\LICENSE.txt
 REM Remove the icon that was put here to workaround Nuika icon issue...
 del yoga-icon.ico
 
-call __env__\Scripts\deactivate.bat
-
 endlocal
 
 

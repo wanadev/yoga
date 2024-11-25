@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 
 # Create and/or activate the virtual env
 mkdir -p build/
