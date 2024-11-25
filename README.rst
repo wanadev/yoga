@@ -59,8 +59,10 @@ Changelog
 
   * Nothing yet ;)
 
-* **v1.3.2:**
+* **v1.3.2 / v1.3.2-1:**
 
+  * fix(build): Fixed Windows build with recent setuptools versions (@flozz)
+  * fix(release): Updated, fixed and improved standalone build scripts and CI (@flozz)
   * misc: Added Python 3.13 support (@flozz)
   * misc!: Removed Python 3.8 support (@flozz)
 
