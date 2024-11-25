@@ -59,6 +59,8 @@ Changelog
 
   * Nothing yet ;)
 
+* **v1.3.3:**
+
   * fix(build): Added missing setuptools versions pinning that break the PyPy builds (@flozz)
 
 * **v1.3.2 / v1.3.2-1:**
