@@ -59,6 +59,14 @@ Changelog
 
   * Nothing yet ;)
 
+* **v1.3.3-1:**
+
+  * fix(standalone): Fixed standalone builds (missing ``_cffi_backend``) (#72, @flozz)
+  * misc(standalone): Removed an old hack from Windows standalone build script (@flozz)
+  * misc(ci): Added test to ensure standalone builds are working before releasing them... (#72, @flozz)
+  * misc(deps): Updated Nuitka to v3.5.9 (@flozz)
+  * **NOTE:** This release only fixes standalone builds; the YOGA code did not change so there is no new version published on PyPI.
+
 * **v1.3.3:**
 
   * fix(build): Added missing setuptools versions pinning that break the PyPy builds (@flozz)
