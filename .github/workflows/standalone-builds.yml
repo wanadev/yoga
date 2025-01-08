@@ -10,6 +10,7 @@ on:
   pull_request: {}
 
 jobs:
+
   windows:
     name: "Build Windows standalone version"
     runs-on: windows-2022
@@ -25,11 +26,17 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: "Build YOGA Windows Standelone Version"
+      - name: "Build YOGA Windows standelone version"
         run: |
           winbuild\builddist.bat
 
-      - name: Archive Windows Build
+      - name: "Check the standalone build is working"
+        shell: pwsh
+        run: |
+          .\yogawin.dist\yoga.exe image test/images/image1.jpg OUT.opti.jpg
+          Test-Path -PathType Leaf OUT.opti.jpg
+
+      - name: "Archive Windows Build"
         uses: actions/upload-artifact@v4
         with:
           name: yoga-vX.X.X_win_standalone_x86-64
@@ -38,6 +45,7 @@ jobs:
   linux:
     name: "Build Linux standalone version"
     runs-on: ubuntu-24.04
+
     steps:
       - name: "Checkout the repository"
         uses: actions/checkout@v4
@@ -53,9 +61,14 @@ jobs:
         run: |
           pip install setuptools
 
-      - name: "Build YOGA Linux Standelone Version"
+      - name: "Build YOGA Linux standelone version"
         run: |
           linux-bin/build.sh
+
+      - name: "Check the standalone build is working"
+        run: |
+          ./yoga-bin.dist/yoga.bin image test/images/image1.jpg OUT.opti.jpg
+          test -f OUT.opti.jpg
 
       - name: "Make the release tarball"
         run: |
