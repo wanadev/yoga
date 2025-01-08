@@ -11,7 +11,14 @@ mkdir yogawin.build
 copy winbuild\yoga-icon.ico yogawin.build\yoga-icon.ico
 copy winbuild\yoga-icon.ico yoga-icon.ico
 
-python -m nuitka --follow-imports --assume-yes-for-downloads --include-package=PIL --standalone --windows-icon-from-ico=yoga-icon.ico winbuild\yogawin.py
+python -m nuitka ^
+    --standalone ^
+    --follow-imports ^
+    --assume-yes-for-downloads ^
+    --include-package=PIL ^
+    --include-package=_cffi_backend ^
+    --windows-icon-from-ico=yoga-icon.ico ^
+    winbuild\yogawin.py
 move yogawin.dist\yogawin.exe yogawin.dist\yoga.exe
 copy winbuild\README-windows-dist.md yogawin.dist\README.txt
 copy LICENSE yogawin.dist\LICENSE.txt

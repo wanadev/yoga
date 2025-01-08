@@ -21,6 +21,7 @@ python -m nuitka \
     --standalone \
     --follow-imports \
     --include-package=PIL \
+    --include-package=_cffi_backend \
     linux-bin/yoga-bin.py
 
 

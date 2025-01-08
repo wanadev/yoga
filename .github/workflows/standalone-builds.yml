@@ -33,7 +33,7 @@ jobs:
       - name: "Check the standalone build is working"
         shell: pwsh
         run: |
-          .\yogawin.dist\yoga.exe image test/images/image1.jpg OUT.opti.jpg
+          .\yogawin.dist\yoga.exe image test\images\image1.jpg OUT.opti.jpg
           Test-Path -PathType Leaf OUT.opti.jpg
 
       - name: "Archive Windows Build"
