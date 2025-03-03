@@ -7,7 +7,7 @@ from yoga.image.encoders import png
 class Test_big_endian_unint32_bytes_to_python_int(object):
     def test_uint32_value(self):
         assert (
-            png.big_endian_uint32_bytes_to_python_int(b"\xAA\xBB\xCC\xDD")
+            png.big_endian_uint32_bytes_to_python_int(b"\xaa\xbb\xcc\xdd")
             == 0xAABBCCDD
         )
 
@@ -16,7 +16,7 @@ class Test_python_int_to_big_endian_uint32_bytes(object):
     def test_python_int_value(self):
         assert (
             png.python_int_to_big_endian_uint32_bytes(0xAABBCCDD)
-            == b"\xAA\xBB\xCC\xDD"
+            == b"\xaa\xbb\xcc\xdd"
         )
 
 
@@ -40,21 +40,21 @@ class Test_get_png_structure(object):
 class Test_get_IHDR_info(object):
     def test_width(self):
         ihdr_info = png.get_IHDR_info(
-            b"\x00\x00\xC0\xFE\x00\x00\x00\xEE\x08\x00\x00\x00\x00"
+            b"\x00\x00\xc0\xfe\x00\x00\x00\xee\x08\x00\x00\x00\x00"
             # |width          |height         |bit|clr|cmp|flt|interlace
         )
         assert ihdr_info["width"] == 49406
 
     def test_height(self):
         ihdr_info = png.get_IHDR_info(
-            b"\x00\x00\x00\xFF\x00\x00\x00\xEE\x08\x00\x00\x00\x00"
+            b"\x00\x00\x00\xff\x00\x00\x00\xee\x08\x00\x00\x00\x00"
             # |width          |height         |bit|clr|cmp|flt|interlace
         )
         assert ihdr_info["height"] == 238
 
     def test_bit_depth(self):
         ihdr_info = png.get_IHDR_info(
-            b"\x00\x00\x00\xFF\x00\x00\x00\xEE\x08\x00\x00\x00\x00"
+            b"\x00\x00\x00\xff\x00\x00\x00\xee\x08\x00\x00\x00\x00"
             # |width          |height         |bit|clr|cmp|flt|interlace
         )
         assert ihdr_info["bit_depth"] == 8
@@ -79,7 +79,7 @@ class Test_get_IHDR_info(object):
 
     def test_compression_method(self):
         ihdr_info = png.get_IHDR_info(
-            b"\x00\x00\x00\xFF\x00\x00\x00\xEE\x08\x00\x00\x00\x00"
+            b"\x00\x00\x00\xff\x00\x00\x00\xee\x08\x00\x00\x00\x00"
             # |width          |height         |bit|clr|cmp|flt|interlace
         )
         assert ihdr_info["compression_method"] == 0
@@ -87,7 +87,7 @@ class Test_get_IHDR_info(object):
 
     def test_filter_method(self):
         ihdr_info = png.get_IHDR_info(
-            b"\x00\x00\x00\xFF\x00\x00\x00\xEE\x08\x00\x00\x00\x00"
+            b"\x00\x00\x00\xff\x00\x00\x00\xee\x08\x00\x00\x00\x00"
             # |width          |height         |bit|clr|cmp|flt|interlace
         )
         assert ihdr_info["filter_method"] == 0
@@ -122,7 +122,7 @@ class Test_assemble_png_from_chunks(object):
             },
             {
                 "type": "IDAT",
-                "data": b"\xAA\xBB",
+                "data": b"\xaa\xbb",
             },
             {
                 "type": "IEND",
@@ -130,26 +130,26 @@ class Test_assemble_png_from_chunks(object):
             },
         ]
 
-        expected_png = b"\x89PNG\r\n\x1A\n"
+        expected_png = b"\x89PNG\r\n\x1a\n"
         # IHDR
-        expected_png += b"\x00\x00\x00\x0D"  # length
+        expected_png += b"\x00\x00\x00\x0d"  # length
         expected_png += b"IHDR"  # type
         expected_png += b"\x00\x00\x00\x78\x00\x00\x00\x78\x08\x06\x00\x00\x00"
-        expected_png += b"\x39\x64\x36\xD2"  # CRC
+        expected_png += b"\x39\x64\x36\xd2"  # CRC
         # tEXt
         expected_png += b"\x00\x00\x00\x07"  # length
         expected_png += b"tEXt"  # type
         expected_png += b"Foo\0Bar"  # data
-        expected_png += b"\xC8\x97\x2E\x75"  # CRC
+        expected_png += b"\xc8\x97\x2e\x75"  # CRC
         # IDAT
         expected_png += b"\x00\x00\x00\x02"  # length
         expected_png += b"IDAT"  # type
-        expected_png += b"\xAA\xBB"  # data
-        expected_png += b"\x74\xA0\x83\xDD"  # CRC
+        expected_png += b"\xaa\xbb"  # data
+        expected_png += b"\x74\xa0\x83\xdd"  # CRC
         # IEND
         expected_png += b"\x00\x00\x00\x00"  # length
         expected_png += b"IEND"  # type
-        expected_png += b"\xAE\x42\x60\x82"  # CRC
+        expected_png += b"\xae\x42\x60\x82"  # CRC
 
         assert png.assemble_png_from_chunks(chunks) == expected_png
 

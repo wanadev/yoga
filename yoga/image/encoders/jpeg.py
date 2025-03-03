@@ -33,10 +33,10 @@ def is_jpeg(file_bytes):
     :return: ``True`` if the bytes represent a JPEG file, ``False`` else.
     """
     JPEG_MAGICS = [
-        b"\xFF\xD8\xFF\xDB",
-        b"\xFF\xD8\xFF\xE0\x00\x10\x4A\x46\x49\x46\x00\x01",  # JFIF format
-        b"\xFF\xD8\xFF\xEE",
-        b"\xFF\xD8\xFF\xE1",  # xx xx 45 78 69 66 00 00  / Exif format
+        b"\xff\xd8\xff\xdb",
+        b"\xff\xd8\xff\xe0\x00\x10\x4a\x46\x49\x46\x00\x01",  # JFIF format
+        b"\xff\xd8\xff\xee",
+        b"\xff\xd8\xff\xe1",  # xx xx 45 78 69 66 00 00  / Exif format
     ]
     for magic in JPEG_MAGICS:
         if file_bytes.startswith(magic):

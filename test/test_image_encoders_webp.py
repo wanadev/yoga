@@ -82,13 +82,13 @@ class Test_get_vp8x_info(object):
 
     def test_canvas_width(self):
         vp8x_info = webp.get_vp8x_info(
-            b"\x00\x00\x00\x00\xAA\xBB\xCC\x00\x00\x00"
+            b"\x00\x00\x00\x00\xaa\xbb\xcc\x00\x00\x00"
         )
         assert vp8x_info["canvas_width"] == 0xCCBBAA + 1
 
     def test_canvas_height(self):
         vp8x_info = webp.get_vp8x_info(
-            b"\x00\x00\x00\x00\x00\x00\x00\xAA\xBB\xCC"
+            b"\x00\x00\x00\x00\x00\x00\x00\xaa\xbb\xcc"
         )
         assert vp8x_info["canvas_height"] == 0xCCBBAA + 1
 
