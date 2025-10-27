@@ -37,7 +37,7 @@ jobs:
           Test-Path -PathType Leaf OUT.opti.jpg
 
       - name: "Archive Windows Build"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: yoga-vX.X.X_win_standalone_x86-64
           path: yogawin.dist
@@ -76,7 +76,7 @@ jobs:
           tar -cvzf yoga-v$(python setup.py --version)_linux_standalone_x86-64.tar.gz yoga-v$(python setup.py --version)_linux_standalone_x86-64
 
       - name: "Upload Linux tarball"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: yoga-vX.X.X_linux_standalone_x86-64
           path: "yoga-*.tar.gz"
