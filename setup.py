@@ -110,7 +110,10 @@ setup(
     author_email="contact@wanadev.fr",
     maintainer="Fabien LOISON, Alexis BREUST",
     packages=find_packages(),
-    setup_requires=["cffi>=1.0.0"],
+    setup_requires=[
+        "cffi>=1.0.0",
+        "pycparser",
+    ],
     install_requires=[
         "cffi>=1.0.0",
         "imagequant>=1.0.2",

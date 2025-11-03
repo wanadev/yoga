@@ -93,6 +93,10 @@ jobs:
           mv sdist/* dist/
           mv wheels-*/*.whl dist/
 
+      - name: "List packages"
+        run: |
+          find . -name "*.whl" -o -name "*.tar.gz"
+
       - name: "Publish packages on PyPI"
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
