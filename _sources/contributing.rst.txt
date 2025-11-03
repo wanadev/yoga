@@ -51,7 +51,7 @@ You will need the following dependencies to build YOGA:
 * GCC with C++ 11 support
 * GNU Make
 * cmake
-* Python >= 3.8 (with headers)
+* Python >= 3.10 (with headers)
 * Python setuptools
 * Python CFFI
 
@@ -96,7 +96,7 @@ Linux as operating system and a POSIX shell (like Bash or ZSH).
 
 Programming languages used in this project:
 
-* Python_ (3.8 to 3.12)
+* Python_ (3.10 to 3.14)
 * C++
 
 Libraries:
@@ -224,11 +224,11 @@ To run the tests only for a specific Python version, you can use following
 commands (the corresponding Python interpreter must be installed on your
 machine)::
 
-    nox -s test-3.9
     nox -s test-3.10
     nox -s test-3.11
     nox -s test-3.12
     nox -s test-3.13
+    nox -s test-3.14
 
 YOGA tests are very slow to run (especially the ones related to the image
 optimization). If you want to run only specific tests, you can run them using
