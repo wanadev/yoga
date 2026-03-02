@@ -5,7 +5,6 @@ import json
 import pytest
 import yoga.model
 
-
 _MAGIC_GLB = b"glTF"
 
 

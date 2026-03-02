@@ -3,7 +3,6 @@ from distutils import ccompiler
 
 from cffi import FFI
 
-
 _ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 _ASSIMP_CPP = os.path.join(_ROOT, "assimp.cpp")
 _ASSIMP_H = os.path.join(_ROOT, "assimp.h")

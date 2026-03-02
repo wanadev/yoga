@@ -4,7 +4,6 @@ import struct
 
 import zopfli
 
-
 _PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 _PNG_COLOR_TYPES = {
     0: "grayscale",

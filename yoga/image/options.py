@@ -1,6 +1,5 @@
 import re
 
-
 # fmt: off
 DEFAULT_OPTIONS = {
     "output_format": "orig",              # orig|auto|jpeg|png|webp|webpl

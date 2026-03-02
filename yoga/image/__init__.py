@@ -235,7 +235,6 @@ from .encoders.webp_lossless import optimize_lossless_webp
 from .options import normalize_options
 from . import helpers
 
-
 # Since Pillow v9.1.0, constants on the Image object are deprecated and will be
 # removed in Pillow v10.0.0. This code ansure the compatibility with all
 # versions.
