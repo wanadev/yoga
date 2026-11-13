@@ -58,7 +58,8 @@ Changelog
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
   * feat(assimp): Updated assimp to v6.0.6 (@flozz)
-  * fix(macos): Fix assimp/zlib build on macOS (@flozz)
+  * fix(macos): Fixed assimp/zlib build on macOS (@flozz)
+  * fix(windows): Fixed extension build on Windows (@flozz)
   * misc(standalone): Updated standalone builds to Python 3.14 & Nuitka version (@flozz)
   * misc: Added Python 3.15 support (@flozz)
   * misc!: Removed Python 3.10 support (@flozz)

@@ -72,6 +72,7 @@ class CustomBuildExt(build_ext):
             )
             subprocess.run(["make"], check=True)
         elif self.compiler.compiler_type == "msvc":
+            os.environ["CL"] = "/std:c++17 %s" % os.environ.get("CL", "")
             msbuild = _find_msbuild()
             subprocess.run(
                 [
