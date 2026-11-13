@@ -46,7 +46,7 @@ def black_fix(session):
 @nox.session(python=PYTHON_VERSIONS, reuse_venv=True)
 def test(session):
     session.install("pytest")
-    session.install(".")
+    session.install("-e", ".")
     session.run("pytest", "-v", "test")
 
 
