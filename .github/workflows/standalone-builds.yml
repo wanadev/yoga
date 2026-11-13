@@ -24,7 +24,7 @@ jobs:
       - name: "Set up Python"
         uses: actions/setup-python@v7
         with:
-          python-version: "3.13"
+          python-version: "3.14"
 
       - name: "Build YOGA Windows standelone version"
         run: |
@@ -55,7 +55,7 @@ jobs:
       - name: "Set up Python"
         uses: actions/setup-python@v7
         with:
-          python-version: "3.13"
+          python-version: "3.14"
 
       - name: "Install setuptools"
         run: |
