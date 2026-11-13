@@ -2,6 +2,7 @@
 # encoding: UTF-8
 
 import os
+import platform
 import subprocess
 
 from setuptools import setup, find_packages
@@ -47,36 +48,43 @@ class CustomBuildExt(build_ext):
 
         os.chdir("./assimp/build")
 
+        _cmake_options = [
+            "-DBUILD_SHARED_LIBS=OFF",
+            "-DASSIMP_BUILD_ASSIMP_TOOLS=OFF",
+            "-DASSIMP_BUILD_TESTS=OFF",
+            "-DASSIMP_BUILD_ZLIB=ON",
+        ]
+
         if self.compiler.compiler_type == "unix":
             os.environ["CXXFLAGS"] = "--std=c++11 %s" % os.environ.get(
                 "CXXFLAGS", ""
             )
-            subprocess.call(
-                [
-                    "cmake",
-                    "..",
-                    "-DBUILD_SHARED_LIBS=OFF",
-                    "-DASSIMP_BUILD_ASSIMP_TOOLS=OFF",
-                    "-DASSIMP_BUILD_TESTS=OFF",
-                    "-DASSIMP_BUILD_ZLIB=ON",
-                ]
+
+            # See: https://github.com/assimp/assimp/issues/6118
+            if platform.system() == "Darwin":
+                os.environ["CFLAGS"] = "-Dfdopen=fdopen %s" % os.environ.get(
+                    "CFLAGS", ""
+                )
+
+            subprocess.run(
+                ["cmake", "..", *_cmake_options],
+                check=True,
             )
-            subprocess.call(["make"])
+            subprocess.run(["make"], check=True)
         elif self.compiler.compiler_type == "msvc":
             msbuild = _find_msbuild()
-            subprocess.call(
+            subprocess.run(
                 [
                     "cmake",
                     "..",
-                    "-DBUILD_SHARED_LIBS=OFF",
-                    "-DASSIMP_BUILD_ASSIMP_TOOLS=OFF",
-                    "-DASSIMP_BUILD_TESTS=OFF",
-                    "-DASSIMP_BUILD_ZLIB=ON",
+                    *_cmake_options,
                     "-DLIBRARY_SUFFIX=",
-                ]
+                ],
+                check=True,
             )
-            subprocess.call(
-                [msbuild, "-p:Configuration=Release", "Assimp.sln"]
+            subprocess.run(
+                [msbuild, "-p:Configuration=Release", "Assimp.sln"],
+                check=True,
             )
         else:
             raise Exception("Unsupported platform")
