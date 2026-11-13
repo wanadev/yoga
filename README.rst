@@ -57,6 +57,10 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
+  * Nothing yet ;)
+
+* **v1.4.0:**
+
   * feat(assimp): Updated assimp to v6.0.6 (@flozz)
   * fix(macos): Fixed assimp/zlib build on macOS (@flozz)
   * fix(windows): Fixed extension build on Windows (@flozz)
