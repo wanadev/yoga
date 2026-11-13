@@ -24,7 +24,7 @@ jobs:
       - name: "Set up Python"
         uses: actions/setup-python@v7
         with:
-          python-version: "3.14"
+          python-version: "3.15"
 
       - name: "Install python dependencies"
         run: |
@@ -50,9 +50,9 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-24.04
+          - ubuntu-26.04
           - windows-2022
-          - macos-13
+          - macos-15
 
     steps:
 

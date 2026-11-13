@@ -57,7 +57,8 @@ Changelog
 
 * **[NEXT]** (changes on ``master`` that have not been released yet):
 
-  * Nothing yet ;)
+  * misc: Added Python 3.15 support (@flozz)
+  * misc!: Removed Python 3.10 support (@flozz)
 
 * **v1.3.4:**
 
